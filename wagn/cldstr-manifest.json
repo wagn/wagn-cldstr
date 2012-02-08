@@ -1,0 +1,117 @@
+{
+  "type" : "app",
+
+  "info" : {
+    "name"            : "Wagn",
+    "tagline"         : "how pioneers roll",
+    "developer"       : "wagn.org",
+    "upstreamversion" : "1.8.pre",
+    "cldstrversion"   : "0.%{now.identifier}",
+    "licenses"        : [ "gplv2" ]
+  },
+
+  "bizmodels"     : [ { "model"    : "free" } ],
+  "package"       : { "maintainer" : "wagn.org" }, 
+  "architectures" : [ "arch_nwsa_1dbm" ],
+
+  "roles" : {
+    "ws" : {
+      "depends" : [
+        "ruby",
+        "rubygems",
+        "cldstr+cldstr.com+rubygems+ss",
+        "mysql-server",
+        "libmysql-ruby",
+        "libmysqlclient-dev",
+        "libapache2-mod-passenger",
+        "libapache2-mod-xsendfile",
+        "imagemagick",
+        "libmagick9-dev",
+        "cldstr+cldstr.com+postfix+ss",
+        "cldstr+cldstr.com+memcached+ws"
+      ],
+      "apache2modules" : [
+        "expires",
+        "xsendfile"
+      ],
+      "files" : [
+        {
+          "uname" : "www-data",
+          "gname" : "www-data",
+          "mode"  : "0755",
+          "paths" : [ 
+            "/var/log/cldstr+wagn.org+wagn+ws",
+            "web/config.ru",
+            "web/tmp",
+            "web/tmp/cache",
+          ]
+        } 
+      ],
+      "appconfigitems" : [
+        {
+          "type"         : "file",
+          "name"         : ".htaccess",
+          "template"     : "tmpl/htaccess.tmpl",
+          "templatelang" : "varsubst"
+        },
+        {
+          "type"         : "directory",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}"
+        },
+        {
+          "type"         : "directory",
+          "uname"        : "www-data",
+          "gname"        : "www-data",
+          "mode"         : "0755",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/files",
+          "retention"    : "backup",
+          "retentionbucket" : "uploads"
+        },
+        {
+          "type"         : "file",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/database.yml",
+          "template"     : "tmpl/database.yml.tmpl",
+          "templatelang" : "varsubst"
+		    },
+        {
+          "type"         : "file",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/wagn.yml",
+          "template"     : "tmpl/wagn.yml.tmpl",
+          "templatelang" : "varsubst"
+        },
+        {
+          "type"         : "symlink",
+          "target"       : "/usr/cldstr/wagn.org/wagn/ws/web",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/web"
+        },
+        {
+          "type"         : "symlink",
+          "target"       : "/usr/cldstr/wagn.org/wagn/ws/web/public/$4",
+          "names"        : [
+            "assets",
+            "files",
+            "404.html",
+            "500.html",
+            "robots.txt"
+          ]
+        },
+        {
+          "type"         : "file",
+          "name"         : "/usr/cldstr/wagn.org/wagn/ws/web/tmp/restart.txt"
+        }
+      ]
+    },
+    "ctrl" : {
+      "appconfigitems" : [
+        {
+          "type"            : "mysql-database",
+          "name"            : "maindb",
+          "create"          : "/usr/cldstr/wagn.org/wagn/ctrl/tmpl/bootstrap.sql",
+          "retention"       : "backup",
+          "retentionbucket" : "db",
+          "privileges"      : "create, alter, drop, index, select, insert, update, delete"
+        }
+      ]
+    }
+  }
+}

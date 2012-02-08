@@ -1,0 +1,7 @@
+production:
+  adapter: mysql2
+  username: ${appconfig.roles.db.dbuser.maindb}
+  password: ${appconfig.roles.db.dbusercredential.maindb}
+  host: ${appconfig.roles.db.privateipaddress}
+  secret: YrDO${appconfig.appconfigid}${appconfig.roles.db.dbname.maindb}${appconfig.roles.db.dbuser.maindb}
+  database: ${appconfig.roles.db.dbname.maindb}
