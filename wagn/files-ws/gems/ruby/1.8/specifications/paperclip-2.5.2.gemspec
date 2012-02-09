@@ -6,14 +6,14 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jon Yurek"]
-  s.date = "2012-01-26"
+  s.date = "2012-01-27"
   s.description = "Easy upload management for ActiveRecord"
   s.email = ["jyurek@thoughtbot.com"]
   s.homepage = "https://github.com/thoughtbot/paperclip"
   s.require_paths = ["lib"]
   s.requirements = ["ImageMagick"]
   s.rubyforge_project = "paperclip"
-  s.rubygems_version = "1.8.11"
+  s.rubygems_version = "1.8.15"
   s.summary = "File attachments as attributes for ActiveRecord"
 
   if s.respond_to? :specification_version then

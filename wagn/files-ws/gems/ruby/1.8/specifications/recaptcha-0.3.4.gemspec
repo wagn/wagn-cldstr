@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/ambethia/recaptcha"
   s.require_paths = ["lib"]
   s.rubyforge_project = "recaptcha"
-  s.rubygems_version = "1.8.11"
+  s.rubygems_version = "1.8.15"
   s.summary = "Helpers for the reCAPTCHA API"
 
   if s.respond_to? :specification_version then

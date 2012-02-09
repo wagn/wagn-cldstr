@@ -6,13 +6,13 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Sam Stephenson", "Joshua Peek"]
-  s.date = "2011-10-16"
+  s.date = "2011-10-17"
   s.description = "Sprockets is a Rack-based asset packaging system that concatenates and serves JavaScript, CoffeeScript, CSS, LESS, Sass, and SCSS."
   s.email = ["sstephenson@gmail.com", "josh@joshpeek.com"]
   s.homepage = "http://getsprockets.org/"
   s.require_paths = ["lib"]
   s.rubyforge_project = "sprockets"
-  s.rubygems_version = "1.8.11"
+  s.rubygems_version = "1.8.15"
   s.summary = "Rack-based asset packaging system"
 
   if s.respond_to? :specification_version then

@@ -6,12 +6,12 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Sam Stephenson"]
-  s.date = "2011-08-16"
+  s.date = "2011-08-17"
   s.description = "A Ruby library for finding files in a set of paths."
   s.email = ["sstephenson@gmail.com"]
   s.homepage = "http://github.com/sstephenson/hike"
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.11"
+  s.rubygems_version = "1.8.15"
   s.summary = "Find files in a set of paths"
 
   if s.respond_to? :specification_version then

@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.files = ["README.rdoc", "CHANGELOG.rdoc", "TODO.rdoc"]
   s.homepage = "http://github.com/mikel/mail"
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.11"
+  s.rubygems_version = "1.8.15"
   s.summary = "Mail provides a nice Ruby DSL for making, sending and reading emails."
 
   if s.respond_to? :specification_version then

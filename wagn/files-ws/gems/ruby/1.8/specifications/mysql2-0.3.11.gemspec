@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/brianmario/mysql2"
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.11"
+  s.rubygems_version = "1.8.15"
   s.summary = "A simple, fast Mysql library for Ruby, binding to libmysql"
 
   if s.respond_to? :specification_version then
