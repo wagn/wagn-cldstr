@@ -1,0 +1,37 @@
+{
+  "type" : "AppAccessory",
+
+  "info" : {
+    "name"            : "connectipedia navbox",
+    "tagline"         : "special search bar for connectipedia.org",
+    "developer"       : "wagn.org",
+    "licenses"        : ["gplv2"],
+    "upstreamversion" : "0.1",
+    "cldstrversion"   : "0.%{now.identifier}",
+  },
+
+  "bizmodels"     : [ { "model"    : "free" } ],
+  "package"       : { "maintainer" : "wagn.org" }, 
+  "architectures" : [ "arch_nwsa_1dbm" ],
+
+  "roles" : {
+    "ws" : {
+      "appconfigitems" : [
+        {
+          "type"         : "directory",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs"
+        },
+        {
+          "type"         : "directory",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/self"
+        },
+        {
+          "type"         : "file",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/self/cp_navbox_pack.rb",
+          "template"     : "tmpl/cp_navbox_pack.rb",
+          "templatelang" : "varsubst"
+        },
+      ]
+    }
+  }
+}

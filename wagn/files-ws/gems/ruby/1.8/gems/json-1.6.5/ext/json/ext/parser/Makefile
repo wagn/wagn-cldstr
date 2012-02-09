@@ -96,8 +96,8 @@ STATIC_LIB =
 
 BINDIR        = $(bindir)
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /opt/wagn-cldstr/wagn/files-ws/gems/ruby/1.8/gems/json-1.6.5/ext/json/ext$(target_prefix)
-RUBYARCHDIR = /opt/wagn-cldstr/wagn/files-ws/gems/ruby/1.8/gems/json-1.6.5/ext/json/ext$(target_prefix)
+RUBYLIBDIR = /opt/cldstr/apps/wagn/red/files-ws/gems/ruby/1.8/gems/json-1.6.5/ext/json/ext$(target_prefix)
+RUBYARCHDIR = /opt/cldstr/apps/wagn/red/files-ws/gems/ruby/1.8/gems/json-1.6.5/ext/json/ext$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
 CLEANLIBS     = $(TARGET).so $(TARGET).il? $(TARGET).tds $(TARGET).map

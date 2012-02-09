@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://www.rubyonrails.org"
   s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.8.7")
-  s.rubygems_version = "1.8.15"
+  s.rubygems_version = "1.8.11"
   s.summary = "Full-stack web application framework."
 
   if s.respond_to? :specification_version then

@@ -87,8 +87,8 @@ extout_prefix =
 target_prefix = 
 LOCAL_LIBS =  -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl
 LIBS = $(LIBRUBYARG_SHARED) -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc
-SRCS = rmutil.c rmimage.c rmfill.c rmpixel.c rmmain.c rmagick.c rmilist.c rminfo.c rmstruct.c rmmontage.c rmdraw.c rmenum.c
-OBJS = rmutil.o rmimage.o rmfill.o rmpixel.o rmmain.o rmagick.o rmilist.o rminfo.o rmstruct.o rmmontage.o rmdraw.o rmenum.o
+SRCS = rmmain.c rmstruct.c rmutil.c rmenum.c rmagick.c rmpixel.c rmilist.c rmdraw.c rminfo.c rmmontage.c rmimage.c rmfill.c
+OBJS = rmmain.o rmstruct.o rmutil.o rmenum.o rmagick.o rmpixel.o rmilist.o rmdraw.o rminfo.o rmmontage.o rmimage.o rmfill.o
 TARGET = RMagick2
 DLLIB = $(TARGET).so
 EXTSTATIC = 
@@ -96,8 +96,8 @@ STATIC_LIB =
 
 BINDIR        = $(bindir)
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /opt/wagn-cldstr/wagn/files-ws/gems/ruby/1.8/gems/rmagick-2.13.1/lib$(target_prefix)
-RUBYARCHDIR = /opt/wagn-cldstr/wagn/files-ws/gems/ruby/1.8/gems/rmagick-2.13.1/lib$(target_prefix)
+RUBYLIBDIR = /opt/cldstr/apps/wagn/red/files-ws/gems/ruby/1.8/gems/rmagick-2.13.1/lib$(target_prefix)
+RUBYARCHDIR = /opt/cldstr/apps/wagn/red/files-ws/gems/ruby/1.8/gems/rmagick-2.13.1/lib$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
 CLEANLIBS     = $(TARGET).so $(TARGET).il? $(TARGET).tds $(TARGET).map

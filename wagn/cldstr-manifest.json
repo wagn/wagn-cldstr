@@ -1,5 +1,7 @@
 {
-  "type" : "app",
+  "type"          : "app",
+  "bizmodels"     : [ { "model" : "free" } ],
+  "architectures" : [ "arch_nwsa_1dbm" ],
 
   "info" : {
     "name"            : "Wagn",
@@ -10,9 +12,11 @@
     "licenses"        : [ "gplv2" ]
   },
 
-  "bizmodels"     : [ { "model"    : "free" } ],
-  "package"       : { "maintainer" : "wagn.org" }, 
-  "architectures" : [ "arch_nwsa_1dbm" ],
+  "package"       : { 
+    "maintainer"      : "wagn.org", 
+    "packagebasename" : "wagn",
+    "distros"         : [ "red" ]
+  }, 
 
   "roles" : {
     "ws" : {
@@ -42,8 +46,7 @@
           "paths" : [ 
             "/var/log/cldstr+wagn.org+wagn+ws",
             "web/config.ru",
-            "web/tmp",
-            "web/tmp/cache",
+            "web/tmp"
           ]
         } 
       ],
