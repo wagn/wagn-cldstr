@@ -3,7 +3,7 @@ class Wagn::Renderer::Html
   define_view :titled do |args|
     wrap(:titled, args) do
       edit_link = if card.ok?(:update)
-        text = (icon_card = Card['edit_icon']) ? icon_card._render_source : 'edit' 
+        text = (icon_card = Card['edit_icon']) ? subrenderer(icon_card)._render_core : 'edit' 
         link_to_action text, :edit, :class=>'slotter titled-edit-link'
       else
         ''
