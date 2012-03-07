@@ -1,1 +1,0 @@
-/Users/ethan/dev/wagn/main/local/packs/self/cp_pack.rb

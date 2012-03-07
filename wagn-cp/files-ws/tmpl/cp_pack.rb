@@ -22,6 +22,18 @@ class Wagn::Renderer::Html
   end
   alias_view(:raw, { :name=>'cp navbox' }, :core)
   
+end
+
+
+class Wagn::Renderer::Json < Wagn::Renderer
+  def goto_wql(term)
+   xtra = search_params
+   xtra.delete :default_limit
+   xtra.merge( { :complete=>term, :limit=>8, :sort=>'name', :return=>'name' } )
+  end
+end
+
+class Wagn::Renderer
   def params
     @params ||= begin
       p = super
