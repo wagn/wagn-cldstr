@@ -12,14 +12,39 @@ class Wagn::Renderer::Html
     end
   end
   
-  define_view(:raw, :name=>'cp navbox') do |args|
+  define_view :raw, :name=>'cp navbox' do |args|
     %{ <form action="#{Card.path_setting '/*search'}" id="navbox-form" method="get">
       #{hidden_field_tag :view, 'content' }
+      #{hidden_field_tag :item, 'cp_result_item' }
       #{text_field_tag :_keyword, '', :class=>'navbox'
       }#{select_tag '_wql[type]', options_for_select([['All Content',nil], 'Foundations', 'Organizations', 'Topics', 'People'])
       }#{submit_tag 'search'}
      </form>}
   end
+  
+  define_view :cp_result_item do |args|
+    wrap :cp_result_item, args do
+      %{
+      <hr>
+      <div class="cp-result-top">
+        <span class="cp-item-name">
+          #{ link_to_page raw(fancy_title(self.showname || card)), card.name }
+        </span>
+        <span class="cp-item-date">
+          #{ time_ago_in_words card.updated_at } ago
+        </span>
+        <span class="cp-item-type">
+          #{ link_to_page card.typename }
+        </span>
+      </div>
+      <div class="cp-item-content">
+        <div class="closed-content">#{ _render_closed_content }</div>
+      </div>
+      }
+    end
+  end
+
+    
   alias_view(:raw, { :name=>'cp navbox' }, :core)
   
 end
