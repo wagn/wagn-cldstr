@@ -1,14 +1,16 @@
 class Wagn::Renderer::Html
   
   define_view :titled do |args|
-    wrap(:titled, args) do
-      edit_link = if card.ok?(:update)
+    wrap :titled, args do
+      edit_link = if !card.virtual? && card.ok?(:update)
         text = (icon_card = Card['edit_icon']) ? subrenderer(icon_card)._render_core : 'edit' 
         link_to_action text, :edit, :class=>'slotter titled-edit-link'
       else
         ''
       end
-      edit_link + content_tag( :h1, fancy_title(card.name), :class=>'titled-header') + wrap_content(:titled, _render_core(args))
+      name_styler + edit_link + 
+      content_tag( :h1, fancy_title(card.name), :class=>'titled-header') + wrap_content(:titled, _render_core(args)) +
+      _render_comment_box
     end
   end
   
