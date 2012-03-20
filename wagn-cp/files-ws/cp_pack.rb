@@ -49,7 +49,7 @@ class Wagn::Renderer::Html
         watching_type_cards
       else
         link_args = if card.watching?
-          ["Following", :off, "stop sending emails about changes to #{card.cardname}", :hover_content=>'Unfollow']
+          ["Following", :off, "stop sending emails about changes to #{card.cardname}", { :hover_content=>'Unfollow' }]
         else
           ["Follow", :on, "send emails about changes to #{card.cardname}"]
         end
@@ -64,7 +64,7 @@ class Wagn::Renderer::Html
         watching_type_cards
       else
         link_args = if card.watching?
-          ["Following", :off, "stop sending emails about changes to #{card.cardname}", :hover_content=>'Stop Following']
+          ["Following", :off, "stop sending emails about changes to #{card.cardname}", { :hover_content=>'Stop Following' }]
         else
           ["Follow", :on, "send emails about changes to #{card.cardname}"]
         end
@@ -79,7 +79,7 @@ class Wagn::Renderer::Html
       type_link = card.watching_type? ? "#{watching_type_cards} | " : ""
       plural = card.name.pluralize
       link_args = if card.watching?
-        ["Following", :off, "stop sending", :hover_content=>"Stop Following all #{plural}"]
+        ["Following", :off, "stop sending", { :hover_content=>"Stop Following all #{plural}" } ]
       else
         ["Follow", :on, "send"]
       end
