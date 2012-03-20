@@ -26,15 +26,10 @@
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs"
         },
         {
-          "type"         : "directory",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/self"
-        },
-        {
-          "type"         : "file",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/self/cp_pack.rb",
-          "template"     : "tmpl/cp_pack.rb",
-          "templatelang" : "varsubst"
-        },
+          "type"         : "symlink",
+          "target"       : "/usr/cldstr/wagn.org/wagn-cp/ws/cp_pack.rb",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/cp_pack.rb"
+        }
       ]
     }
   }

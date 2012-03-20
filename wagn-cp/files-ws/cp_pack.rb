@@ -8,10 +8,52 @@ class Wagn::Renderer::Html
       else
         ''
       end
+#      follow_link = User.logged_in? ? _render_follow : ''
+      
       name_styler + edit_link + 
       content_tag( :h1, fancy_title(card.name), :class=>'titled-header') + wrap_content(:titled, _render_core(args)) +
       _render_comment_box
     end
+  end
+ 
+  define_view :closed_branch do |args|
+    has_subtopics = Card["#{card.cardname.trunk_name}+subtopics"]
+    wrap :closed_branch do
+      basic_branch :closed, !!has_subtopics
+    end
+  end
+  
+  define_view :open_branch do |args|
+    @paging_params = { :limit=> 1000 }
+    subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+unlimited"
+    wrap :open_branch do
+      basic_branch(:open) + subrenderer( subtopics_card, :item_view => :closed_branch )._render_content
+    end
+  end
+  
+  def basic_branch state, show_arrow=true
+    conf = { :closed=>%w{ open open right}, :open=> %w{ closed close down } }
+    
+    arrow_link = if state==:open or show_arrow
+      link_to '', path(:view, :view=>"#{conf[state][0]}_branch"), :title=>"#{conf[state][1]} #{card.name}",
+          :class=>"title #{conf[state][2]}-arrow slotter", :remote=>true
+    else
+      %{ <a href="javascript:void()" class="title branch-placeholder"></a> }
+    end
+    
+    %{ 
+      <div class="closed-view">
+        <div class="card-header">
+          #{ arrow_link }
+          #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
+        </div> 
+        #{ wrap_content :closed, render_closed_content }
+      </div>
+    }
+  end
+  
+  define_view :follow do |args|
+    %{ <span class="cp-follow">#{ link_to }</span> }
   end
   
   define_view :raw, :name=>'cp navbox' do |args|
