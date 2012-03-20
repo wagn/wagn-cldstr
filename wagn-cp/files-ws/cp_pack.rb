@@ -1,21 +1,103 @@
 class Wagn::Renderer::Html
   
+  # Special titled view.  Much of this is probably reusable
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
   define_view :titled do |args|
-    wrap :titled, args do
-      edit_link = if !card.virtual? && card.ok?(:update)
-        text = (icon_card = Card['edit_icon']) ? subrenderer(icon_card)._render_core : 'edit' 
-        link_to_action text, :edit, :class=>'slotter titled-edit-link'
-      else
-        ''
+    edit_link = type_link = follow_link = ''
+    if !card.virtual? && card.ok?(:update)
+      text = (icon_card = Card['edit_icon']) ? subrenderer(icon_card)._render_core : 'edit' 
+      edit_link = link_to_action text, :edit, :class=>'slotter titled-edit-link'
+    end
+
+    if main?
+      follow_link = render_watch 
+
+      typecode = card.typecode
+      if %w{ Foundations Topic Organization User Opportunity State County City }.member?(typecode)
+        type_link = link_to_page Cardtype.name_for(typecode), nil, :class=>"cp-typelink cp-type-#{typecode}" 
       end
-#      follow_link = User.logged_in? ? _render_follow : ''
-      
-      name_styler + edit_link + 
-      content_tag( :h1, fancy_title(card.name), :class=>'titled-header') + wrap_content(:titled, _render_core(args)) +
-      _render_comment_box
+    end
+    
+    wrap :titled, args do      
+      %{
+        #{name_styler}
+        <div class="cp-titled-header">
+          <div class="cp-titled-right">
+            #{follow_link}
+            #{edit_link} 
+          </div>
+          <div class="cp-title">
+            #{type_link}
+            #{content_tag( :h1, fancy_title(card.name), :class=>'titled-header')}
+          </div>
+        </div>
+        #{ wrap_content(:titled, _render_core(args))}
+        #{_render_comment_box}
+      }
     end
   end
  
+ 
+  # Customize watching/following.  
+  # Too much work for what is really only changing text and hover behavior
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+  define_view :watch do |args|
+    wrap :watch do
+      if card.watching_type?
+        watching_type_cards
+      else
+        link_args = if card.watching?
+          ["Following", :off, "stop sending emails about changes to #{card.cardname}", :hover_content=>'Unfollow']
+        else
+          ["Follow", :on, "send emails about changes to #{card.cardname}"]
+        end
+        watch_link *link_args
+      end
+    end
+  end
+
+  define_view :watch do |args|
+    wrap :watch do
+      if card.watching_type?
+        watching_type_cards
+      else
+        link_args = if card.watching?
+          ["Following", :off, "stop sending emails about changes to #{card.cardname}", :hover_content=>'Stop Following']
+        else
+          ["Follow", :on, "send emails about changes to #{card.cardname}"]
+        end
+        watch_link *link_args
+      end
+    end
+  end
+
+  
+  define_view :watch, :type=>'cardtype' do |args|
+    wrap :watch do
+      type_link = card.watching_type? ? "#{watching_type_cards} | " : ""
+      plural = card.name.pluralize
+      link_args = if card.watching?
+        ["Following", :off, "stop sending", :hover_content=>"Stop Following all #{plural}"]
+      else
+        ["Follow", :on, "send"]
+      end
+      link_args[0] += " all #{plural}"
+      link_args[2] += " emails about changes to #{plural}"
+      type_link + watch_link( *link_args )
+    end
+  end
+
+  
+  def watching_type_cards
+    %{<span class="watch-no-toggle">Following all #{ card.typename.pluralize }</span>}
+  end
+ 
+ 
+  # ALL the "branch" stuff is about the special Topics tree
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
   define_view :closed_branch do |args|
     has_subtopics = Card["#{card.cardname.trunk_name}+subtopics"]
     wrap :closed_branch do
@@ -52,9 +134,9 @@ class Wagn::Renderer::Html
     }
   end
   
-  define_view :follow do |args|
-    %{ <span class="cp-follow">#{ link_to }</span> }
-  end
+  
+  # Everything below is about the special navbox behavior
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
   define_view :raw, :name=>'cp navbox' do |args|
     %{ <form action="#{Card.path_setting '/*search'}" id="navbox-form" method="get">
@@ -95,6 +177,7 @@ end
 
 
 class Wagn::Renderer::Json < Wagn::Renderer
+  # bit of a hack to make navbox results restrictable
   def goto_wql(term)
    xtra = search_params
    xtra.delete :default_limit
@@ -103,6 +186,7 @@ class Wagn::Renderer::Json < Wagn::Renderer
 end
 
 class Wagn::Renderer
+  #probably need more general handling of WQL add-ons like this
   def params
     @params ||= begin
       p = super
