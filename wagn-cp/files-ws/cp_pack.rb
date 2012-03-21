@@ -5,6 +5,7 @@ class Wagn::Renderer::Html
   
   define_view :titled do |args|
     edit_link = type_link = follow_link = ''
+    
     if !card.virtual? && card.ok?(:update)
       text = (icon_card = Card['edit_icon']) ? subrenderer(icon_card)._render_core : 'edit' 
       edit_link = link_to_action text, :edit, :class=>'slotter titled-edit-link'
@@ -21,23 +22,32 @@ class Wagn::Renderer::Html
     
     wrap :titled, args do      
       %{
-        #{name_styler}
+        #{ name_styler }
         <div class="cp-titled-header">
           <div class="cp-titled-right">
-            #{follow_link}
-            #{edit_link} 
+            #{ follow_link }
+            #{ edit_link } 
           </div>
           <div class="cp-title">
-            #{type_link}
-            #{content_tag( :h1, fancy_title(card.name), :class=>'titled-header')}
+            #{ type_link }
+            #{ content_tag :h1, fancy_title(card.name), :class=>'titled-header' }
           </div>
         </div>
-        #{ wrap_content(:titled, _render_core(args))}
-        #{_render_comment_box}
+        #{ wrap_content :titled, _render_core(args) }
+        #{ _render_comment_box }
       }
     end
   end
  
+  # show default image if person has no image
+  #~~~~~~~~~~~~~~~~~~~~~~
+ 
+ 
+  define_view :missing, :ltype=>'person', :right=>'image' do |args|
+    wrap :missing_image do
+      subrenderer( Card['missing person'] )._render_core
+    end
+  end
  
   # Customize watching/following.  
   # Too much work for what is really only changing text and hover behavior
