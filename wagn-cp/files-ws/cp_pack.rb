@@ -52,21 +52,7 @@ class Wagn::Renderer::Html
   # Customize watching/following.  
   # Too much work for what is really only changing text and hover behavior
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
-  define_view :watch do |args|
-    wrap :watch do
-      if card.watching_type?
-        watching_type_cards
-      else
-        link_args = if card.watching?
-          ["Following", :off, "stop sending emails about changes to #{card.cardname}", { :hover_content=>'Unfollow' }]
-        else
-          ["Follow", :on, "send emails about changes to #{card.cardname}"]
-        end
-        watch_link *link_args
-      end
-    end
-  end
+
 
   define_view :watch do |args|
     wrap :watch do
