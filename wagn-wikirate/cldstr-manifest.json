@@ -1,11 +1,11 @@
-``{
+{
   "type"          : "AppAccessory",
   "bizmodels"     : [ { "model"    : "free" } ],
   "architectures" : [ "arch_nwsa_1dbm" ],
 
   "info" : {
-    "name"            : "connectipedia navbox",
-    "tagline"         : "special search bar for connectipedia.org",
+    "name"            : "wikirate pack",
+    "tagline"         : "custom code for wikirate.org",
     "developer"       : "wagn.org",
     "licenses"        : ["gplv2"],
     "upstreamversion" : "0.2",
@@ -14,7 +14,7 @@
 
   "package" : { 
     "maintainer"      : "wagn.org",
-    "packagebasename" : "wagn-cp",
+    "packagebasename" : "wagn-wikirate",
     "distros"         : [ "red" ]
   }, 
 
@@ -23,8 +23,8 @@
       "appconfigitems" : [
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn-cp/ws/cp_pack.rb",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/cp_pack.rb"
+          "target"       : "/usr/cldstr/wagn.org/wagn-wikirate/ws/wikirate_pack.rb",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/wikirate_pack.rb"
         }
       ]
     }
