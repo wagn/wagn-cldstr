@@ -63,6 +63,10 @@
         },
         {
           "type"         : "directory",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs"
+        },
+        {
+          "type"         : "directory",
           "uname"        : "www-data",
           "gname"        : "www-data",
           "mode"         : "0755",
