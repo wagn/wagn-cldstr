@@ -15,7 +15,7 @@
   "package"       : { 
     "maintainer"      : "wagn.org", 
     "packagebasename" : "wagn",
-    "distros"         : [ "red" ]
+    "distros"         : [ "yellow" ]
   }, 
 
   "roles" : {
@@ -24,7 +24,6 @@
         "ruby",
         "rubygems",
         "cldstr+cldstr.com+rubygems+ss",
-        "mysql-server",
         "libmysql-ruby",
         "libmysqlclient-dev",
         "libapache2-mod-passenger",
