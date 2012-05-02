@@ -7,10 +7,11 @@ class Wagn::Renderer::Html
       partname = '_1'.to_cardname.to_absolute main.name
       Card[partname]
     end
-    if %w{ Industry Company }.member? part1.typename
-      select_card = Card["#{part1.typename} Select"]
-      select_card.content = part1.name
-      result << subrenderer(select_card)._render_editor
+    if part1 and typename = part1.typename and %w{ Industry Company }.member?( typename )
+      p1_options = Card.search( :type=> typename, :sort => :name ).map do |opt|
+        [ opt.name, opt.cardname.to_url_key ]
+      end
+      result << "<select>#{ options_for_select p1_options, part1.cardname.to_url_key }</select>"
       
       if !main.simple?
         part2name = '_2'.to_cardname.to_absolute main.name
