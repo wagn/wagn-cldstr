@@ -1,0 +1,32 @@
+{
+  "type"          : "AppAccessory",
+  "bizmodels"     : [ { "model"    : "free" } ],
+  "architectures" : [ "arch_nwsa_1dbm" ],
+
+  "info" : {
+    "name"            : "wagn.org pack",
+    "tagline"         : "custom code for wagn.org website",
+    "developer"       : "wagn.org",
+    "licenses"        : ["gplv2"],
+    "upstreamversion" : "0.2",
+    "cldstrversion"   : "0.%{now.identifier}",
+  },
+
+  "package" : { 
+    "maintainer"      : "wagn.org",
+    "packagebasename" : "wagn-org",
+    "distros"         : [ "red" ]
+  }, 
+
+  "roles" : {
+    "ws" : {
+      "appconfigitems" : [
+        {
+          "type"         : "symlink",
+          "target"       : "/usr/cldstr/wagn.org/wagn-org/ws/wagn_org_pack.rb",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/wagn_org_pack.rb"
+        }
+      ]
+    }
+  }
+}
