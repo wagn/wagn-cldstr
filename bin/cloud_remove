@@ -1,0 +1,13 @@
+#!/bin/sh
+
+CLOUD=$1
+if [ -z $CLOUD ]; then
+  echo "usage: cloud_remove <cloud_name>"
+  exit 1
+fi
+
+cldstr-destroy-cloud.pl \
+	--accounts ${CLOUDS}/accounts.json \
+	--cloud ${CLOUDS}/$CLOUD.json
+
+exit 0
