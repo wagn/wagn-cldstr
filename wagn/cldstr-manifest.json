@@ -45,6 +45,7 @@
           "paths" : [ 
             "/var/log/cldstr+wagn.org+wagn+ws",
             "web/config.ru",
+            "web/Gemfile.lock",
             "web/tmp"
           ]
         } 

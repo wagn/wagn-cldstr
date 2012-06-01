@@ -49,6 +49,6 @@ To get set up for Wagn builds, you will need to:
   a. add a cloud with cloud_add
   b. deploy a site with cloud_deploy.  there is a sample site in wagn-cldstr which you can get set to use by doing the following:
     cd $SITES
-    ln -s $CLDHOME/apps/wagn-cldstr/wagn/
+    ln -s $CLDHOME/apps/wagn-cldstr/wagn/cldstr_sample.json
     
 10. Remember to update these docs with whatever you've learned!!
