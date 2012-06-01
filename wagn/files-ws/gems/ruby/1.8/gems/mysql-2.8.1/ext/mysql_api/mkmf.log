@@ -1,10 +1,9 @@
 have_func: checking for mysql_ssl_set()... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.    -I/usr/include/mysql  -DBIG_JOINS=1  -fno-strict-aliasing   -DUNIV_LINUX -DUNIV_LINUX -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic    -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lruby1.8-static -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing  -g -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lruby1.8-static -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 conftest.c: In function ‘t’:
-conftest.c:3: error: ‘mysql_ssl_set’ undeclared (first use in this function)
-conftest.c:3: error: (Each undeclared identifier is reported only once
-conftest.c:3: error: for each function it appears in.)
+conftest.c:3:53: error: ‘mysql_ssl_set’ undeclared (first use in this function)
+conftest.c:3:53: note: each undeclared identifier is reported only once for each function it appears in
 checked program was:
 /* begin */
 1: /*top*/
@@ -12,7 +11,7 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))mysql_ssl_set; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.    -I/usr/include/mysql  -DBIG_JOINS=1  -fno-strict-aliasing   -DUNIV_LINUX -DUNIV_LINUX -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic    -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lruby1.8-static -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing  -g -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lruby1.8-static -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
 1: /*top*/
@@ -24,11 +23,10 @@ checked program was:
 
 have_func: checking for rb_str_set_len()... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.    -I/usr/include/mysql  -DBIG_JOINS=1  -fno-strict-aliasing   -DUNIV_LINUX -DUNIV_LINUX -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic    -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lruby1.8-static -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing  -g -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lruby1.8-static -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 conftest.c: In function ‘t’:
-conftest.c:3: error: ‘rb_str_set_len’ undeclared (first use in this function)
-conftest.c:3: error: (Each undeclared identifier is reported only once
-conftest.c:3: error: for each function it appears in.)
+conftest.c:3:53: error: ‘rb_str_set_len’ undeclared (first use in this function)
+conftest.c:3:53: note: each undeclared identifier is reported only once for each function it appears in
 checked program was:
 /* begin */
 1: /*top*/
@@ -36,7 +34,7 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))rb_str_set_len; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.    -I/usr/include/mysql  -DBIG_JOINS=1  -fno-strict-aliasing   -DUNIV_LINUX -DUNIV_LINUX -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic    -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lruby1.8-static -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing  -g -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lruby1.8-static -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
 1: /*top*/
@@ -48,11 +46,10 @@ checked program was:
 
 have_func: checking for rb_thread_start_timer()... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.    -I/usr/include/mysql  -DBIG_JOINS=1  -fno-strict-aliasing   -DUNIV_LINUX -DUNIV_LINUX -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic    -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lruby1.8-static -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing  -g -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lruby1.8-static -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 conftest.c: In function ‘t’:
-conftest.c:3: error: ‘rb_thread_start_timer’ undeclared (first use in this function)
-conftest.c:3: error: (Each undeclared identifier is reported only once
-conftest.c:3: error: for each function it appears in.)
+conftest.c:3:53: error: ‘rb_thread_start_timer’ undeclared (first use in this function)
+conftest.c:3:53: note: each undeclared identifier is reported only once for each function it appears in
 checked program was:
 /* begin */
 1: /*top*/
@@ -60,7 +57,7 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))rb_thread_start_timer; return 0; }
 /* end */
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.    -I/usr/include/mysql  -DBIG_JOINS=1  -fno-strict-aliasing   -DUNIV_LINUX -DUNIV_LINUX -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic    -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lruby1.8-static -Wl,-Bsymbolic-functions -rdynamic -L/usr/lib/mysql -lmysqlclient  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing  -g -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lruby1.8-static -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
 1: /*top*/
@@ -72,7 +69,7 @@ checked program was:
 
 have_header: checking for mysql.h... -------------------- yes
 
-"gcc -E -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.    -I/usr/include/mysql  -DBIG_JOINS=1  -fno-strict-aliasing   -DUNIV_LINUX -DUNIV_LINUX -fno-strict-aliasing -g -g -O2  -fPIC    conftest.c -o conftest.i"
+"gcc -E -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing  -g -fno-strict-aliasing -g -g -O2  -fPIC    conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include <mysql.h>
