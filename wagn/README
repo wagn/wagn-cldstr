@@ -10,10 +10,15 @@ To get set up for Wagn builds, you will need to:
     export SITES=${CLDHOME}/sites
     export CLDSTR=${CLDHOME}/tools/current
     export CLDCERTS=${CLDHOME}/certs
+    
+    export CLDKEYFILE=${CLDCERTS}/wagn.org.key
+    export CLDCERTFILE=${CLDCERTS}/wagn.org.vendor.cldstr.com.crt
   
     export PERLLIB=${CLDSTR}/cldstr-tools/perl
     export PATH=${PATH}:${PERLLIB}:${CLDHOME}/bin  
   fi
+  
+  #FIXME - update this to use Gerry's .cldrc model
 
 2. Set up directories to match your environmental variables settings
 3. Get the cloudstore tools in your CLDSTR dir via subversion.
@@ -34,12 +39,12 @@ To get set up for Wagn builds, you will need to:
 8. run the following: 
     cd $CLDHOME/apps/wagn-cldstr
     git submodules update --init    # pull down the actual wagn code
-    cd /wagn/files-ws/web/
+    cd wagn/files-ws/web/
     mkdir tmp                       
     mkdir .bundle
-    ln -s .bundle/config $CLDHOME/apps/wagn-cldstr/wagn/bundle_config
+    ln -s $CLDHOME/apps/wagn-cldstr/wagn/bundle_config .bundle/config
     cd $CLDHOME
-    ln -s bin apps/wagn-cldstr/bin
+    ln -s apps/wagn-cldstr/bin bin
 9. Test some things:
   a. add a cloud with cloud_add
   b. deploy a site with cloud_deploy.  there is a sample site in wagn-cldstr which you can get set to use by doing the following:

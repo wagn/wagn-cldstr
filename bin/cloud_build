@@ -2,13 +2,10 @@
 
 # run from dir of app being built
 
-export KEYFILE=${CLDCERTS}/gerry.wagn.org.key
-export CERTFILE=${CLDCERTS}/gerry.wagn.org.vendor.cldstr.com.crt
-
 echo "building..."
 cldstr-build.pl \
-	-D build.uploadkeyfile=$KEYFILE \
-	-D build.uploadcertfile=$CERTFILE \
+	-D build.uploadkeyfile=$CLDKEYFILE \
+	-D build.uploadcertfile=$CLDCERTFILE \
 	-D build.uploadcacertfile=${CLDSTR}/cldstr-keys/cldstr-bundle.crt \
 	-a
 echo "built."
