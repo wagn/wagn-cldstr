@@ -1,0 +1,8 @@
+# I put this is ~/.cldrc and include it:
+export CLDHOME=<....working dir here ....>
+export CLOUDS=${CLDHOME}/clouds
+export SITES=${CLDHOME}/sites
+export CLDSTR=${CLDHOME}/tools
+export PATH=${PATH}:${CLDSTR}/cldstr-tools/perl:${<srcdir>}/bin
+export PERLLIB=${CLDSTR}/cldstr-tools/perl
+export CLDCERTS=${CLDHOME}/certs

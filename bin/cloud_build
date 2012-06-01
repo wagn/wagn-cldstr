@@ -1,4 +1,4 @@
-#!/bin/sh -xv
+#!/bin/sh
 
 # run from dir of app being built
 

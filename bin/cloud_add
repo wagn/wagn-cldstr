@@ -1,4 +1,4 @@
-#!/bin/sh -xv
+#!/bin/sh
 
 #CLOUD_CTLR=https://cc.cldstr.com/controllers/$DISTRO/rackspace-us-ss
 CLOUD_CTLR=https://cc.cldstr.com/controllers/red/amazon-us-east-1-ss
