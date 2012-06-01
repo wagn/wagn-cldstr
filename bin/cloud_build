@@ -2,8 +2,13 @@
 
 # run from dir of app being built
 
+if [ -z $DISTRO ]; then
+  DISTRO='red'
+fi
+
 echo "building..."
 cldstr-build.pl \
+        --distro $DISTRO \
 	-D build.uploadkeyfile=$CLDKEYFILE \
 	-D build.uploadcertfile=$CLDCERTFILE \
 	-D build.uploadcacertfile=${CLDSTR}/cldstr-keys/cldstr-bundle.crt \

@@ -35,7 +35,8 @@
       ],
       "apache2modules" : [
         "expires",
-        "xsendfile"
+        "xsendfile",
+        "headers"
       ],
       "files" : [
         {
