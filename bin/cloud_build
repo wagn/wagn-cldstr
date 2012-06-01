@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# run from dir of app being built
+
+export KEYFILE=${CLDCERTS}/gerry.wagn.org.key
+export CERTFILE=${CLDCERTS}/gerry.wagn.org.vendor.cldstr.com.crt
+
+echo "building..."
+cldstr-build.pl \
+	-D build.uploadkeyfile=$KEYFILE \
+	-D build.uploadcertfile=$CERTFILE \
+	-D build.uploadcacertfile=${CLDSTR}/cldstr-keys/cldstr-bundle.crt \
+	-a
+echo "built."
+
+#exec cloud_update
+
+exit 0
