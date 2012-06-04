@@ -2,6 +2,7 @@
 
 
 CLOUD=$1
+CLD_CTLR=$2
 if [ -z $CLOUD ]; then
   echo "usage: cloud_add <cloud_name>"
   exit 1
@@ -12,9 +13,8 @@ if [ -z $DISTRO ]; then
 fi
 
 if [ -z $CLD_CTLR ]; then
-  #FIXME - should be able to give arg 
-  #CLOUD_CTLR=rackspace-us-ss
-  CLD_CTLR=amazon-us-east-1-ss
+  CLD_CTLR=rackspace-us-ss
+  #CLD_CTLR=amazon-us-east-1-ss
 fi
 
 cldstr-instantiate-cloud.pl \
