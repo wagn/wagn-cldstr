@@ -1,0 +1,54 @@
+NOTE: the next GC person to do this - PLEASE add detailed commands where applicable!
+
+To get set up for Wagn builds, you will need to:
+
+1. Set up environmental variables.  eg, something like this in your .bashrc (or profile or whatever)
+
+  if [ -z $CLDSTR ]; then
+    export CLDHOME=${HOME}/dev/cldstr
+    export CLOUDS=${CLDHOME}/clouds
+    export SITES=${CLDHOME}/sites
+    export CLDSTR=${CLDHOME}/tools/current
+    export CLDCERTS=${CLDHOME}/certs
+    
+    export CLDKEYFILE=${CLDCERTS}/wagn.org.key
+    export CLDCERTFILE=${CLDCERTS}/wagn.org.vendor.cldstr.com.crt
+  
+    export PERLLIB=${CLDSTR}/cldstr-tools/perl
+    export PATH=${PATH}:${PERLLIB}:${CLDHOME}/bin  
+  fi
+  
+  #FIXME - update this to use Gerry's .cldrc model
+
+2. Set up directories to match your environmental variables settings
+3. Get the cloudstore tools in your CLDSTR dir via subversion.
+    #FIXME - add the command here
+4. Get cloudstore certs and add them to the CLDCERTS directory (see above).  To do so, 
+  follow instructions in cloudstore docs.
+  
+  #FIXME - add more specific doc references here.
+   
+  Note: To build wagn, you will need the cloudstore folks to give you those vendor permissions, 
+  which means you'll need GC to sign off on that!
+5. Install needed perl libraries
+    #FIXME - add commands or references to cloudstore docs here.
+6. Get accounts.json from GC folks or add your own Iaas accounts and generate account.json file.  Put it in the CLOUDS dir
+7. Add an "apps" directory to the CLDHOME and clone https://github.com/wagn/wagn-cldstr.
+    #FIXME add commands
+  Make sure to get set up with write access if you're going to contribute code back.
+8. run the following: 
+    cd $CLDHOME/apps/wagn-cldstr
+    git submodules update --init    # pull down the actual wagn code
+    cd wagn/files-ws/web/
+    mkdir tmp                       
+    mkdir .bundle
+    ln -s $CLDHOME/apps/wagn-cldstr/wagn/bundle_config .bundle/config
+    cd $CLDHOME
+    ln -s apps/wagn-cldstr/bin bin
+9. Test some things:
+  a. add a cloud with cloud_add
+  b. deploy a site with cloud_deploy.  there is a sample site in wagn-cldstr which you can get set to use by doing the following:
+    cd $SITES
+    ln -s $CLDHOME/apps/wagn-cldstr/wagn/cldstr_sample.json
+    
+10. Remember to update these docs with whatever you've learned!!

@@ -29,7 +29,7 @@
         "libapache2-mod-passenger",
         "libapache2-mod-xsendfile",
         "imagemagick",
-        "libmagick9-dev",
+        "libmagickwand-dev",
         "cldstr+cldstr.com+postfix+ss",
         "cldstr+cldstr.com+memcached+ws"
       ],
@@ -45,6 +45,7 @@
           "paths" : [ 
             "/var/log/cldstr+wagn.org+wagn+ws",
             "web/config.ru",
+            "web/Gemfile.lock",
             "web/tmp"
           ]
         } 

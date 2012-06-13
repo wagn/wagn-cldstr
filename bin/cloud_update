@@ -1,0 +1,17 @@
+#!/bin/sh
+
+CLOUD=$1
+if [ -z $CLOUD ]; then
+  echo "usage: cloud_update <cloud_name>"
+  exit 1
+fi
+
+echo "updating $CLOUD"
+
+time cldstr-update-packages.pl \
+	--accounts ${CLOUDS}/accounts.json \
+	--cloud ${CLOUDS}/$CLOUD.json
+
+echo "updated"
+
+exit 0

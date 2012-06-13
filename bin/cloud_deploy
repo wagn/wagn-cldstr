@@ -1,0 +1,17 @@
+#!/bin/sh
+
+CLOUD=$1
+SITE=$2
+if [ -z $SITE ]; then
+  echo "usage: cloud_deploy <cloud_name> <wagn_name>"
+  exit 1
+fi
+
+echo "deploying $SITE to $CLOUD"
+cldstr-deploy-sites.pl \
+	--accounts $CLOUDS/accounts.json \
+	--cloud $CLOUDS/$CLOUD.json \
+	--site $SITES/$SITE.json 
+echo "deployed"
+
+exit 0

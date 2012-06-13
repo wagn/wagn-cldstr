@@ -1,0 +1,13 @@
+The code in this repo manages cloudstore deployment of the Wagn platform and several simple Wagn packs.  It is not the primary source for Wagn code; that would be https://github.com/wagn/wagn
+
+We (Grass Commons) are making it public so that others working on cloudstore deployment can use it as an example.  At the time of writing, it is also the only public repository of non-core Wagn packs, but it is not intended to serve this role in the long term. There will be much better ways to use and learn about packs.
+
+See wagn/README for more specific details about building and packaging the Wagn cloudstore app.
+
+General github -> cloudstore mapping:
+
+  develop   ->  red
+  master    ->  yellow
+  stable    ->  green
+
+GC folks: unless you have explicit social permission (not just technical permission), you should ONLY ever be making commits to the develop branch.  

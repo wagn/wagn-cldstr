@@ -1,0 +1,25 @@
+#!/bin/sh
+
+
+CLOUD=$1
+if [ -z $CLOUD ]; then
+  echo "usage: cloud_add <cloud_name>"
+  exit 1
+fi
+
+if [ -z $DISTRO ]; then
+  DISTRO='red'
+fi
+
+if [ -z $CLD_CTLR ]; then
+  #FIXME - should be able to give arg 
+  #CLOUD_CTLR=rackspace-us-ss
+  CLD_CTLR=amazon-us-east-1-ss
+fi
+
+cldstr-instantiate-cloud.pl \
+	--accounts ${CLOUDS}/accounts.json \
+	--out ${CLOUDS}/$CLOUD.json \
+  https://cc.cldstr.com/controllers/$DISTRO/$CLD_CTLR
+
+exit 0

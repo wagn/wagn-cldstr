@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# run from dir of app being built
+
+echo "building..."
+cldstr-build.pl \
+  --distro red \
+	-D build.uploadkeyfile=$CLDKEYFILE \
+	-D build.uploadcertfile=$CLDCERTFILE \
+	-D build.uploadcacertfile=${CLDSTR}/cldstr-keys/cldstr-bundle.crt \
+	-a
+echo "built."
+
+#exec cloud_update
+
+exit 0
