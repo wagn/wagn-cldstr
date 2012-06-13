@@ -7,7 +7,7 @@ class Wagn::Renderer::Html
       partname = '_1'.to_cardname.to_absolute main.name
       Card[partname]
     end
-    if part1 and typename = part1.typename and %w{ Industry Company }.member?( typename )
+    if part1 and typename = part1.typename and %w{ Market Company }.member?( typename )
       p1_options = Card.search( :type=> typename, :sort => :name ).map do |opt|
         [ opt.name, opt.cardname.to_url_key ]
       end
@@ -17,15 +17,15 @@ class Wagn::Renderer::Html
         part2name = '_2'.to_cardname.to_absolute main.name
         part2 = Card[part2name]
         
-        if part2.typename == 'Criterion'
+        if part2.typename == 'Topic'
 
-          criteria_lineage(part2.name).each_with_index do |ancestor, i|
-            crit_options = criteria_siblings(ancestor, i).map do |crit|
+          topics_lineage(part2.name).each_with_index do |ancestor, i|
+            crit_options = topics_siblings(ancestor, i).map do |crit|
               [crit.name, "#{part1.name}+#{crit.name}".to_cardname.to_url_key]
             end
             result << %{  
               &raquo;
-              <select class="criterion-select">
+              <select class="topic-select">
                #{ options_for_select crit_options, "#{part1.name}+#{ancestor}".to_cardname.to_url_key }
               </select>
             }
@@ -34,32 +34,32 @@ class Wagn::Renderer::Html
         
       end
       
-      result = %{ <div id="criteria-navigation" class="go-to-selected">#{result}</div> }
+      result = %{ <div id="topics-navigation" class="go-to-selected">#{result}</div> }
     end
     result
   end
   
-  def criteria_siblings criterion, index
+  def topics_siblings topic, index
     wql = if index==0
-      { :not=> { :referred_to_by=> {:right=>'subcriteria'} } }
+      { :not=> { :referred_to_by=> {:right=>'subtopic'} } }
     else
       { :referred_to_by=>
-        { :right=>'subcriteria', 
+        { :right=>'subtopic', 
           :left=>
-          { :type=>'Criterion',
-            :right_plus=>['subcriteria', {:refer_to=>criterion} ]
+          { :type=>'Topic',
+            :right_plus=>['subtopic', {:refer_to=>topic} ]
           }
         }
       }
     end
       
-    Card.search( { :type=>'Criterion', :sort=>'name' }.merge( wql ) )
+    Card.search( { :type=>'Topic', :sort=>'name' }.merge( wql ) )
   end
   
-  def criteria_lineage criterion
-    child = [ criterion ]
-    c = Card.search :type=>'Criterion', :right_plus=>['subcriteria', {:refer_to=>criterion} ], :return=>'name'
-    ancestors = c.empty? ? [] : criteria_lineage( c[0] )
+  def topics_lineage topic
+    child = [ topic ]
+    c = Card.search :type=>'Topic', :right_plus=>['subtopic', {:refer_to=>topic} ], :return=>'name'
+    ancestors = c.empty? ? [] : topics_lineage( c[0] )
     ancestors + child
   end 
   
