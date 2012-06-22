@@ -1,25 +1,27 @@
 #!/bin/sh
 
+CLD_PROVIDER=$1
+CLD_NAME=$2
+CLD_DISTRO=$3
+CLD_CTLR=$4
 
-CLOUD=$1
-CLD_CTLR=$2
-if [ -z $CLOUD ]; then
-  echo "usage: cloud_add <cloud_name>"
+if [ -z $CLD_DISTRO ]; then
+  echo "usage: cloud_add <provider> <name> <distro> (controller)"
   exit 1
 fi
 
-if [ -z $DISTRO ]; then
-  DISTRO='red'
-fi
-
 if [ -z $CLD_CTLR ]; then
-  CLD_CTLR=rackspace-us-ss
-  #CLD_CTLR=amazon-us-east-1-ss
+  #echo "controller taken from args"
+  if [ $CLD_PROVIDER == "rackspace" ]; then
+    CLD_CTLR=rackspace-us-ss
+  elif [ $CLD_PROVIDER == "amazon" ]; then
+    CLD_CTLR=amazon-us-east-1-ss
+  fi
 fi
 
-cldstr-instantiate-cloud.pl \
+cldstr-instantiate-cloud.pl --verbose \
 	--accounts ${CLOUDS}/accounts.json \
-	--out ${CLOUDS}/$CLOUD.json \
-  https://cc.cldstr.com/controllers/$DISTRO/$CLD_CTLR
+	--out ${CLOUDS}/$CLD_NAME.json \
+  https://cc.cldstr.com/controllers/$CLD_DISTRO/$CLD_CTLR
 
 exit 0

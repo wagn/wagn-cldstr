@@ -1,5 +1,11 @@
 #!/bin/sh
 
+DISTRO=$1
+if [ -z $DISTRO ]; then
+  echo "usage: cloud_build <distro>"
+  exit 1
+fi
+
 # run from dir of app being built
 
 if [ -z $DISTRO ]; then
@@ -7,12 +13,13 @@ if [ -z $DISTRO ]; then
 fi
 
 echo "building..."
-cldstr-build.pl \
-        --distro $DISTRO \
+
+cldstr-build.pl -a \
 	-D build.uploadkeyfile=$CLDKEYFILE \
 	-D build.uploadcertfile=$CLDCERTFILE \
 	-D build.uploadcacertfile=${CLDSTR}/cldstr-keys/cldstr-bundle.crt \
-	-a
+	--distro $DISTRO #temporary
+	
 echo "built."
 
 #exec cloud_update

@@ -1,5 +1,5 @@
 {
-  "type"          : "App",
+  "type"          : "app",
   "bizmodels"     : [ { "model" : "free" } ],
   "architectures" : [ "arch_nwsa_1dbm" ],
 
@@ -44,6 +44,7 @@
           "paths" : [ 
             "/var/log/cldstr+wagn.org+wagn+ws",
             "web/config.ru",
+            "web/Gemfile.lock",
             "web/tmp"
           ]
         } 

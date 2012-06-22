@@ -1,0 +1,16 @@
+{
+  "siteid" : "s9999",
+  "hostnames" : [
+    "cldstr_sample",
+  ],
+  "appconfigs": [
+     {
+        "appconfigid" : "a9999",
+        "context"     : "",
+        "appid"       : "cldstr+wagn.org+wagn",
+        "allowedarchitectures" : [
+           "arch_nwsa_1dbm"
+        ]
+     }
+  ]
+}
