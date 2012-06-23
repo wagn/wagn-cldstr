@@ -21,10 +21,12 @@
   "roles" : {
     "ws" : {
       "depends" : [
-        "ruby1.9.3",
-        "rubygems",
+        "cldstr+cldstr.com+passenger+ss",
+        "cldstr+cldstr.com+ruby+ss",
+        "cldstr+cldstr.com+rubygems+ss",
         "libmysql-ruby",
         "libmysqlclient-dev",
+        "libapache2-mod-passenger",
         "libapache2-mod-xsendfile",
         "imagemagick",
         "libmagickwand-dev",
