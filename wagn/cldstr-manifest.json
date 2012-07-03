@@ -35,6 +35,7 @@
         "libapache2-mod-passenger",
       ],
       "apache2modules" : [
+        "passenger",
         "rewrite",
         "expires",
         "xsendfile",
