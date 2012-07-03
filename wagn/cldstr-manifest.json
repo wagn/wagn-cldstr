@@ -26,14 +26,16 @@
         "cldstr+cldstr.com+rubygems+ss",
         "libmysql-ruby",
         "libmysqlclient-dev",
-        "libapache2-mod-passenger",
+        "passenger-common1.9.1",
         "libapache2-mod-xsendfile",
         "imagemagick",
         "libmagickwand-dev",
         "cldstr+cldstr.com+postfix+ss",
-        "cldstr+cldstr.com+memcached+ws"
+        "cldstr+cldstr.com+memcached+ws",
+        "libapache2-mod-passenger",
       ],
       "apache2modules" : [
+        "rewrite",
         "expires",
         "xsendfile",
         "headers"
