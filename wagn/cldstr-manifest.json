@@ -23,6 +23,8 @@
       "depends" : [
         "ruby",
         "rubygems",
+        "cldstr+cldstr.com+passenger+ss",
+        "cldstr+cldstr.com+ruby+ss",
         "cldstr+cldstr.com+rubygems+ss",
         "libmysql-ruby",
         "libmysqlclient-dev",

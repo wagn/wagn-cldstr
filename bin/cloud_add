@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -xv
 
 CLD_PROVIDER=$1
 CLD_NAME=$2
