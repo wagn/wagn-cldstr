@@ -21,23 +21,22 @@
   "roles" : {
     "ws" : {
       "depends" : [
-        "ruby",
-        "rubygems",
         "cldstr+cldstr.com+passenger+ss",
-        "cldstr+cldstr.com+ruby+ss",
         "cldstr+cldstr.com+rubygems+ss",
+        "cldstr+cldstr.com+postfix+ss",
+        "cldstr+cldstr.com+memcached+ws",
         "libmysql-ruby",
         "libmysqlclient-dev",
-        "libapache2-mod-passenger",
-        "libapache2-mod-xsendfile",
         "imagemagick",
         "libmagickwand-dev",
-        "cldstr+cldstr.com+postfix+ss",
-        "cldstr+cldstr.com+memcached+ws"
+        "libapache2-mod-passenger",
+        "libapache2-mod-xsendfile"
       ],
       "apache2modules" : [
+        "passenger",
         "expires",
-        "xsendfile"
+        "xsendfile",
+        "headers"
       ],
       "files" : [
         {

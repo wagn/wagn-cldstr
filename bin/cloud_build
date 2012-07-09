@@ -8,6 +8,10 @@ fi
 
 # run from dir of app being built
 
+if [ -z $DISTRO ]; then
+  DISTRO='red'
+fi
+
 echo "building..."
 
 cldstr-build.pl -a \
