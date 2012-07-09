@@ -4,7 +4,7 @@
 
 echo "building..."
 cldstr-build.pl \
-  --distro red \
+  --distro green \
 	-D build.uploadkeyfile=$CLDKEYFILE \
 	-D build.uploadcertfile=$CLDCERTFILE \
 	-D build.uploadcacertfile=${CLDSTR}/cldstr-keys/cldstr-bundle.crt \
