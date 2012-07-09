@@ -1,2 +1,5 @@
 */dist/
 */build-*/
+**/dist-red/
+**/dist-yellow/
+**/dist-green/
