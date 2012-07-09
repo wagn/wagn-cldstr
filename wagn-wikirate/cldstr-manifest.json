@@ -15,7 +15,7 @@
   "package" : { 
     "maintainer"      : "wagn.org",
     "packagebasename" : "wagn-wikirate",
-    "distros"         : [ "yellow" ]
+    "distros"         : [ "green" ]
   }, 
 
   "roles" : {
