@@ -50,9 +50,9 @@ checked program was:
 
 have_library: checking for InitializeMagick() in -lMagickCore... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 conftest.c: In function ‘t’:
-conftest.c:13:1: warning: ‘InitializeMagick’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:314) [-Wdeprecated-declarations]
+conftest.c:13: warning: ‘InitializeMagick’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:314)
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -74,7 +74,7 @@ checked program was:
 
 have_func: checking for snprintf() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -96,7 +96,7 @@ checked program was:
 
 have_func: checking for AcquireImage() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -118,9 +118,9 @@ checked program was:
 
 have_func: checking for AffinityImage() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 conftest.c: In function ‘t’:
-conftest.c:13:1: warning: ‘AffinityImage’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:167) [-Wdeprecated-declarations]
+conftest.c:13: warning: ‘AffinityImage’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:163)
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -142,9 +142,9 @@ checked program was:
 
 have_func: checking for AffinityImages() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 conftest.c: In function ‘t’:
-conftest.c:13:1: warning: ‘AffinityImages’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:169) [-Wdeprecated-declarations]
+conftest.c:13: warning: ‘AffinityImages’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:165)
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -166,7 +166,7 @@ checked program was:
 
 have_func: checking for AutoGammaImageChannel() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -188,7 +188,7 @@ checked program was:
 
 have_func: checking for AutoLevelImageChannel() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -210,7 +210,7 @@ checked program was:
 
 have_func: checking for BlueShiftImage() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -232,7 +232,7 @@ checked program was:
 
 have_func: checking for ConstituteComponentTerminus() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -254,7 +254,7 @@ checked program was:
 
 have_func: checking for DeskewImage() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -276,7 +276,7 @@ checked program was:
 
 have_func: checking for EncipherImage() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -298,7 +298,7 @@ checked program was:
 
 have_func: checking for EqualizeImageChannel() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -320,7 +320,7 @@ checked program was:
 
 have_func: checking for FloodfillPaintImage() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -342,7 +342,7 @@ checked program was:
 
 have_func: checking for FunctionImageChannel() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -364,7 +364,7 @@ checked program was:
 
 have_func: checking for GetAuthenticIndexQueue() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -386,7 +386,7 @@ checked program was:
 
 have_func: checking for GetAuthenticPixels() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -408,7 +408,7 @@ checked program was:
 
 have_func: checking for GetImageAlphaChannel() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -430,7 +430,7 @@ checked program was:
 
 have_func: checking for GetVirtualPixels() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -452,9 +452,9 @@ checked program was:
 
 have_func: checking for LevelImageColors() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 conftest.c: In function ‘t’:
-conftest.c:13:1: warning: ‘LevelImageColors’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:190) [-Wdeprecated-declarations]
+conftest.c:13: warning: ‘LevelImageColors’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:186)
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -476,7 +476,7 @@ checked program was:
 
 have_func: checking for LevelColorsImageChannel() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -498,7 +498,7 @@ checked program was:
 
 have_func: checking for LevelizeImageChannel() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -520,7 +520,7 @@ checked program was:
 
 have_func: checking for LiquidRescaleImage() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -540,9 +540,13 @@ checked program was:
 
 --------------------
 
-have_func: checking for MagickLibAddendum() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
+have_func: checking for MagickLibAddendum() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- no
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:13: error: ‘MagickLibAddendum’ undeclared (first use in this function)
+conftest.c:13: error: (Each undeclared identifier is reported only once
+conftest.c:13: error: for each function it appears in.)
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -560,11 +564,32 @@ checked program was:
 13: int t() { void ((*volatile p)()); p = (void ((*)()))MagickLibAddendum; return 0; }
 /* end */
 
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+/tmp/ccctzaCS.o: In function `t':
+conftest.c:(.text+0x15): undefined reference to `MagickLibAddendum'
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+ 1: #include <assert.h>
+ 2: #include <ctype.h>
+ 3: #include <stdio.h>
+ 4: #include <stdlib.h>
+ 5: #include <math.h>
+ 6: #include <time.h>
+ 7: #include <stdint.h>
+ 8: #include <sys/types.h>
+ 9: #include <wand/MagickWand.h>
+10: 
+11: /*top*/
+12: int main() { return 0; }
+13: int t() { MagickLibAddendum(); return 0; }
+/* end */
+
 --------------------
 
 have_func: checking for OpaquePaintImageChannel() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -586,7 +611,7 @@ checked program was:
 
 have_func: checking for QueueAuthenticPixels() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -608,7 +633,7 @@ checked program was:
 
 have_func: checking for RemapImage() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -630,7 +655,7 @@ checked program was:
 
 have_func: checking for RemoveImageArtifact() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -652,7 +677,7 @@ checked program was:
 
 have_func: checking for SelectiveBlurImageChannel() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -674,7 +699,7 @@ checked program was:
 
 have_func: checking for SetImageAlphaChannel() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -696,7 +721,7 @@ checked program was:
 
 have_func: checking for SetImageArtifact() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -718,7 +743,7 @@ checked program was:
 
 have_func: checking for SetMagickMemoryMethods() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -740,7 +765,7 @@ checked program was:
 
 have_func: checking for SparseColorImage() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -762,7 +787,7 @@ checked program was:
 
 have_func: checking for SyncAuthenticPixels() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -784,7 +809,7 @@ checked program was:
 
 have_func: checking for TransparentPaintImage() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -806,7 +831,7 @@ checked program was:
 
 have_func: checking for TransparentPaintImageChroma() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,stdint.h,sys/types.h,wand/MagickWand.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
  1: #include <assert.h>
@@ -2315,8 +2340,7 @@ checked program was:
 have_header: checking for ruby/io.h... -------------------- no
 
 "gcc -E -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp  conftest.c -o conftest.i"
-conftest.c:1:21: fatal error: ruby/io.h: No such file or directory
-compilation terminated.
+conftest.c:1:21: error: ruby/io.h: No such file or directory
 checked program was:
 /* begin */
 1: #include <ruby/io.h>
@@ -2326,7 +2350,7 @@ checked program was:
 
 have_func: checking for rb_frame_this_func() in ruby.h,rubyio.h... -------------------- yes
 
-"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl -lMagickCore  -lruby1.8-static -lMagickCore  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
 1: #include <ruby.h>
@@ -2342,9 +2366,9 @@ checked program was:
 
 
 ======================================================================
-Fri 01Jun12 05:07:51
+Thu 09Feb12 22:02:54
 This installation of RMagick 2.13.1 is configured for
-Ruby 1.8.7 (x86_64-linux) and ImageMagick 6.6.9 Q16 
+Ruby 1.8.7 (x86_64-linux) and ImageMagick 6.5.7 Q16 
 ======================================================================
 
 
