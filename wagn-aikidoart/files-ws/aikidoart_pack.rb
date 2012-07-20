@@ -33,17 +33,21 @@ Wagn::Hook.add :after_save, "#{AIKI_ORIG}+*right" do |card|
 end
 
 
-class Wagn::Renderer
-  define_view :core, :right=>'approved_image' do |args|
+class Wagn::Renderer::Html
+  
+  define_view :denial, :right=>AIKI_ORIG do |args|
+    view = args[:denied_view] || :titled
+    
     itemname = card.cardname.trunk_name
-    orig = Card["#{itemname}+#{AIKI_ORIG}"]
-    if orig = Card["#{itemname}+#{AIKI_ORIG}"] and orig.ok?(:read)
-      @card = orig
-    elsif mark = Card["#{itemname}+#{AIKI_MARK}"]
-      @card = mark
-    else
-      return "Sorry, image is currently restricted"
-    end
-    render_core args
+    @card = Card["#{itemname}+#{AIKI_MARK}"]
+    _render view, args
   end
+  
+  define_view :core, :right=>AIKI_MARK do |args|
+    if !User.logged_in?
+      args[:size] = :medium if [:large, :full, :original].member?( args[:size] )
+    end
+    _final_image_type_core args
+  end
+  
 end
