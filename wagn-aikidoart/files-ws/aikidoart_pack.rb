@@ -1,5 +1,30 @@
+require 'zip/zipfilesystem'
+
 AIKI_ORIG = 'image'
 AIKI_MARK = 'watermark'
+AIKI_UPLOAD = 'item upload'
+
+class AAHelper
+  def self.aa_name cardname
+    Card.exists?(cardname) ? "#{cardname}-#{Time.now.to_i}" : cardname
+  end  
+end
+
+Wagn::Hook.add :after_save, "#{AIKI_UPLOAD}+*self" do |card|
+  tmp_filename = '/tmp/aazipextractor'
+  Zip::ZipFile.open card.attach.path do |zipfile|
+    zipfile.each do |zf|
+      m = zf.name.match /(.*)\.(\w+)$/
+      cardname = AAHelper.aa_name( m[1] )
+      tmpf = "#{tmp_filename}.#{m[2]}"
+      zf.extract tmpf do true end
+      Card.create! :name=>cardname, :type=>'Item'
+      c = Card.new :name=>"#{cardname}+#{AIKI_ORIG}", :type=>'Image'
+      c.attach = File.new(tmpf)
+      c.save!
+    end
+  end
+end
 
 Wagn::Hook.add :after_save, "#{AIKI_ORIG}+*right" do |card|
   require 'RMagick'
