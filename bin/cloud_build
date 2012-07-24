@@ -13,6 +13,7 @@ if [ -z $DISTRO ]; then
 fi
 
 echo "building..."
+
 cldstr-build.pl -a \
 	-D build.uploadkeyfile=$CLDKEYFILE \
 	-D build.uploadcertfile=$CLDCERTFILE \
