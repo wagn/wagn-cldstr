@@ -10,18 +10,40 @@ class AAHelper
   end  
 end
 
+Wagn::Hook.add :after_save, "tags+*right" do |card|
+  card.item_names.each do |name|
+    if !Card.exists? name
+      Card.create :name=>name
+    end
+  end
+end
+
+
 Wagn::Hook.add :after_save, "#{AIKI_UPLOAD}+*self" do |card|
-  tmp_filename = '/tmp/aazipextractor'
-  Zip::ZipFile.open card.attach.path do |zipfile|
-    zipfile.each do |zf|
-      m = zf.name.match /(.*)\.(\w+)$/
-      cardname = AAHelper.aa_name( m[1] )
-      tmpf = "#{tmp_filename}.#{m[2]}"
-      zf.extract tmpf do true end
-      Card.create! :name=>cardname, :type=>'Item'
-      c = Card.new :name=>"#{cardname}+#{AIKI_ORIG}", :type=>'Image'
-      c.attach = File.new(tmpf)
-      c.save!
+  if file_card = Card["#{card.name}+file"]
+    collection_card = Card["#{card.name}+collection"]
+    tag_card = Card["#{card.name}+tags"]
+
+    tmp_filename = '/tmp/aazipextractor'
+  
+    Zip::ZipFile.open file_card.attach.path do |zipfile|
+      zipfile.each do |zf|
+        m = zf.name.match /(.*)\.(\w+)$/
+        cardname = AAHelper.aa_name( m[1] )
+        tmpf = "#{tmp_filename}.#{m[2]}"
+        zf.extract tmpf do true end
+        Card.create! :name=>cardname, :type=>'Item'
+        c = Card.new :name=>"#{cardname}+#{AIKI_ORIG}", :type=>'Image'
+        c.attach = File.new(tmpf)
+        c.save!
+        if collection_card
+          Card.create! :name=>"#{cardname}+collection", :type=>'Pointer', :content=>collection_card.content
+        end
+        if tag_card
+          Card.create! :name=>"#{cardname}+tags",       :type=>'Pointer', :content=>tag_card.content
+        end
+      
+      end
     end
   end
 end
@@ -46,7 +68,7 @@ Wagn::Hook.add :after_save, "#{AIKI_ORIG}+*right" do |card|
   conf[:quality] = conf[:quality] ? conf[:quality].to_i : 100
 
   #~~~~~~ generate water mark and save to tmp file
-  marked = large.dissolve mark, conf[:opacity], 1, conf[:gravity]
+  marked = large.dissolve mark, conf[:opacity], 1, conf[:gravity], 5, 5
   tmp_filename = "/tmp/watermark-#{card.current_revision_id}.jpg"
   marked.write( tmp_filename ) { self.quality = conf[:quality] }
 
@@ -73,6 +95,17 @@ class Wagn::Renderer::Html
       args[:size] = :medium if [:large, :full, :original].member?( args[:size] )
     end
     _final_image_type_core args
+  end
+  
+  define_view :thumbnail, :type=>'item' do |args|
+    wrap :thumbnail, args do
+      text = subrenderer( Card["#{card.name}+image"] ).render_core :size=>:medium
+      build_link card.name, text, true
+    end
+  end
+  
+  define_view :taglink do |args|
+    build_link "#{card.name}+*tagged", card.name, true
   end
   
 end
