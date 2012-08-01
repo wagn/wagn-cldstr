@@ -11,11 +11,14 @@ SetEnv UUID_STATE_FILE off
 # wagn.yml file sets upload dir, database config file, log file, etc
 SetEnv WAGN_CONFIG_FILE /var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/wagn.yml
 
-# This is a symlink to the actual AppRoot at /usr/cldstr/wagn.org/wagn/ws/web
-# Without this, passenger knows all apps share the same root and treats them as one instance,
-# screwing up the env variables that need to be different for each
-# in Passenger 3 this is addressable with PassengerAppGroupName
-PassengerAppRoot /var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/web
+PassengerAppRoot /usr/cldstr/wagn.org/wagn/ws/web
+PassengerAppGroupName G${appconfig.appconfigid}
+# the AppGroupName identifies the ApplicationSpawner
+# Passenger will overshare amongst appconfigs without this
+
+#PassengerSpawnMethod smart
+# this is needed to have a separate FrameworkSpawner (that is, not to reload the rails app for every application)
+# doh.  can't go here.
 
 # This sets Rails.env 
 #RackEnv cloudstore 
