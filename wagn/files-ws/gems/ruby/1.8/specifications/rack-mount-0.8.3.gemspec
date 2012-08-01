@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email = "josh@joshpeek.com"
   s.homepage = "https://github.com/josh/rack-mount"
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.15"
+  s.rubygems_version = "1.8.24"
   s.summary = "Stackable dynamic tree based Rack router"
 
   if s.respond_to? :specification_version then

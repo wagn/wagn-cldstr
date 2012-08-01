@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--exclude", "definitions", "--exclude", "indexes"]
   s.require_paths = ["lib"]
   s.rubyforge_project = "tzinfo"
-  s.rubygems_version = "1.8.15"
+  s.rubygems_version = "1.8.24"
   s.summary = "Daylight-savings aware timezone library"
 
   if s.respond_to? :specification_version then

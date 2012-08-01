@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/assaf/uuid"
   s.rdoc_options = ["--main", "README.rdoc", "--title", "UUID generator", "--line-numbers"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.15"
+  s.rubygems_version = "1.8.24"
   s.summary = "UUID generator"
 
   if s.respond_to? :specification_version then

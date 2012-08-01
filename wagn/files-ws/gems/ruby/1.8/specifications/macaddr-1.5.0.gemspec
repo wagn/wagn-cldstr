@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/ahoward/macaddr"
   s.require_paths = ["lib"]
   s.rubyforge_project = "codeforpeople"
-  s.rubygems_version = "1.8.15"
+  s.rubygems_version = "1.8.24"
   s.summary = "macaddr"
 
   if s.respond_to? :specification_version then

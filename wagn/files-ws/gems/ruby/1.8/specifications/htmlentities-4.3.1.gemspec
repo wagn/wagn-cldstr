@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.files = ["History.txt", "COPYING.txt"]
   s.homepage = "https://github.com/threedaymonk/htmlentities"
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.15"
+  s.rubygems_version = "1.8.24"
   s.summary = "A module for encoding and decoding (X)HTML entities."
 
   if s.respond_to? :specification_version then

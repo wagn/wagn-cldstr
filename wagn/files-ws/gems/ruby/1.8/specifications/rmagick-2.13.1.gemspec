@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = Gem::Requirement.new(">= 1.8.5")
   s.requirements = ["ImageMagick 6.4.9 or later"]
   s.rubyforge_project = "rmagick"
-  s.rubygems_version = "1.8.15"
+  s.rubygems_version = "1.8.24"
   s.summary = "Ruby binding to ImageMagick"
 
   if s.respond_to? :specification_version then

@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://rack.rubyforge.org"
   s.require_paths = ["lib"]
   s.rubyforge_project = "rack"
-  s.rubygems_version = "1.8.15"
+  s.rubygems_version = "1.8.24"
   s.summary = "a modular Ruby webserver interface"
 
   if s.respond_to? :specification_version then
