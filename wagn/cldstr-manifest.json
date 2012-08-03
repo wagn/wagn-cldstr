@@ -47,9 +47,10 @@
             "/var/log/cldstr+wagn.org+wagn+ws",
             "web/config.ru",
             "web/Gemfile.lock",
-            "web/tmp"
+            "web/tmp",
+            "web/script/rails"
           ]
-        } 
+        }
       ],
       "appconfigitems" : [
         {
@@ -86,11 +87,6 @@
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/wagn.yml",
           "template"     : "tmpl/wagn.yml.tmpl",
           "templatelang" : "varsubst"
-        },
-        {
-          "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn/ws/web",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/web"
         },
         {
           "type"         : "symlink",
