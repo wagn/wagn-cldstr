@@ -1,4 +1,4 @@
-#!/bin/sh -xv
+#!/bin/sh
 
 LOCAL_WS_DIR=/Users/ethan/dev/cldstr/apps/wagn-cldstr/wagn/files-ws
 REMOTE_WS_DIR=/usr/cldstr/wagn.org/wagn/ws/
@@ -52,8 +52,8 @@ fi
 
 
 git rm -rf gems
-git commit -a -m 'auto-removing old gems'
-tar -xvf $TMPDIR/newgems.tgz
+git commit -a -q -m 'auto-removing old gems'
+tar -xf $TMPDIR/newgems.tgz
 cd gems
 find . -name '.gitignore' | xargs rm
 cd ..
@@ -63,7 +63,7 @@ cp $TMPDIR/Gemfile* web
 cd web
 git commit -a -m 'updating Gemfile.lock'
 cd ..
-git commit -a -m 'auto-adding new gems'
+git commit -a -q -m 'auto-adding new gems'
 git status
 
 
