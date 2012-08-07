@@ -12,7 +12,7 @@ fi
 cd $LOCAL_WS_DIR
 git status
 
-read -p "Is this repo (a) correct and (b) clean?" -n 1
+read -p "Is this repo (a) correct and (b) clean? [y/n]" -n 1
 echo ""
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
@@ -21,26 +21,26 @@ fi
 
 TMPDIR=/tmp/gemset
 
-#mkdir -p $TMPDIR
-#rm -rf $TMPDIR/*
-#
-#ssh root@$CLOUD "
-#  apt-get install -y ruby1.9.1-dev
-#  apt-get install -y build-essential
-#  cd $REMOTE_WS_DIR
-#  rm -rf gems
-#  cd web
-#  rm Gemfile.lock
-#  bundle install
-#  
-#  mkdir -p $TMPDIR
-#  rm -rf $TMPDIR/*
-#  cp Gemfile* $TMPDIR
-#  
-#  cd ..
-#  tar -czvf $TMPDIR/newgems.tgz gems
-#"
-#scp root@$CLOUD:$TMPDIR/* $TMPDIR
+mkdir -p $TMPDIR
+rm -rf $TMPDIR/*
+
+ssh root@$CLOUD "
+  apt-get install -y ruby1.9.1-dev
+  apt-get install -y build-essential
+  cd $REMOTE_WS_DIR
+  rm -rf gems
+  cd web
+  rm Gemfile.lock
+  bundle install
+  
+  mkdir -p $TMPDIR
+  rm -rf $TMPDIR/*
+  cp Gemfile* $TMPDIR
+  
+  cd ..
+  tar -czf $TMPDIR/newgems.tgz gems";
+
+scp root@$CLOUD:$TMPDIR/* $TMPDIR
 
 if [ ! -e $TMPDIR/Gemfile.lock ]; then
   echo "ERROR: local Gemfile.lock not found"
