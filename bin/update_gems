@@ -21,38 +21,35 @@ fi
 
 TMPDIR=/tmp/gemset
 
-mkdir -p $TMPDIR
-rm -rf $TMPDIR/*
-
-ssh root@$CLOUD "
-  apt-get install -y ruby1.9.1-dev
-  apt-get install -y build-essential
-  cd $REMOTE_WS_DIR
-  rm -rf gems
-  cd web
-  rm Gemfile.lock
-  bundle install
-  
-  mkdir -p $TMPDIR
-  rm -rf $TMPDIR/*
-  cp Gemfile* $TMPDIR
-  
-  cd ..
-  tar -czf $TMPDIR/newgems.tgz gems";
-
-scp root@$CLOUD:$TMPDIR/* $TMPDIR
+#mkdir -p $TMPDIR
+#rm -rf $TMPDIR/*
+#
+#ssh root@$CLOUD "
+#  apt-get install -y ruby1.9.1-dev
+#  apt-get install -y build-essential
+#  cd $REMOTE_WS_DIR
+#  rm -rf gems
+#  cd web
+#  rm Gemfile.lock
+#  bundle install
+#  
+#  mkdir -p $TMPDIR
+#  rm -rf $TMPDIR/*
+#  cp Gemfile* $TMPDIR
+#  
+#  cd ..
+#  tar -czf $TMPDIR/newgems.tgz gems";
+#
+#scp root@$CLOUD:$TMPDIR/* $TMPDIR
 
 if [ ! -e $TMPDIR/Gemfile.lock ]; then
   echo "ERROR: local Gemfile.lock not found"
   exit 1
 fi
 
-#echo "bail out!!"
-#exit 1
-
 echo "removing old gems"
-git rm -rfq gems
-git commit -a -q -m 'auto-removing old gems'
+git rm -rfq gems;
+git commit -a -q -m 'auto-removing old gems';
 
 echo "untarring new gems"
 tar -xf $TMPDIR/newgems.tgz
