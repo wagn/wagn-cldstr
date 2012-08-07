@@ -50,16 +50,25 @@ fi
 #echo "bail out!!"
 #exit 1
 
-
-git rm -rf gems
+echo "removing old gems"
+git rm -rfq gems
 git commit -a -q -m 'auto-removing old gems'
+
+echo "untarring new gems"
 tar -xf $TMPDIR/newgems.tgz
+
+echo "cleaning gitignores"
 cd gems
 find . -name '.gitignore' | xargs rm
+
+echo "adding new gems"
 cd ..
 git add gems
 
+echo "updating Gemfile.lock"
 cp $TMPDIR/Gemfile* web
+
+echo "committing changes "
 cd web
 git commit -a -m 'updating Gemfile.lock'
 cd ..
