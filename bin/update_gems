@@ -56,7 +56,12 @@ git commit -a -m 'auto-removing old gems'
 tar -xvf $TMPDIR/newgems.tgz
 cd gems
 find . -name '.gitignore' | xargs rm
-cp $TMPDIR/Gemfile* ../web
+cd ..
+git add gems
+
+cp $TMPDIR/Gemfile* web
+cd web
+git commit -a -m 'updating Gemfile.lock'
 cd ..
 git commit -a -m 'auto-adding new gems'
 git status
