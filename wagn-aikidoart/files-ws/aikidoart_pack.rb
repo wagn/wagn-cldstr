@@ -18,6 +18,16 @@ Wagn::Hook.add :after_save, "tags+*right" do |card|
   end
 end
 
+Wagn::Hook.add :after_create, 'agree+*right' do |card|
+  unless card.raw_content.to_i == 1
+    msg = if msgcard = Card['eula error message']
+      msgcard.content
+    else
+      "You must agree to the terms above to create an account."
+    end
+    card.errors.add :eula, msg
+  end
+end
 
 Wagn::Hook.add :after_save, "#{AIKI_UPLOAD}+*self" do |card|
   if file_card = Card["#{card.name}+file"]
