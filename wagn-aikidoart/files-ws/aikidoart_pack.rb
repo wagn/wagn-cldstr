@@ -62,31 +62,53 @@ Wagn::Hook.add :after_save, "#{AIKI_ORIG}+*right" do |card|
   require 'RMagick'
   include Magick
 
+  unless card.trunk.typecode == 'watermark'
   #~~~~~~~~ get "large" version of original and watermark
-  large = Magick::Image.read( card.attach.path('large')            ).first
-  mark  = Magick::Image.read( Card["*watermark+#{AIKI_ORIG}"].attach.path ).first
+    img = Magick::Image.read( card.attach.path('large')            ).first
+  
+  
+    Card.search( :type=>'watermark' ).each do |watermark|
+      markname = watermark.name
+      Rails.logger.info "markname = #{markname}"
+      
+      toggle = Card["#{markname}+on"]
+      
+      Rails.logger.info "toggle = #{toggle.content}"
+      
+      next if toggle = Card["#{markname}+on"] and toggle.content != '1'
+    
+      mark  = Magick::Image.read( Card["#{markname}+#{AIKI_ORIG}"].attach.path ).first
 
-  #~~~ get all the configuration options
-  conf = {}
-  [ :opacity, :gravity, :quality ].map do |c|
-    if conf_card = Card["*watermark+#{c}"]
-      conf[c] = conf_card.content.strip
+      #~~~ get all the configuration options
+      conf = {}
+      [ :opacity, :gravity, :offset ].map do |c|
+        if conf_card = Card["#{markname}+#{c}"]
+          conf[c] = conf_card.content.strip
+        end
+      end
+      conf[:opacity] = conf[:opacity] ? (conf[:opacity].to_f / 100.0) :  0.3
+      conf[:gravity] = conf[:gravity] ? Card.const_get("#{conf[:gravity]}Gravity") :  NorthWestGravity
+      conf[:offset]  = conf[:offset]  ? conf[:offset].to_i  : 5
+
+      #~~~~~~ generate water mark and save to tmp file
+      img = img.dissolve mark, conf[:opacity], 1, conf[:gravity], conf[:offset], conf[:offset]
     end
+
+    tmp_filename = "/tmp/watermark-#{card.current_revision_id}.jpg"
+
+
+
+    quality_card = Card['*watermark+quality']
+    img_quality = quality_card ? quality_card.content.strip.to_i : 100
+  
+    img.write( tmp_filename ) { self.quality = img_quality }
+
+    #~~~~~~ create new card for watermarked version
+    wcard = Card.fetch_or_new "#{card.cardname.trunk_name}+#{AIKI_MARK}", :type=>'Image'
+    wcard = wcard.refresh if wcard.frozen?
+    wcard.attach = File.new( tmp_filename )
+    wcard.save!
   end
-  conf[:opacity] = conf[:opacity] ? (conf[:opacity].to_f / 100.0) :  0.3
-  conf[:gravity] = conf[:gravity] ? Card.const_get("#{conf[:gravity]}Gravity") :  NorthWestGravity
-  conf[:quality] = conf[:quality] ? conf[:quality].to_i : 100
-
-  #~~~~~~ generate water mark and save to tmp file
-  marked = large.dissolve mark, conf[:opacity], 1, conf[:gravity], 5, 5
-  tmp_filename = "/tmp/watermark-#{card.current_revision_id}.jpg"
-  marked.write( tmp_filename ) { self.quality = conf[:quality] }
-
-  #~~~~~~ create new card for watermarked version
-  wcard = Card.fetch_or_new "#{card.cardname.trunk_name}+#{AIKI_MARK}", :type=>'Image'
-  wcard = wcard.refresh if wcard.frozen?
-  wcard.attach = File.new( tmp_filename )
-  wcard.save!
 end
 
 
