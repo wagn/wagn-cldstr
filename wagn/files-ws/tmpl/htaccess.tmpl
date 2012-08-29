@@ -19,3 +19,5 @@ PassengerAppGroupName ${site.hostname}-${appconfig.appconfigid}
 # relative root for the app; sets Rails env var RAILS_RELATIVE_URL_ROOT
 RackBaseURI ${appconfig.contextorslash}
 
+# turn off passenger error pages with traces
+PassengerFriendlyErrorPages off
