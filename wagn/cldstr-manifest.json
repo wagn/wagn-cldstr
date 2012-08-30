@@ -96,9 +96,13 @@
             "files",
             "404.html",
             "500.html",
-            "robots.txt",
             "favicon.ico"
           ]
+        },
+        {
+          "type"         : "symlink",
+          "target"       : "/usr/cldstr/wagn.org/wagn/ws/$4",
+          "name"         : "robots.txt"
         },
         {
           "type"         : "file",
