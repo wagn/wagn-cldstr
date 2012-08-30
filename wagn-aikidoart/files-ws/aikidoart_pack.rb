@@ -66,15 +66,10 @@ Wagn::Hook.add :after_save, "#{AIKI_ORIG}+*right" do |card|
   #~~~~~~~~ get "large" version of original and watermark
     img = Magick::Image.read( card.attach.path('large')            ).first
   
-  
+    #~~~~~ look up watermarks
     Card.search( :type=>'watermark' ).each do |watermark|
       markname = watermark.name
-      Rails.logger.info "markname = #{markname}"
-      
-      toggle = Card["#{markname}+on"]
-      
-      Rails.logger.info "toggle = #{toggle.content}"
-      
+
       next if toggle = Card["#{markname}+on"] and toggle.content != '1'
     
       mark  = Magick::Image.read( Card["#{markname}+#{AIKI_ORIG}"].attach.path ).first
@@ -90,13 +85,12 @@ Wagn::Hook.add :after_save, "#{AIKI_ORIG}+*right" do |card|
       conf[:gravity] = conf[:gravity] ? Card.const_get("#{conf[:gravity]}Gravity") :  NorthWestGravity
       conf[:offset]  = conf[:offset]  ? conf[:offset].to_i  : 5
 
-      #~~~~~~ generate water mark and save to tmp file
+      #~~~~~~ generate water mark 
       img = img.dissolve mark, conf[:opacity], 1, conf[:gravity], conf[:offset], conf[:offset]
     end
 
+    #~~~~~~ save watermark to tmp file
     tmp_filename = "/tmp/watermark-#{card.current_revision_id}.jpg"
-
-
 
     quality_card = Card['*watermark+quality']
     img_quality = quality_card ? quality_card.content.strip.to_i : 100
