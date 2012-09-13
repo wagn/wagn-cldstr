@@ -62,7 +62,7 @@ Wagn::Hook.add :after_save, "#{AIKI_ORIG}+*right" do |card|
   require 'RMagick'
   include Magick
 
-  unless card.trunk.typecode == 'watermark'
+  unless card.left.typecode == 'watermark'
   #~~~~~~~~ get "large" version of original and watermark
     img = Magick::Image.read( card.attach.path('large')            ).first
   

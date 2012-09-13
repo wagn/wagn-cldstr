@@ -87,7 +87,7 @@ class Wagn::Renderer::Html
 
   
   def watching_type_cards
-    %{<span class="watch-no-toggle">Following all #{ card.typename.pluralize }</span>}
+    %{<span class="watch-no-toggle">Following all #{ card.type_name.pluralize }</span>}
   end
  
  
@@ -135,7 +135,7 @@ class Wagn::Renderer::Html
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
   define_view :raw, :name=>'cp navbox' do |args|
-    %{ <form action="#{Card.path_setting '/*search'}" id="navbox-form" method="get">
+    %{ <form action="#{Card.path_setting '/:result'}" id="navbox-form" method="get">
       #{hidden_field_tag :view, 'content' }
       #{hidden_field_tag :item, 'cp_result_item' }
       #{text_field_tag :_keyword, '', :class=>'navbox'
@@ -156,7 +156,7 @@ class Wagn::Renderer::Html
           #{ time_ago_in_words card.updated_at } ago
         </span>
         <span class="cp-item-type">
-          #{ link_to_page card.typename }
+          #{ link_to_page card.type_name }
         </span>
       </div>
       <div class="cp-item-content">
