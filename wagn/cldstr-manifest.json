@@ -120,7 +120,11 @@
           "retentionbucket" : "db",
           "privileges"      : "create, alter, drop, index, select, insert, update, delete"
         }
-      ]
+      ],
+      "postappconfiginst" : {
+        "type" : "perlscript",
+        "name" : "bin/migrate.pl"
+      }
     }
   }
 }
