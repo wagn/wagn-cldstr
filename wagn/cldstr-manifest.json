@@ -98,17 +98,12 @@
             "500.html",
             "favicon.ico"
           ]
-        },
-        {
-          "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn/ws/$4",
-          "name"         : "robots.txt"
-        },
-        {
-          "type"         : "file",
-          "name"         : "/usr/cldstr/wagn.org/wagn/ws/web/tmp/restart.txt"
         }
-      ]
+      ],
+      "postappconfiginst" : {
+        "type" : "perlscript",
+        "name" : "bin/migrate.pl"
+      }
     },
     "ctrl" : {
       "appconfigitems" : [
@@ -120,11 +115,7 @@
           "retentionbucket" : "db",
           "privileges"      : "create, alter, drop, index, select, insert, update, delete"
         }
-      ],
-      "postappconfiginst" : {
-        "type" : "perlscript",
-        "name" : "bin/migrate.pl"
-      }
+      ]
     }
   }
 }
