@@ -48,9 +48,14 @@
             "web/config.ru",
             "web/Gemfile.lock",
             "web/tmp",
-            "web/script/rails"
+            "web/script/rails",
+            "bin/migrate.rb"
           ]
-        }
+        },
+        {
+          "mode"  : "0666",
+          "paths" : [  "web/tmp/restart.txt" ]
+        }        
       ],
       "appconfigitems" : [
         {

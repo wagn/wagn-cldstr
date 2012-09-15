@@ -10,48 +10,29 @@
 use strict;
 use cldstr::runtime::Utils;
 
-#my $appconfigid = 'a0005';
-#my $operation = 'install';
+my $wsdir = "/usr/cldstr/wagn.org/wagn/ws";
 my $appconfigid = $varMap->{appconfig}->{appconfigid};
-my $appconfigDir = "/var/cldstr/wagn.org/wagn/ws/$appconfigid";
 
 $log->debug( "Wagn postappconfiginst called for AppConfig: $appconfigid" );      
 
-
-exit 1 unless ( $appconfigid eq 'a0005' );
-
-chdir('../web'); # get us into the web directory, from which the migrate command (and the restart) must be run
-
-
 if ( $operation eq 'install' ) {
-
-  open DBVERSION, "../version.txt"; # this is the "current" version and must be set manually to trigger the migration
-  my $dbversion = <DBVERSION>;
+  my $cmd = "env APPCONFIGID=$appconfigid $wsdir/bin/migrate.rb";
+  my $result = cldstr::runtime::Utils::myexec( $cmd );
   
-  open APPCONFIGVERSION, "$appconfigDir/version.txt";
-  my $appconfigVersion = <APPCONFIGVERSION>;
-
-  print "dbversion = $dbversion; appconfigVersion = $appconfigVersion\n";
-
-  if (!$appconfigVersion || ($appconfigVersion < $dbversion)) {
-    #my $result = cldstr::runtime::Utils::myexec( $cmd );
-    my $cmd = "bundle exec env RAILS_ENV=production WAGN_CONFIG_FILE=$appconfigDir/wagn.yml rake db:migrate_and_stamp --trace";
-    my $result = `$cmd`;
-    
-    close APPCONFIGVERSION;
-    open NEWAPPCONFIGVERSION, "$appconfigDir/version.txt";
-    $appconfigVersion = <NEWAPPCONFIGVERSION>;
-    
-    if (!$appconfigVersion || ($appconfigVersion < $dbversion)) {
-      $log->error( "Wagn Migration failed for AppConfig $appconfigid:\n  $cmd\n  $result");
-    } elsif ($result) {
-      $log->debug( "Migrated Wagn for AppConfig $appconfigid:\n $result" );      
-    }
+  if ($result) {
+    $log->error("Wagn Migration FAILURE. For details see /var/log/cldstr+wagn.org+wagn+ws/$appconfigid.log\ncmd = $cmd");
+  } else {
+    $log->debug("Wagn Migration SUCCESS. For details see /var/log/cldstr+wagn.org+wagn+ws/$appconfigid.log");
   }
+}      
 
+
+my $restartcmd = "$wsdir/web/tmp/restart.txt"; 
+my $restartresult = cldstr::runtime::Utils::myexec( $restartcmd );
+if( $restartresult ) {
+    $log->error( "Wagn Restart Failure: $restartresult" );
 }
-
-`touch tmp/restart.txt`;  # restarts Passenger.  this has been moved here from the cldstr-manifest because it produced errors there.
+# restarts Passenger.
 
 
 
