@@ -7,17 +7,15 @@ class Wagn::Renderer::Html
       partname = '_1'.to_cardname.to_absolute main.name
       Card[partname]
     end
-    if part1 and typename = part1.typename and %w{ Market Company }.member?( typename )
-      p1_options = Card.search( :type=> typename, :sort => :name ).map do |opt|
+    if part1 and type_name = part1.typename and %w{ Market Company }.member?( type_name )
+      p1_options = Card.search( :type=> type_name, :sort => :name ).map do |opt|
         [ opt.name, opt.cardname.to_url_key ]
       end
       result << "<select>#{ options_for_select p1_options, part1.cardname.to_url_key }</select>"
       
       if !main.simple?
         part2name = '_2'.to_cardname.to_absolute main.name
-        part2 = Card[part2name]
-        
-        if part2.typename == 'Topic'
+        if part2 = Card[part2name] and part2.typename == 'Topic'
 
           topics_lineage(part2.name).each_with_index do |ancestor, i|
             crit_options = topics_siblings(ancestor, i).map do |crit|
@@ -38,6 +36,17 @@ class Wagn::Renderer::Html
     end
     result
   end
+  
+  
+  define_view :titled, :right=>'source_type' do |args|
+    ''
+  end
+  define_view :missing, :right=>'source_type' do |args|
+    ''
+  end
+  
+  #alias_view :titled, { :right=>'source_type' }, :missing
+  
   
   def topics_siblings topic, index
     wql = if index==0

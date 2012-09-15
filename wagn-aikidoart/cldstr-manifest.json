@@ -1,0 +1,32 @@
+{
+  "type"          : "AppAccessory",
+  "bizmodels"     : [ { "model"    : "free" } ],
+  "architectures" : [ "arch_nwsa_1dbm" ],
+
+  "info" : {
+    "name"            : "aikidoart pack",
+    "tagline"         : "custom code for aikidoart.dwagn.org",
+    "developer"       : "wagn.org",
+    "licenses"        : ["gplv2"],
+    "upstreamversion" : "0.2",
+    "cldstrversion"   : "0.%{now.identifier}",
+  },
+
+  "package" : { 
+    "maintainer"      : "wagn.org",
+    "packagebasename" : "wagn-aikidoart",
+    "distros"         : [ "yellow" ]
+  }, 
+
+  "roles" : {
+    "ws" : {
+      "appconfigitems" : [
+        {
+          "type"         : "symlink",
+          "target"       : "/usr/cldstr/wagn.org/wagn-aikidoart/ws/aikidoart_pack.rb",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/aikidoart_pack.rb"
+        }
+      ]
+    }
+  }
+}

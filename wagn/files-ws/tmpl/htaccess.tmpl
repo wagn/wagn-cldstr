@@ -4,23 +4,20 @@ Options -MultiViews
 # we make heavy use of symlinks.  this is important
 Options +FollowSymLinks
 
-# for uuid gem.  might be better to configure a file?  
-# this is used in a custom initializer in wagn
+# for uuid gem. variable is used in a custom initializer in wagn (uuid_state_file.rb)
 SetEnv UUID_STATE_FILE off
 
-# wagn.yml file sets upload dir, database config file, log file, etc
+# wagn.yml sets upload dir, database config file, log file, etc
 SetEnv WAGN_CONFIG_FILE /var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/wagn.yml
 
-# This is a symlink to the actual AppRoot at /usr/cldstr/wagn.org/wagn/ws/web
-# Without this, passenger knows all apps share the same root and treats them as one instance,
-# screwing up the env variables that need to be different for each
-# in Passenger 3 this is addressable with PassengerAppGroupName
-PassengerAppRoot /var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/web
+# Wagn root dir
+PassengerAppRoot /usr/cldstr/wagn.org/wagn/ws/web
 
-# This sets Rails.env 
-#RackEnv cloudstore 
+# identifies ApplicationSpawner group; without this Passenger overshares among appconfigs
+PassengerAppGroupName ${site.hostname}-${appconfig.appconfigid}
 
-# RackBaseURI is what sets the relative root for the app
-# it sets Rails env var RAILS_RELATIVE_URL_ROOT
+# relative root for the app; sets Rails env var RAILS_RELATIVE_URL_ROOT
 RackBaseURI ${appconfig.contextorslash}
 
+# turn off passenger error pages with traces
+PassengerFriendlyErrorPages off

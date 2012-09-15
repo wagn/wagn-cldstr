@@ -21,21 +21,22 @@
   "roles" : {
     "ws" : {
       "depends" : [
-        "ruby",
-        "rubygems",
+        "cldstr+cldstr.com+passenger+ss",
         "cldstr+cldstr.com+rubygems+ss",
+        "cldstr+cldstr.com+postfix+ss",
+        "cldstr+cldstr.com+memcached+ws",
         "libmysql-ruby",
         "libmysqlclient-dev",
-        "libapache2-mod-passenger",
-        "libapache2-mod-xsendfile",
         "imagemagick",
         "libmagickwand-dev",
-        "cldstr+cldstr.com+postfix+ss",
-        "cldstr+cldstr.com+memcached+ws"
+        "libapache2-mod-passenger",
+        "libapache2-mod-xsendfile"
       ],
       "apache2modules" : [
+        "passenger",
         "expires",
-        "xsendfile"
+        "xsendfile",
+        "headers"
       ],
       "files" : [
         {
@@ -46,9 +47,10 @@
             "/var/log/cldstr+wagn.org+wagn+ws",
             "web/config.ru",
             "web/Gemfile.lock",
-            "web/tmp"
+            "web/tmp",
+            "web/script/rails"
           ]
-        } 
+        }
       ],
       "appconfigitems" : [
         {
@@ -88,19 +90,19 @@
         },
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn/ws/web",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/web"
-        },
-        {
-          "type"         : "symlink",
           "target"       : "/usr/cldstr/wagn.org/wagn/ws/web/public/$4",
           "names"        : [
             "assets",
             "files",
             "404.html",
             "500.html",
-            "robots.txt"
+            "favicon.ico"
           ]
+        },
+        {
+          "type"         : "symlink",
+          "target"       : "/usr/cldstr/wagn.org/wagn/ws/$4",
+          "name"         : "robots.txt"
         },
         {
           "type"         : "file",
