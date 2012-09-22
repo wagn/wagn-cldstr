@@ -3,6 +3,8 @@
 wsDir = '/usr/cldstr/wagn.org/wagn/ws'
 
 appconfigid = ENV['APPCONFIGID']
+raise "no appconfigid" unless appconfigid && !appconfigid.empty?
+
 appconfigDir = "/var/cldstr/wagn.org/wagn/ws/#{appconfigid}"
 LogFile = "/var/log/cldstr+wagn.org+wagn+ws/#{appconfigid}.log"
 

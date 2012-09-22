@@ -135,7 +135,7 @@ class Wagn::Renderer::Html
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
   define_view :raw, :name=>'cp navbox' do |args|
-    %{ <form action="#{Card.path_setting '/:result'}" id="navbox-form" method="get">
+    %{ <form action="#{Card.path_setting '/:search'}" id="navbox-form" method="get">
       #{hidden_field_tag :view, 'content' }
       #{hidden_field_tag :item, 'cp_result_item' }
       #{text_field_tag :_keyword, '', :class=>'navbox'

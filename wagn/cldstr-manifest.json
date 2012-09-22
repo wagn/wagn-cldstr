@@ -20,6 +20,7 @@
 
   "roles" : {
     "ws" : {
+      "defaultcontext" : "/wagn",
       "depends" : [
         "cldstr+cldstr.com+passenger+ss",
         "cldstr+cldstr.com+rubygems+ss",
