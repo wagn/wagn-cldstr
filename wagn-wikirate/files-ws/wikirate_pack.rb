@@ -7,7 +7,7 @@ class Wagn::Renderer::Html
       partname = '_1'.to_cardname.to_absolute main.name
       Card[partname]
     end
-    if part1 and type_name = part1.typename and %w{ Market Company }.member?( type_name )
+    if part1 and type_name = part1.type_name and %w{ Market Company }.member?( type_name )
       p1_options = Card.search( :type=> type_name, :sort => :name ).map do |opt|
         [ opt.name, opt.cardname.to_url_key ]
       end
@@ -15,7 +15,7 @@ class Wagn::Renderer::Html
       
       if !main.simple?
         part2name = '_2'.to_cardname.to_absolute main.name
-        if part2 = Card[part2name] and part2.typename == 'Topic'
+        if part2 = Card[part2name] and part2.type_name == 'Topic'
 
           topics_lineage(part2.name).each_with_index do |ancestor, i|
             crit_options = topics_siblings(ancestor, i).map do |crit|

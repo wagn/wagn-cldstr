@@ -7,7 +7,7 @@
     "name"            : "Wagn",
     "tagline"         : "how pioneers roll",
     "developer"       : "wagn.org",
-    "upstreamversion" : "1.8.pub",
+    "upstreamversion" : "1.9.0",
     "cldstrversion"   : "0.%{now.identifier}",
     "licenses"        : [ "gplv2" ]
   },
@@ -49,9 +49,14 @@
             "web/config.ru",
             "web/Gemfile.lock",
             "web/tmp",
-            "web/script/rails"
+            "web/script/rails",
+            "bin/migrate.rb"
           ]
-        }
+        },
+        {
+          "mode"  : "0666",
+          "paths" : [  "web/tmp/restart.txt" ]
+        }        
       ],
       "appconfigitems" : [
         {
@@ -99,17 +104,12 @@
             "500.html",
             "favicon.ico"
           ]
-        },
-        {
-          "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn/ws/$4",
-          "name"         : "robots.txt"
-        },
-        {
-          "type"         : "file",
-          "name"         : "/usr/cldstr/wagn.org/wagn/ws/web/tmp/restart.txt"
         }
-      ]
+      ],
+      "postappconfiginst" : {
+        "type" : "perlscript",
+        "name" : "bin/migrate.pl"
+      }
     },
     "ctrl" : {
       "appconfigitems" : [
