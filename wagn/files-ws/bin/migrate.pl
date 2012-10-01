@@ -27,7 +27,7 @@ if ( $operation eq 'install' ) {
 }      
 
 
-my $restartcmd = "$wsdir/web/tmp/restart.txt"; 
+my $restartcmd = "touch $wsdir/web/tmp/restart.txt"; 
 my $restartresult = cldstr::runtime::Utils::myexec( $restartcmd );
 if( $restartresult ) {
     $log->error( "Wagn Restart Failure: $restartresult" );

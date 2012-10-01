@@ -33,7 +33,7 @@ if !appconfigVersion or appconfigVersion < dbversion
   migration_results = `#{migration_command}`
 
   msg = "Migration Results:\n  #{migration_command}\n  #{migration_results}"
-  puts msg
+  #puts msg
   log msg 
   appconfigVersion = get_version appconfigDir
   raise msg if !appconfigVersion or appconfigVersion < dbversion
