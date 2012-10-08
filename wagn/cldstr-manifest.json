@@ -88,7 +88,7 @@
           "gname"        : "www-data",
           "mode"         : "0666",
           "name"         : "/var/log/cldstr+wagn.org+wagn+ws/${appconfig.appconfigid}.log"
-        }
+        },
         {
           "type"         : "file",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/database.yml",
