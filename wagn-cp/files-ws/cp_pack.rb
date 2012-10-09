@@ -43,7 +43,7 @@ class Wagn::Renderer::Html
   #~~~~~~~~~~~~~~~~~~~~~~
  
  
-  define_view :missing, :ltype=>'person', :right=>'image' do |args|
+  define_view :missing, :ltype=>:user, :right=>:image do |args|
     wrap :missing_image do
       subrenderer( Card['missing person'] )._render_core
     end
@@ -70,7 +70,7 @@ class Wagn::Renderer::Html
   end
 
   
-  define_view :watch, :type=>'cardtype' do |args|
+  define_view :watch, :type=>:cardtype do |args|
     wrap :watch do
       type_link = card.watching_type? ? "#{watching_type_cards} | " : ""
       plural = card.name.pluralize
@@ -134,7 +134,7 @@ class Wagn::Renderer::Html
   # Everything below is about the special navbox behavior
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
-  define_view :raw, :name=>'cp navbox' do |args|
+  define_view :raw, :name=>:cp_navbox do |args|
     %{ <form action="#{Card.path_setting '/:search'}" id="navbox-form" method="get">
       #{hidden_field_tag :view, 'content' }
       #{hidden_field_tag :item, 'cp_result_item' }
@@ -167,7 +167,7 @@ class Wagn::Renderer::Html
   end
 
     
-  alias_view(:raw, { :name=>'cp navbox' }, :core)
+  alias_view(:raw, { :name=>:cp_navbox }, :core)
   
 end
 
