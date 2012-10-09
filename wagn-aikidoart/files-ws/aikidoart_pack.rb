@@ -1,7 +1,7 @@
 require 'zip/zipfilesystem'
 
 AIKI_ORIG = 'image'
-AIKI_MARK = 'watermark'
+AIKI_MARK = :watermark
 AIKI_UPLOAD = 'item upload'
 
 class AAHelper
@@ -62,7 +62,7 @@ Wagn::Hook.add :after_save, "#{AIKI_ORIG}+*right" do |card|
   require 'RMagick'
   include Magick
 
-  unless card.left.typecode == 'watermark'
+  unless card.left.typecode == AIKI_MARK
   #~~~~~~~~ get "large" version of original and watermark
     img = Magick::Image.read( card.attach.path('large')            ).first
   
