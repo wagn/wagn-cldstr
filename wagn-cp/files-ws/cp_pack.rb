@@ -34,7 +34,7 @@ class Wagn::Renderer::Html
           </div>
         </div>
         #{ wrap_content :titled, _render_core(args) }
-        #{ _render_comment_box }
+        #{ render_comment_box }
       }
     end
   end
@@ -113,7 +113,7 @@ class Wagn::Renderer::Html
     conf = { :closed=>%w{ open open right}, :open=> %w{ closed close down } }
     
     arrow_link = if state==:open or show_arrow
-      link_to '', path(:view, :view=>"#{conf[state][0]}_branch"), :title=>"#{conf[state][1]} #{card.name}",
+      link_to '', path(:read, :view=>"#{conf[state][0]}_branch"), :title=>"#{conf[state][1]} #{card.name}",
           :class=>"title #{conf[state][2]}-arrow slotter", :remote=>true
     else
       %{ <a href="javascript:void()" class="title branch-placeholder"></a> }
