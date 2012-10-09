@@ -8,7 +8,7 @@
     "tagline"         : "special search bar for connectipedia.org",
     "developer"       : "wagn.org",
     "licenses"        : ["gplv2"],
-    "upstreamversion" : "0.2",
+    "upstreamversion" : "1.9.0",
     "cldstrversion"   : "0.%{now.identifier}",
   },
 

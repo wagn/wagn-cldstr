@@ -7,7 +7,7 @@
     "name"            : "Wagn",
     "tagline"         : "how pioneers roll",
     "developer"       : "wagn.org",
-    "upstreamversion" : "1.8.pub",
+    "upstreamversion" : "1.9.0",
     "cldstrversion"   : "0.%{now.identifier}",
     "licenses"        : [ "gplv2" ]
   },
@@ -49,9 +49,14 @@
             "web/config.ru",
             "web/Gemfile.lock",
             "web/tmp",
-            "web/script/rails"
+            "web/script/rails",
+            "bin/migrate.rb"
           ]
-        }
+        },
+        {
+          "mode"  : "0666",
+          "paths" : [  "web/tmp/restart.txt" ]
+        }        
       ],
       "appconfigitems" : [
         {
@@ -79,6 +84,13 @@
         },
         {
           "type"         : "file",
+          "uname"        : "www-data",
+          "gname"        : "www-data",
+          "mode"         : "0666",
+          "name"         : "/var/log/cldstr+wagn.org+wagn+ws/${appconfig.appconfigid}.log"
+        },
+        {
+          "type"         : "file",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/database.yml",
           "template"     : "tmpl/database.yml.tmpl",
           "templatelang" : "varsubst"
@@ -99,17 +111,12 @@
             "500.html",
             "favicon.ico"
           ]
-        },
-        {
-          "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn/ws/$4",
-          "name"         : "robots.txt"
-        },
-        {
-          "type"         : "file",
-          "name"         : "/usr/cldstr/wagn.org/wagn/ws/web/tmp/restart.txt"
         }
-      ]
+      ],
+      "postappconfiginst" : {
+        "type" : "perlscript",
+        "name" : "bin/migrate.pl"
+      }
     },
     "ctrl" : {
       "appconfigitems" : [
