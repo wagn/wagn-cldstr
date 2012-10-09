@@ -1,5 +1,5 @@
 class Wagn::Renderer::Html
-  define_view :core, :name=>'wikirate nav' do |args|
+  define_view :core, :name=>:wikirate_nav do |args|
     result = ''
     main = root.card
     return unless main
@@ -38,10 +38,10 @@ class Wagn::Renderer::Html
   end
   
   
-  define_view :titled, :right=>'source_type' do |args|
+  define_view :titled, :right=>:source_type do |args|
     ''
   end
-  define_view :missing, :right=>'source_type' do |args|
+  define_view :missing, :right=>:source_type do |args|
     ''
   end
   
