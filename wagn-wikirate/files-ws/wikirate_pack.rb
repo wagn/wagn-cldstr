@@ -1,3 +1,28 @@
+module Wagn::Set::Type::Source
+  def autoname name
+#    Rails.logger.info "auto"
+    size_limit = 80
+    
+    %w{ Origin Title Date }.map do |name|
+      field = cards[ "~plus~#{name}" ]
+      value = !field ? nil : field["content"]
+      if value.blank?
+        errors.add :autoname, "need valid #{name}"
+        value = nil
+      else
+        unwanted_characters_regexp = %{[#{(Wagn::Cardname::BANNED_ARRAY + %w{ [ ] n }).join('\\')}/]}
+        value.gsub! /#{unwanted_characters_regexp}/, ''
+        if past_size_limit = value[size_limit+1] and past_size_limit =~ /^\S/
+          value = value[0..size_limit].gsub /\s+\S*$/, '...'
+        end
+      end
+      value
+      name=="Title" ? "<em>#{value}</em>" : value
+    end.compact.join ', '
+  end
+end
+
+
 class Wagn::Renderer::Html
   define_view :core, :name=>:wikirate_nav do |args|
     result = ''
