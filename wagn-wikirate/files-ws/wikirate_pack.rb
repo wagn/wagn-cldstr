@@ -1,13 +1,17 @@
 module Wagn::Set::Type::Source
-  def autoname name
+  def autoname ignore=nil
 #    Rails.logger.info "auto"
     size_limit = 80
     
-    %w{ Origin Title Date }.map do |name|
-      field = cards[ "~plus~#{name}" ]
-      value = !field ? nil : field["content"]
+    %w{ Origin Title Date }.map do |field|
+      value = if cards.blank?
+          #currently only for migrations
+          c = Card["#{self.name}+#{field}"] and c.content
+        else
+          field = cards[ "~plus~#{field}" ] and field["content"]
+        end
       if value.blank?
-        errors.add :autoname, "need valid #{name}"
+        errors.add :autoname, "need valid #{field}"
         value = nil
       else
         unwanted_characters_regexp = %{[#{(Wagn::Cardname::BANNED_ARRAY + %w{ [ ] n }).join('\\')}/]}
@@ -17,7 +21,6 @@ module Wagn::Set::Type::Source
         end
       end
       value
-      name=="Title" ? "<em>#{value}</em>" : value
     end.compact.join ', '
   end
 end
