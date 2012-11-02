@@ -1,6 +1,13 @@
 {
   "type"          : "app",
-  "bizmodels"     : [ { "model" : "free" } ],
+  "bizmodels"     : [ 
+    {
+      "model"      : "subscription",
+      "fee"        : "4.99 USD",
+      "period"     : "1 month",
+      "evalperiod" : "1 month"
+    }
+  ],
   "architectures" : [ "arch_nwsa_1dbm" ],
 
   "info" : {

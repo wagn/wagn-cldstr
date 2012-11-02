@@ -4,7 +4,7 @@ class Wagn::Renderer::Html
     wrap :shade, args do
       %{
         <h1>
-          <a class="shade-link">#{ fancy_title card }</a>
+          <a class="shade-link">#{ fancy_title }</a>
         </h1>
         <div class="shade-content">#{ render_core }</div>
       }
