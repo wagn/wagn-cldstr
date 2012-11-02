@@ -20,9 +20,9 @@ class Wagn::Renderer::Html
       end
     end
     
-    wrap :titled, args do      
+    wrap :titled, args do
+      add_name_context
       %{
-        #{ name_styler }
         <div class="cp-titled-header">
           <div class="cp-titled-right">
             #{ follow_link }
@@ -30,10 +30,10 @@ class Wagn::Renderer::Html
           </div>
           <div class="cp-title">
             #{ type_link }
-            #{ content_tag :h1, fancy_title(card.name), :class=>'titled-header' }
+            #{ content_tag :h1, fancy_title, :class=>'titled-header' }
           </div>
         </div>
-        #{ wrap_content :titled, _render_core(args) }
+        #{ wrap_content( :titled ) { _render_core args } }
         #{ render_comment_box }
       }
     end
@@ -125,7 +125,7 @@ class Wagn::Renderer::Html
           #{ arrow_link }
           #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
         </div> 
-        #{ wrap_content :closed, render_closed_content }
+        #{ wrap_content( :closed ) { render_closed_content } }
       </div>
     }
   end
@@ -150,7 +150,7 @@ class Wagn::Renderer::Html
       <hr>
       <div class="cp-result-top">
         <span class="cp-item-name">
-          #{ link_to_page raw(fancy_title(self.showname || card)), card.name }
+          #{ link_to_page fancy_title, card.name }
         </span>
         <span class="cp-item-date">
           #{ time_ago_in_words card.updated_at } ago

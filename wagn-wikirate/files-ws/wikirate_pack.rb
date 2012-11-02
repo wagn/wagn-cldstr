@@ -37,9 +37,9 @@ class Wagn::Renderer::Html
     end
     if part1 and type_name = part1.type_name and %w{ Market Company }.member?( type_name )
       p1_options = Card.search( :type=> type_name, :sort => :name ).map do |opt|
-        [ opt.name, opt.cardname.to_url_key ]
+        [ opt.name, opt.cardname.url_key ]
       end
-      result << "<select>#{ options_for_select p1_options, part1.cardname.to_url_key }</select>"
+      result << "<select>#{ options_for_select p1_options, part1.cardname.url_key }</select>"
       
       if !main.simple?
         part2name = '_2'.to_cardname.to_absolute main.name
@@ -47,12 +47,12 @@ class Wagn::Renderer::Html
 
           topics_lineage(part2.name).each_with_index do |ancestor, i|
             crit_options = topics_siblings(ancestor, i).map do |crit|
-              [crit.name, "#{part1.name}+#{crit.name}".to_cardname.to_url_key]
+              [crit.name, "#{part1.name}+#{crit.name}".to_cardname.url_key]
             end
             result << %{  
               &raquo;
               <select class="topic-select">
-               #{ options_for_select crit_options, "#{part1.name}+#{ancestor}".to_cardname.to_url_key }
+               #{ options_for_select crit_options, "#{part1.name}+#{ancestor}".to_cardname.url_key }
               </select>
             }
           end
@@ -60,15 +60,20 @@ class Wagn::Renderer::Html
         
       end
       
-      result = %{ <div id="topics-navigation" class="go-to-selected">#{result}</div> }
+      result = %{ <div id="topics-navigation" class="go-to-selected">#{ result }</div> }
     end
     result
   end
   
+  define_view :core, :right=>:claim_perspective do |args|
+    add_name_context
+    _final_core args
+  end
   
   define_view :titled, :right=>:source_type do |args|
     ''
   end
+  
   define_view :missing, :right=>:source_type do |args|
     ''
   end
