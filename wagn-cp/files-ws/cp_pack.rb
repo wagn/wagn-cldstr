@@ -33,7 +33,7 @@ class Wagn::Renderer::Html
             #{ content_tag :h1, fancy_title, :class=>'titled-header' }
           </div>
         </div>
-        #{ wrap_content( :titled ) { _render_core args } }
+        #{ wrap_content :titled, _render_core( args ) }
         #{ render_comment_box }
       }
     end
@@ -125,7 +125,7 @@ class Wagn::Renderer::Html
           #{ arrow_link }
           #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
         </div> 
-        #{ wrap_content( :closed ) { render_closed_content } }
+        #{ wrap_content :closed, render_closed_content }
       </div>
     }
   end
