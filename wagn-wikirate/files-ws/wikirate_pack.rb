@@ -37,7 +37,7 @@ module Wagn
       main = root.card
       return unless main
       part1 = main.simple? ? main : begin
-        partname = '_1'.to_cardname.to_absolute main.name
+        partname = '_1'.to_name.to_absolute main.name
         Card[partname]
       end
       if part1 and type_name = part1.type_name and %w{ Market Company }.member?( type_name )
@@ -47,17 +47,17 @@ module Wagn
         result << "<select>#{ options_for_select p1_options, part1.cardname.url_key }</select>"
       
         if !main.simple?
-          part2name = '_2'.to_cardname.to_absolute main.name
+          part2name = '_2'.to_name.to_absolute main.name
           if part2 = Card[part2name] and part2.type_name == 'Topic'
 
             topics_lineage(part2.name).each_with_index do |ancestor, i|
               crit_options = topics_siblings(ancestor, i).map do |crit|
-                [crit.name, "#{part1.name}+#{crit.name}".to_cardname.url_key]
+                [crit.name, "#{part1.name}+#{crit.name}".to_name.url_key]
               end
               result << %{  
                 &raquo;
                 <select class="topic-select">
-                 #{ options_for_select crit_options, "#{part1.name}+#{ancestor}".to_cardname.url_key }
+                 #{ options_for_select crit_options, "#{part1.name}+#{ancestor}".to_name.url_key }
                 </select>
               }
             end
