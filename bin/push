@@ -12,9 +12,9 @@ fi
 
 cd $MANIFEST_DIR
 case $DISTRO in
-'green')  BRANCH='develop';;
-'yellow') BRANCH='master';;
-'red')    BRANCH='stable';;
+'red')    BRANCH='develop';;
+'yellow') BRANCH='master' ;;
+'green')  BRANCH='stable' ;;
 *)  
   echo "unknown distro: $DISTRO";
   exit 1 ;;
@@ -30,7 +30,7 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 case $DISTRO in
-'green')  
+'red')  
   cd $WAGN_DIR
   git pull origin develop
   git commit -a -m 'auto-pulled latest wagn code'
@@ -45,13 +45,13 @@ case $DISTRO in
   cloud_update stag
   git checkout develop
 ;;
-'red')
+'green')
   git merge master
   cloud_build $DISTRO
   git checkout develop
 ;;
 esac
-  
+
 
 git push
 
