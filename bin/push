@@ -1,0 +1,59 @@
+#!/bin/sh
+
+MANIFEST_DIR=/Users/ethan/dev/cldstr/apps/wagn-cldstr
+WAGN_DIR=$MANIFEST_DIR/wagn/files-ws
+
+DISTRO=$1
+
+if [ -z $DISTRO ]; then
+  echo "usage: update_gems <cloud_name>"
+  exit 1
+fi
+
+cd $MANIFEST_DIR
+case $DISTRO in
+'green')  BRANCH='develop';;
+'yellow') BRANCH='master';;
+'red')    BRANCH='stable';;
+*)  
+  echo "unknown distro: $DISTRO";
+  exit 1 ;;
+esac
+
+git checkout $BRANCH
+git status
+read -p "Is this repo (a) correct and (b) clean? [y/n]" -n 1
+echo ""
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  echo "stopping push to $DISTRO ($BRANCH)"
+  exit 1
+fi
+
+case $DISTRO in
+'green')  
+  cd $WAGN_DIR
+  git pull origin develop
+  git commit -a -m 'auto-pulled latest wagn code'
+  cd $MANIFEST_DIR
+  cloud_build $DISTRO
+  cloud_update dev
+;;
+'yellow')
+  git merge develop
+  cloud_build $DISTRO
+  cloud_update wikirate
+  cloud_update stag
+  git checkout develop
+;;
+'red')
+  git merge master
+  cloud_build $DISTRO
+  git checkout develop
+;;
+esac
+  
+
+git push
+
+ 
+
