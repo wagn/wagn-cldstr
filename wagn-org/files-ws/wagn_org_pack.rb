@@ -1,5 +1,8 @@
-class Wagn::Renderer::Html
+module Wagn::Set::WagnOrg
 
+  include Wagn::Sets
+  format :html
+  
   define_view :shade do |args|
     wrap :shade, args do
       %{

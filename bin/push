@@ -1,7 +1,7 @@
 #!/bin/sh
 
-MANIFEST_DIR=/Users/ethan/dev/cldstr/apps/wagn-cldstr
-WAGN_DIR=$MANIFEST_DIR/wagn/files-ws
+MANIFEST_DIR=/Users/ethan/dev/cldstr/apps/wagn-cldstr/wagn
+WAGN_DIR=$MANIFEST_DIR/files-ws/web
 
 DISTRO=$1
 
@@ -12,9 +12,9 @@ fi
 
 cd $MANIFEST_DIR
 case $DISTRO in
-'green')  BRANCH='develop';;
-'yellow') BRANCH='master';;
-'red')    BRANCH='stable';;
+'red')    BRANCH='develop';;
+'yellow') BRANCH='master' ;;
+'green')  BRANCH='stable' ;;
 *)  
   echo "unknown distro: $DISTRO";
   exit 1 ;;
@@ -22,7 +22,7 @@ esac
 
 git checkout $BRANCH
 git status
-read -p "Is this repo (a) correct and (b) clean? [y/n]" -n 1
+read -p "Is this repo (a) correct and (b) clean? [y/n] " -n 1
 echo ""
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
   echo "stopping push to $DISTRO ($BRANCH)"
@@ -30,11 +30,11 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 case $DISTRO in
-'green')  
+'red')  
   cd $WAGN_DIR
   git pull origin develop
-  git commit -a -m 'auto-pulled latest wagn code'
   cd $MANIFEST_DIR
+  git commit -a -m 'auto-pulled latest wagn code'
   cloud_build $DISTRO
   cloud_update dev
 ;;
@@ -45,13 +45,13 @@ case $DISTRO in
   cloud_update stag
   git checkout develop
 ;;
-'red')
+'green')
   git merge master
   cloud_build $DISTRO
   git checkout develop
 ;;
 esac
-  
+
 
 git push
 
