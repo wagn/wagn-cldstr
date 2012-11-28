@@ -29,6 +29,9 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
   exit 1
 fi
 
+build_packs $DISTRO
+cd $MANIFEST_DIR
+
 case $DISTRO in
 'red')  
   cd $WAGN_DIR
