@@ -1,12 +1,12 @@
 #!/bin/sh
 
-MANIFEST_DIR=/Users/ethan/dev/cldstr/apps/wagn-cldstr/wagn
+MANIFEST_DIR=$CLDHOME/apps/wagn-cldstr/wagn
 WAGN_DIR=$MANIFEST_DIR/files-ws/web
 
 DISTRO=$1
 
 if [ -z $DISTRO ]; then
-  echo "usage: update_gems <cloud_name>"
+  echo "usage: push <distro>"
   exit 1
 fi
 
