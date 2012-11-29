@@ -1,0 +1,21 @@
+#!/bin/sh
+
+APP_DIR=$CLDHOME/apps/wagn-cldstr/
+DISTRO=$1
+
+if [ -z $DISTRO ]; then
+  echo "usage: build_packs <distro>"
+  exit 1
+fi
+
+
+cd $APP_DIR
+
+for PACK_DIR in wagn-*
+do
+  cd $PACK_DIR
+  cloud_build $DISTRO
+  cd -
+done
+ 
+
