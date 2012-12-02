@@ -21,7 +21,7 @@ def log msg
   end
 end
 
-dbversion = get_version wsDir
+dbversion = get_version "#{wsDir}/web/db"
 appconfigVersion = get_version appconfigDir
 
 #raise "DELETE ME" unless appconfigid == 'a0005'
