@@ -1,5 +1,5 @@
 module Wagn
-  module Wagn::Sets::Connectipedia
+  module Set::Connectipedia
     include Sets
     format :html
   
@@ -89,9 +89,7 @@ module Wagn
     end
 
   
-    def watching_type_cards
-      %{<span class="watch-no-toggle">Following all #{ card.type_name.pluralize }</span>}
-    end
+
  
  
     # ALL the "branch" stuff is about the special Topics tree
@@ -112,26 +110,7 @@ module Wagn
       end
     end
   
-    def basic_branch state, show_arrow=true
-      conf = { :closed=>%w{ open open right}, :open=> %w{ closed close down } }
-    
-      arrow_link = if state==:open or show_arrow
-        link_to '', path(:read, :view=>"#{conf[state][0]}_branch"), :title=>"#{conf[state][1]} #{card.name}",
-            :class=>"title #{conf[state][2]}-arrow slotter", :remote=>true
-      else
-        %{ <a href="javascript:void()" class="title branch-placeholder"></a> }
-      end
-    
-      %{ 
-        <div class="closed-view">
-          <div class="card-header">
-            #{ arrow_link }
-            #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
-          </div> 
-          #{ wrap_content :closed, render_closed_content }
-        </div>
-      }
-    end
+
   
   
     # Everything below is about the special navbox behavior
@@ -174,6 +153,34 @@ module Wagn
   
   end
 
+
+  class Renderer::Html
+    def basic_branch state, show_arrow=true
+      arrow_link = case
+        when state==:open
+          link_to raw('&otimes;'), path(:read, :view=>"closed_branch"), :title=>"close #{card.name}",
+            :class=>"title slotter", :remote=>true
+        when show_arrow
+          link_to raw('&oplus;'),  path(:read, :view=>"open_branch"), :title=>"open #{card.name}",
+            :class=>"title slotter", :remote=>true          
+        else
+          %{ <a href="javascript:void()" class="title branch-placeholder"></a> }
+        end
+    
+      %{ 
+        <div class="closed-view">
+          <div class="card-header">
+            #{ arrow_link }
+            #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
+          </div> 
+          #{ wrap_content(:closed) { render_closed_content } }
+        </div>
+      }
+    end
+    def watching_type_cards
+      %{<span class="watch-no-toggle">Following all #{ card.type_name.pluralize }</span>}
+    end
+  end
 
   class Renderer::Json 
     # bit of a hack to make navbox results restrictable
