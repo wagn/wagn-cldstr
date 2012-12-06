@@ -36,7 +36,7 @@ module Wagn
               #{ content_tag :h1, fancy_title, :class=>'titled-header' }
             </div>
           </div>
-          #{ wrap_content :titled, _render_core( args ) }
+          #{ wrap_content(:titled) { _render_core args } }
           #{ render_comment_box }
         }
       end
