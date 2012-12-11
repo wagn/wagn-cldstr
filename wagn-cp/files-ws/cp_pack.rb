@@ -88,9 +88,6 @@ module Wagn
       end
     end
 
-  
-
- 
  
     # ALL the "branch" stuff is about the special Topics tree
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -109,8 +106,6 @@ module Wagn
         basic_branch(:open) + subrenderer( subtopics_card, :item_view => :closed_branch )._render_content
       end
     end
-  
-
   
   
     # Everything below is about the special navbox behavior
@@ -148,6 +143,18 @@ module Wagn
       end
     end
 
+    define_view :mmt_confirm, :tags=>:unknown_ok do |args|
+      roles = card.who_can(:read).map{ |id| Card[id].name }
+      fieldset "confirm permissions", (editor_wrap(:mmt_confirm) do
+        %{
+          <div style="text-align: left">
+            #{ radio_button_tag 'card[comment_author]', 'restrict', false, :onclick=>'this.form.submit()' } <label>restrict to MMT Staff</label><br/>
+            #{ radio_button_tag 'card[comment_author]', 'allow', false,    :onclick=>'this.form.submit()' } <label>do not restrict</label>
+          </div>
+          }
+      end),
+      :help => "<div style='font-weight:normal'>By default, this card will be visible to: #{roles*', '}.</div>"
+    end
     
     alias_view(:raw, { :name=>:cp_navbox }, :core)
   
@@ -199,6 +206,29 @@ module Wagn
         p.delete('_wql') if p['_wql'] && !p['_wql']['type'].present?
         p
       end      
+    end
+  end
+  
+  Hook.add :after_create, '*all' do |card|
+    role_name = 'MMT staff'
+    if# !Account.always_ok? and                                                  # user is not admin
+      Account.as_card.fetch(:trait=>:roles).item_names.member?( role_name ) and # user is mmt staff
+      card.who_can(:read) != [Card[role_name].id]                             # card is not already restricted to MMT Staff
+      
+      case card.comment_author #KLUDGE!!! using this to hold restriction info.  need to figure out how to get params through.
+      when nil
+        card.errors.add :mmt, 'hack'
+        card.error_view = :mmt_confirm
+        raise ActiveRecord::Rollback, "kludge"
+      when 'restrict'
+        Account.as_bot do
+          [:read, :update, :delete].each do |task|
+            Card.create! :name=>"#{card.name}+*self+*#{task}", :content=>"[[#{role_name}]]"
+          end
+        end
+      when 'allow'
+        # noop
+      end
     end
   end
 
