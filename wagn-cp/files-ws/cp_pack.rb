@@ -11,7 +11,7 @@ module Wagn
     
       if !card.virtual? && card.ok?(:update)
         text = (icon_card = Card['edit_icon']) ? subrenderer(icon_card)._render_core : 'edit' 
-        edit_link = link_to_action text, :edit, :class=>'slotter titled-edit-link'
+        edit_link = link_to_action( text, :edit, :class=>'slotter titled-edit-link' ) + raw(_render_menu)
       end
 
       if main?
@@ -24,16 +24,15 @@ module Wagn
       end
     
       wrap :titled, args do
-        add_name_context
         %{
           <div class="cp-titled-header">
-            <div class="cp-titled-right">
+            <div class="cp-titled-right card-menu-link">
               #{ follow_link }
-              #{ edit_link } 
+              #{ edit_link }
             </div>
             <div class="cp-title">
               #{ type_link }
-              #{ content_tag :h1, fancy_title, :class=>'titled-header' }
+              #{ _render_title }
             </div>
           </div>
           #{ wrap_content(:titled) { _render_core args } }
@@ -165,11 +164,11 @@ module Wagn
     def basic_branch state, show_arrow=true
       arrow_link = case
         when state==:open
-          link_to raw('&otimes;'), path(:read, :view=>"closed_branch"), :title=>"close #{card.name}",
-            :class=>"title slotter", :remote=>true
+          link_to '', path(:read, :view=>"closed_branch"), :title=>"close #{card.name}", :remote=>true,
+            :class=>"ui-icon ui-icon-circle-triangle-s toggler slotter"
         when show_arrow
-          link_to raw('&oplus;'),  path(:read, :view=>"open_branch"), :title=>"open #{card.name}",
-            :class=>"title slotter", :remote=>true          
+          link_to '',  path(:read, :view=>"open_branch"), :title=>"open #{card.name}", :remote=>true,
+            :class=>"ui-icon ui-icon-circle-triangle-e toggler slotter"
         else
           %{ <a href="javascript:void()" class="title branch-placeholder"></a> }
         end
@@ -211,7 +210,8 @@ module Wagn
   
   Hook.add :after_create, '*all' do |card|
     role_name = 'MMT staff'
-    if# !Account.always_ok? and                                                  # user is not admin
+    if card.nested_edit and
+    # !Account.always_ok? and                                                  # user is not admin
       Account.as_card.fetch(:trait=>:roles).item_names.member?( role_name ) and # user is mmt staff
       card.who_can(:read) != [Card[role_name].id]                             # card is not already restricted to MMT Staff
       
