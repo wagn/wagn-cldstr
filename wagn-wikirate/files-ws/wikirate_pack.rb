@@ -81,6 +81,13 @@ module Wagn
     define_view :missing, :right=>:source_type do |args|
       ''
     end
+    
+    define_view :name_editor, :type=>:claim do |args|
+      fieldset 'claim', (editor_wrap :name do
+         raw( name_field form )
+      end)
+    end
+    
     #alias_view :titled, { :right=>'source_type' }, :missing
   
   end
