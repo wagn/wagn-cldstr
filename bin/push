@@ -37,8 +37,8 @@ case $DISTRO in
   build_packs $DISTRO  
   cd $WAGN_DIR
   git pull origin develop
-  git commit -a -m 'auto-pulled latest wagn code'
   cd $MANIFEST_DIR
+  git commit -a -m 'auto-pulled latest wagn code'
   cloud_build $DISTRO
   cloud_update dev
 ;;
