@@ -53,6 +53,7 @@ case $DISTRO in
 ;;
 'green')
   git merge master
+  cd ..
   git submodule update
   build_packs $DISTRO
   cd $MANIFEST_DIR
