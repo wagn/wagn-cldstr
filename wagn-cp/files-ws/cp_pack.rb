@@ -1,5 +1,5 @@
 module Wagn
-  module Wagn::Sets::Connectipedia
+  module Set::Connectipedia
     include Sets
     format :html
   
@@ -11,7 +11,7 @@ module Wagn
     
       if !card.virtual? && card.ok?(:update)
         text = (icon_card = Card['edit_icon']) ? subrenderer(icon_card)._render_core : 'edit' 
-        edit_link = link_to_action text, :edit, :class=>'slotter titled-edit-link'
+        edit_link = link_to_action( text, :edit, :class=>'slotter titled-edit-link' ) + raw(_render_menu)
       end
 
       if main?
@@ -24,19 +24,18 @@ module Wagn
       end
     
       wrap :titled, args do
-        add_name_context
         %{
           <div class="cp-titled-header">
-            <div class="cp-titled-right">
+            <div class="cp-titled-right card-menu-link">
               #{ follow_link }
-              #{ edit_link } 
+              #{ edit_link }
             </div>
             <div class="cp-title">
               #{ type_link }
-              #{ content_tag :h1, fancy_title, :class=>'titled-header' }
+              #{ _render_title }
             </div>
           </div>
-          #{ wrap_content :titled, _render_core( args ) }
+          #{ wrap_content(:titled) { _render_core args } }
           #{ render_comment_box }
         }
       end
@@ -88,11 +87,6 @@ module Wagn
       end
     end
 
-  
-    def watching_type_cards
-      %{<span class="watch-no-toggle">Following all #{ card.type_name.pluralize }</span>}
-    end
- 
  
     # ALL the "branch" stuff is about the special Topics tree
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,27 +104,6 @@ module Wagn
       wrap :open_branch do
         basic_branch(:open) + subrenderer( subtopics_card, :item_view => :closed_branch )._render_content
       end
-    end
-  
-    def basic_branch state, show_arrow=true
-      conf = { :closed=>%w{ open open right}, :open=> %w{ closed close down } }
-    
-      arrow_link = if state==:open or show_arrow
-        link_to '', path(:read, :view=>"#{conf[state][0]}_branch"), :title=>"#{conf[state][1]} #{card.name}",
-            :class=>"title #{conf[state][2]}-arrow slotter", :remote=>true
-      else
-        %{ <a href="javascript:void()" class="title branch-placeholder"></a> }
-      end
-    
-      %{ 
-        <div class="closed-view">
-          <div class="card-header">
-            #{ arrow_link }
-            #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
-          </div> 
-          #{ wrap_content :closed, render_closed_content }
-        </div>
-      }
     end
   
   
@@ -169,11 +142,51 @@ module Wagn
       end
     end
 
+    define_view :mmt_confirm, :tags=>:unknown_ok do |args|
+      roles = card.who_can(:read).map{ |id| Card[id].name }
+      fieldset "confirm permissions", (editor_wrap(:mmt_confirm) do
+        %{
+          <div style="text-align: left">
+            #{ radio_button_tag 'card[comment_author]', 'restrict', false, :onclick=>'this.form.submit()' } <label>restrict to MMT Staff</label><br/>
+            #{ radio_button_tag 'card[comment_author]', 'allow', false,    :onclick=>'this.form.submit()' } <label>do not restrict</label>
+          </div>
+          }
+      end),
+      :help => "<div style='font-weight:normal'>By default, this card will be visible to: #{roles*', '}.</div>"
+    end
     
     alias_view(:raw, { :name=>:cp_navbox }, :core)
   
   end
 
+
+  class Renderer::Html
+    def basic_branch state, show_arrow=true
+      arrow_link = case
+        when state==:open
+          link_to '', path(:read, :view=>"closed_branch"), :title=>"close #{card.name}", :remote=>true,
+            :class=>"ui-icon ui-icon-circle-triangle-s toggler slotter"
+        when show_arrow
+          link_to '',  path(:read, :view=>"open_branch"), :title=>"open #{card.name}", :remote=>true,
+            :class=>"ui-icon ui-icon-circle-triangle-e toggler slotter"
+        else
+          %{ <a href="javascript:void()" class="title branch-placeholder"></a> }
+        end
+    
+      %{ 
+        <div class="closed-view">
+          <div class="card-header">
+            #{ arrow_link }
+            #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
+          </div> 
+          #{ wrap_content(:closed) { render_closed_content } }
+        </div>
+      }
+    end
+    def watching_type_cards
+      %{<span class="watch-no-toggle">Following all #{ card.type_name.pluralize }</span>}
+    end
+  end
 
   class Renderer::Json 
     # bit of a hack to make navbox results restrictable
@@ -192,6 +205,30 @@ module Wagn
         p.delete('_wql') if p['_wql'] && !p['_wql']['type'].present?
         p
       end      
+    end
+  end
+  
+  Hook.add :after_create, '*all' do |card|
+    role_name = 'MMT staff'
+    if !card.nested_edit and
+      !Account.always_ok? and                                                   # user is not admin
+      Account.as_card.fetch(:trait=>:roles).item_names.member?( role_name ) and # user is mmt staff
+      card.who_can(:read) != [ Card[role_name].id ]                             # card is not already restricted to MMT Staff
+      
+      case card.comment_author #KLUDGE!!! using this to hold restriction info.  need to figure out how to get params through.
+      when nil
+        card.errors.add :mmt, 'mmt confi'
+        card.error_view = :mmt_confirm
+        raise ActiveRecord::Rollback, "kludge"
+      when 'restrict'
+        Account.as_bot do
+          [:read, :update, :delete].each do |task|
+            Card.create! :name=>"#{card.name}+*self+*#{task}", :content=>"[[#{role_name}]]"
+          end
+        end
+      when 'allow'
+        # noop
+      end
     end
   end
 
