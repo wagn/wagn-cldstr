@@ -41,7 +41,7 @@ module Wagn
       end
     end
  
-    # show default image if person has no image
+    # show default image if user has no image
     #~~~~~~~~~~~~~~~~~~~~~~
  
  
