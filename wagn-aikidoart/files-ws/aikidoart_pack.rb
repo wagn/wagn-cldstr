@@ -121,7 +121,7 @@ module Wagn
     end
   
     define_view :core, :right=>AIKI_MARK do |args|
-      if !User.logged_in?
+      if !Account.logged_in?
         args[:size] = :medium if [:large, :full, :original].member?( args[:size] )
       end
       _final_image_type_core args
