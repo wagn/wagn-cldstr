@@ -30,7 +30,7 @@ if !appconfigVersion or appconfigVersion < dbversion
   Dir.chdir "#{wsDir}/web" # get us into the web directory, from which the migrate command must be run
     
   migration_command = "bundle exec env RAILS_ENV=production WAGN_CONFIG_FILE=#{appconfigDir}/wagn.yml rake db:migrate_and_stamp --trace"
-  migration_results = `#{migration_command}`
+  migration_results = `#{migration_command} 2>&1`
 
   msg = "Migration Results:\n  #{migration_command}\n  #{migration_results}"
   #puts msg
