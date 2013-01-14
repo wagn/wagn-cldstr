@@ -11,7 +11,7 @@ module Wagn
     
       if !card.virtual? && card.ok?(:update)
         text = (icon_card = Card['edit_icon']) ? subrenderer(icon_card)._render_core : 'edit' 
-        edit_link = link_to_action( text, :edit, :class=>'slotter titled-edit-link' ) + raw(_render_menu)
+        edit_link = link_to_view( text, :edit, :class=>'slotter titled-edit-link' ) + raw(_render_menu)
       end
 
       if main?
@@ -164,10 +164,10 @@ module Wagn
     def basic_branch state, show_arrow=true
       arrow_link = case
         when state==:open
-          link_to '', path(:read, :view=>"closed_branch"), :title=>"close #{card.name}", :remote=>true,
+          link_to '', path(:view=>"closed_branch"), :title=>"close #{card.name}", :remote=>true,
             :class=>"ui-icon ui-icon-circle-triangle-s toggler slotter"
         when show_arrow
-          link_to '',  path(:read, :view=>"open_branch"), :title=>"open #{card.name}", :remote=>true,
+          link_to '',  path(:view=>"open_branch"), :title=>"open #{card.name}", :remote=>true,
             :class=>"ui-icon ui-icon-circle-triangle-e toggler slotter"
         else
           %{ <a href="javascript:void()" class="title branch-placeholder"></a> }
