@@ -4,28 +4,33 @@ MANIFEST_DIR=$CLDHOME/apps/wagn-cldstr/wagn
 WAGN_DIR=$MANIFEST_DIR/files-ws/web
 
 DISTRO=$1
+WAGN_BRANCH=$2
 
 if [ -z $DISTRO ]; then
   echo "usage: push <distro>"
   exit 1
 fi
 
+if [ -z $WAGN_BRANCH ]; then
+  WAGN_BRANCH=develop
+fi
+
 cd $MANIFEST_DIR
 case $DISTRO in
-'red')    BRANCH='develop';;
-'yellow') BRANCH='master' ;;
-'green')  BRANCH='stable' ;;
+'red')    WAGN_CLDSTR_BRANCH='develop';;
+'yellow') WAGN_CLDSTR_BRANCH='master' ;;
+'green')  WAGN_CLDSTR_BRANCH='stable' ;;
 *)  
   echo "unknown distro: $DISTRO";
   exit 1 ;;
 esac
 
-git checkout $BRANCH
+git checkout $WAGN_CLDSTR_BRANCH
 git status
 read -p "Is this repo (a) correct and (b) clean? [y/n] " -n 1
 echo ""
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-  echo "stopping push to $DISTRO ($BRANCH)"
+  echo "stopping push to $DISTRO ($WAGN_CLDSTR_BRANCH)"
   exit 1
 fi
 
@@ -36,7 +41,7 @@ case $DISTRO in
 'red')
   build_packs $DISTRO  
   cd $WAGN_DIR
-  git pull origin develop
+  git pull origin $WAGN_BRANCH
   cd $MANIFEST_DIR
   git commit -a -m 'auto-pulled latest wagn code'
   cloud_build $DISTRO
