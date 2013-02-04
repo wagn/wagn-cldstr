@@ -27,12 +27,12 @@ esac
 
 git checkout $WAGN_CLDSTR_BRANCH
 git status
-read -p "Is this repo (a) correct and (b) clean? [y/n] " -n 1
-echo ""
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-  echo "stopping push to $DISTRO ($WAGN_CLDSTR_BRANCH)"
-  exit 1
-fi
+#read -p "Is this repo (a) correct and (b) clean? [y/n] " -n 1
+#echo ""
+#if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+#  echo "stopping push to $DISTRO ($WAGN_CLDSTR_BRANCH)"
+#  exit 1
+#fi
 
 
 
