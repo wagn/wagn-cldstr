@@ -39,7 +39,7 @@ git status
 
 case $DISTRO in
 'red')
-#  build_packs $DISTRO  
+  build_packs $DISTRO  
   cd $WAGN_DIR
   git pull origin $WAGN_BRANCH
   cd $MANIFEST_DIR
