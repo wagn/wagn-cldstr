@@ -211,13 +211,13 @@ module Wagn
   Hook.add :after_create, '*all' do |card|
     role_name = 'MMT staff'
     if !card.nested_edit and
-      !Account.always_ok? and                                                   # user is not admin
-      Account.as_card.fetch(:trait=>:roles).item_names.member?( role_name ) and # user is mmt staff
-      card.who_can(:read) != [ Card[role_name].id ]                             # card is not already restricted to MMT Staff
+      !Account.always_ok? and                                                             # user is not admin
+      Account.as_card.fetch(:trait=>:roles, :new=>{}).item_names.member?( role_name ) and # user is mmt staff
+      card.who_can(:read) != [ Card[role_name].id ]                                       # card is not already restricted to MMT Staff
       
       case card.comment_author #KLUDGE!!! using this to hold restriction info.  need to figure out how to get params through.
       when nil
-        card.errors.add :mmt, 'mmt confi'
+        card.errors.add :mmt, 'mmt confirm'
         card.error_view = :mmt_confirm
         raise ActiveRecord::Rollback, "kludge"
       when 'restrict'
