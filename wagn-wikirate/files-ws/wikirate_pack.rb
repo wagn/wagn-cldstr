@@ -85,7 +85,27 @@ module Wagn
     define_view :name_editor, :type=>:claim do |args|
       fieldset 'claim', (editor_wrap :name do
          raw( name_field form )
-      end)
+      end), :help=>''
+    end
+    
+    
+    
+    # ALL the "branch" stuff is about the special Topics tree
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+    define_view :closed_branch do |args|
+      has_subtopics = Card["#{card.cardname.trunk_name}+subtopics"]
+      wrap :closed_branch do
+        basic_branch :closed, !!has_subtopics
+      end
+    end
+  
+    define_view :open_branch do |args|
+      @paging_params = { :limit=> 1000 }
+      subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+branches"#{}"+unlimited"
+      wrap :open_branch do
+        basic_branch(:open) + subrenderer( subtopics_card, :item_view => :closed_branch )._render_content
+      end
     end
     
     #alias_view :titled, { :right=>'source_type' }, :missing
@@ -94,6 +114,29 @@ module Wagn
 
   
   class Renderer::Html
+    def basic_branch state, show_arrow=true
+      arrow_link = case
+        when state==:open
+          link_to '', path(:view=>"closed_branch"), :title=>"close #{card.name}", :remote=>true,
+            :class=>"ui-icon ui-icon-circle-triangle-s toggler slotter"
+        when show_arrow
+          link_to '',  path(:view=>"open_branch"), :title=>"open #{card.name}", :remote=>true,
+            :class=>"ui-icon ui-icon-circle-triangle-e toggler slotter"
+        else
+          %{ <a href="javascript:void()" class="title branch-placeholder"></a> }
+        end
+    
+      %{ 
+        <div class="closed-view">
+          <div class="card-header">
+            #{ arrow_link }
+            #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
+          </div> 
+          #{ wrap_content(:closed) { render_closed_content } }
+        </div>
+      }
+    end
+    
     def topics_siblings topic, index
       wql = if index==0
         { :not=> { :referred_to_by=> {:right=>'subtopic'} } }
