@@ -104,7 +104,7 @@ module Wagn
       @paging_params = { :limit=> 1000 }
       subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+branches"#{}"+unlimited"
       wrap :open_branch do
-        basic_branch(:open) + subrenderer( subtopics_card, :item_view => :closed_branch )._render_content
+        basic_branch(:open) + subrenderer( subtopics_card )._render_content( :item => :closed_branch )
       end
     end
     
