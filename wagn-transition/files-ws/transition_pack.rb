@@ -24,9 +24,6 @@ module Wagn
     define_view :core, :right=>:pattern_summary do |args|
       add_name_context
       _final_core args
-    end
-    
-    
+    end    
   end
-
 end
