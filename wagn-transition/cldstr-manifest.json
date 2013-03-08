@@ -23,7 +23,7 @@
       "appconfigitems" : [
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn-cp/ws/transition_pack.rb",
+          "target"       : "/usr/cldstr/wagn.org/wagn-transition/ws/transition_pack.rb",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/transition_pack.rb"
         }
       ]
