@@ -92,7 +92,7 @@ module Wagn
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
     define_view :closed_branch do |args|
-      has_subtopics = Card["#{card.cardname.trunk_name}+subtopics"]
+      has_subtopics = Card.exists? "#{card.cardname.trunk_name}+subtopics"
       wrap :closed_branch do
         basic_branch :closed, !!has_subtopics
       end
