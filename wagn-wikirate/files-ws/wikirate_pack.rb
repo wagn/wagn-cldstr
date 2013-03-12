@@ -94,17 +94,17 @@ module Wagn
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
     define_view :closed_branch do |args|
-      has_subtopics = Card["#{card.cardname.trunk_name}+subtopics"]
       wrap :closed_branch do
-        basic_branch :closed, !!has_subtopics
+        basic_branch :closed, show_arrow = branch_has_kids?
       end
     end
   
     define_view :open_branch do |args|
       @paging_params = { :limit=> 1000 }
-      subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+branches"#{}"+unlimited"
+      subtopics_card = Card.fetch "#{card.cardname.trunk_name}+*children+branch"#{}"+unlimited"
       wrap :open_branch do
-        basic_branch(:open) + subrenderer( subtopics_card )._render_content( :item => :closed_branch )
+        basic_branch(:open) + 
+        subrenderer( subtopics_card )._render_content( :item => :closed_branch )
       end
     end
     
@@ -114,14 +114,37 @@ module Wagn
 
   
   class Renderer::Html
+    def branch_has_kids?
+      branch_card = card.trunk
+      case field = tree_children_field(branch_card.type_name)
+      when nil      ; false
+      when 'always' ; true
+      else Card.exists? "#{branch_card.name}+#{field}"
+      end
+    end
+
+    # not great naming.  Idea is to be able to see at a glance whether a card has children.
+    # if represented as a pointer from the card (eg <topic>+subtopics), then "subtopics" is the val we're going for.
+    # otherwise it gets more complex...
+    def tree_children_field type_name
+      @@tree_children_field ||= {}
+      if @@tree_children_field.has_key? type_name
+        @@tree_children_field[type_name]
+      else
+        @@tree_children_field[type_name] = begin
+          field = Card.fetch("#{type_name}+*tree children field") and
+            field.item_names.first
+        end
+      end
+    end
+    
     def basic_branch state, show_arrow=true
+      branch_name = card.cardname.trunk
       arrow_link = case
         when state==:open
-          link_to '', path(:view=>"closed_branch"), :title=>"close #{card.name}", :remote=>true,
-            :class=>"ui-icon ui-icon-circle-triangle-s toggler slotter"
+          link_to_view '', :closed_branch, :title=>"close #{branch_name}", :class=>"ui-icon ui-icon-circle-triangle-s toggler slotter"
         when show_arrow
-          link_to '',  path(:view=>"open_branch"), :title=>"open #{card.name}", :remote=>true,
-            :class=>"ui-icon ui-icon-circle-triangle-e toggler slotter"
+          link_to_view '', :open_branch, :title=>"open #{branch_name}", :class=>"ui-icon ui-icon-circle-triangle-e toggler slotter"
         else
           %{ <a href="javascript:void()" class="title branch-placeholder"></a> }
         end
@@ -130,7 +153,7 @@ module Wagn
         <div class="closed-view">
           <div class="card-header">
             #{ arrow_link }
-            #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
+            #{ link_to_page branch_name, nil, :class=>"branch-direct-link", :title=>"go to #{branch_name}" }
           </div> 
           #{ wrap_content(:closed) { render_closed_content } }
         </div>
