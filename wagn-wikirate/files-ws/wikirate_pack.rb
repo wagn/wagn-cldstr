@@ -32,42 +32,43 @@ module Wagn
 
     format :html
     
+
+    
     define_view :core, :name=>:wikirate_nav do |args|
-      result = ''
-      main = root.card
-      return unless main
-      part1 = main.simple? ? main : begin
-        partname = '_1'.to_name.to_absolute main.name
-        Card[partname]
-      end
-      if part1 and type_name = part1.type_name and %w{ Market Company }.member?( type_name )
-        p1_options = Card.search( :type=> type_name, :sort => :name ).map do |opt|
-          [ opt.name, opt.cardname.url_key ]
-        end
-        result << "<select>#{ options_for_select p1_options, part1.cardname.url_key }</select>"
       
-        if !main.simple?
+      if main = root.card
+        base = main.simple? ? main : begin
+          partname = '_1'.to_name.to_absolute main.name
+          Card[partname]
+        end
+        base_type = base.type_name
+        return '' unless  %w{ Market Company }.member? base_type
+      
+        topics = if main.junction?
           part2name = '_2'.to_name.to_absolute main.name
           if part2 = Card[part2name] and part2.type_name == 'Topic'
-
-            topics_lineage(part2.name).each_with_index do |ancestor, i|
-              crit_options = topics_siblings(ancestor, i).map do |crit|
-                [crit.name, "#{part1.name}+#{crit.name}".to_name.url_key]
-              end
-              result << %{  
-                &raquo;
-                <select class="topic-select">
-                 #{ options_for_select crit_options, "#{part1.name}+#{ancestor}".to_name.url_key }
-                </select>
-              }
-            end
+            topics_lineage(part2.name)
           end
         end
+        links = [ [ base.name, nil, base_type ] ]
+        topics.each { |topic| links << [topic, "#{base.name}+#{topic}", 'Topic', ] }
       
-        result = %{ <div id="topics-navigation" class="go-to-selected">#{ result }</div> }
+        %{
+          <div id="wikirate-nav">
+          #{
+            links.map do |text, title, type|
+              link_to_page text, title, :navType=>type
+            end * "<span>&raquo;</span>"
+          }
+          </div>
+        }
       end
-      result
     end
+    
+    # /card/update/Company?card[codename]=wikirate_company
+    # /card/update/Topic?card[codename]=wikirate_topic
+
+    
   
     define_view :core, :right=>:claim_perspective do |args|
       add_name_context
@@ -108,12 +109,54 @@ module Wagn
       end
     end
     
+    define_view :navdrop do |args|
+      items = Card.search( :type_id=>card.type_id, :sort=>:name, :return=>:name ).map do |item|
+        %{<li>#{ link_to_page item }</li>}
+      end.join "\n"
+      %{ <ul>#{items}</ul> }
+    end
+    
+    define_view :navdrop, :type=>:wikirate_analysis do |args|
+      anchor_name = card.cardname.trunk_name
+      topic_name = card.cardname.tag_name
+      index = params[:index].to_i - 1
+      items = topics_siblings( topic_name, index).map do |item|
+        %{<li>#{ link_to_page item, "#{anchor_name}+#{item}" }</li>}
+      end.join "\n"
+      %{ <ul>#{items}</ul> }
+    end
+    
     #alias_view :titled, { :right=>'source_type' }, :missing
   
   end
 
   
   class Renderer::Html
+    
+    def topics_siblings topic, index
+      wql = if index==0
+        { :not=> { :referred_to_by=> {:right=>'subtopic'} } }
+      else
+        { :referred_to_by=>
+          { :right=>'subtopic', 
+            :left=>
+            { :type=>'Topic',
+              :right_plus=>['subtopic', {:refer_to=>topic} ]
+            }
+          }
+        }
+      end
+      
+      Card.search( { :type=>'Topic', :sort=>'name', :return=>'name' }.merge( wql ) )
+    end
+  
+    def topics_lineage topic
+      child = [ topic ]
+      c = Card.search :type=>'Topic', :right_plus=>['subtopic', {:refer_to=>topic} ], :return=>'name'
+      ancestors = c.empty? ? [] : topics_lineage( c[0] )
+      ancestors + child
+    end
+    
     def branch_has_kids?
       branch_card = card.trunk
       case field = tree_children_field(branch_card.type_name)
@@ -160,28 +203,6 @@ module Wagn
       }
     end
     
-    def topics_siblings topic, index
-      wql = if index==0
-        { :not=> { :referred_to_by=> {:right=>'subtopic'} } }
-      else
-        { :referred_to_by=>
-          { :right=>'subtopic', 
-            :left=>
-            { :type=>'Topic',
-              :right_plus=>['subtopic', {:refer_to=>topic} ]
-            }
-          }
-        }
-      end
-      
-      Card.search( { :type=>'Topic', :sort=>'name' }.merge( wql ) )
-    end
-  
-    def topics_lineage topic
-      child = [ topic ]
-      c = Card.search :type=>'Topic', :right_plus=>['subtopic', {:refer_to=>topic} ], :return=>'name'
-      ancestors = c.empty? ? [] : topics_lineage( c[0] )
-      ancestors + child
-    end 
+
   end
 end
