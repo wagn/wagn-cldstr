@@ -111,7 +111,8 @@ module Wagn
     
     define_view :navdrop do |args|
       items = Card.search( :type_id=>card.type_id, :sort=>:name, :return=>:name ).map do |item|
-        %{<li>#{ link_to_page item }</li>}
+        klass = item.to_name.key == card.key ? 'class="current-item"' : ''
+        %{<li #{ klass }>#{ link_to_page item }</li>}
       end.join "\n"
       %{ <ul>#{items}</ul> }
     end
@@ -121,7 +122,8 @@ module Wagn
       topic_name = card.cardname.tag_name
       index = params[:index].to_i - 1
       items = topics_siblings( topic_name, index).map do |item|
-        %{<li>#{ link_to_page item, "#{anchor_name}+#{item}" }</li>}
+        klass = item.to_name.key == topic_name.key ? 'class="current-item"' : ''
+        %{<li #{klass}>#{ link_to_page item, "#{anchor_name}+#{item}" }</li>}
       end.join "\n"
       %{ <ul>#{items}</ul> }
     end
