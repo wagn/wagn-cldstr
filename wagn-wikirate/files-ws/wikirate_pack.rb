@@ -33,41 +33,39 @@ module Wagn
     format :html
     
     define_view :core, :name=>:wikirate_nav do |args|
-      result = ''
-      main = root.card
-      return unless main
-      part1 = main.simple? ? main : begin
-        partname = '_1'.to_name.to_absolute main.name
-        Card[partname]
-      end
-      if part1 and type_name = part1.type_name and %w{ Market Company }.member?( type_name )
-        p1_options = Card.search( :type=> type_name, :sort => :name ).map do |opt|
-          [ opt.name, opt.cardname.url_key ]
-        end
-        result << "<select>#{ options_for_select p1_options, part1.cardname.url_key }</select>"
       
-        if !main.simple?
+      if main = root.card
+        base = main.simple? ? main : begin
+          partname = '_1'.to_name.to_absolute main.name
+          Card[partname]
+        end
+        base_type = base.type_name
+        return '' unless  %w{ Market Company }.member? base_type
+      
+        topics = if main.junction?
           part2name = '_2'.to_name.to_absolute main.name
           if part2 = Card[part2name] and part2.type_name == 'Topic'
-
-            topics_lineage(part2.name).each_with_index do |ancestor, i|
-              crit_options = topics_siblings(ancestor, i).map do |crit|
-                [crit.name, "#{part1.name}+#{crit.name}".to_name.url_key]
-              end
-              result << %{  
-                &raquo;
-                <select class="topic-select">
-                 #{ options_for_select crit_options, "#{part1.name}+#{ancestor}".to_name.url_key }
-                </select>
-              }
-            end
+            topics_lineage(part2.name)
           end
         end
+        links = [ [ base.name, nil, base_type ] ]
+        topics.each { |topic| links << [topic, "#{base.name}+#{topic}", 'Topic', ] }
       
-        result = %{ <div id="topics-navigation" class="go-to-selected">#{ result }</div> }
+        %{
+          <div id="wikirate-nav">
+          #{
+            links.map do |text, title, type|
+              link_to_page text, title, :navType=>type
+            end * "<span>&raquo;</span>"
+          }
+          </div>
+        }
       end
-      result
     end
+    
+    # /card/update/Company?card[codename]=wikirate_company
+
+    
   
     define_view :core, :right=>:claim_perspective do |args|
       add_name_context
