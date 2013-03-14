@@ -44,7 +44,7 @@ module Wagn
         base_type = base.type_name
         return '' unless  %w{ Market Company }.member? base_type
       
-        topics = if main.junction?
+        topics = main.simple? ? [] : begin
           part2name = '_2'.to_name.to_absolute main.name
           if part2 = Card[part2name] and part2.type_name == 'Topic'
             topics_lineage(part2.name)
@@ -65,7 +65,7 @@ module Wagn
       end
     end
     
-    # /card/update/Company?card[codename]=wikirate_company
+    # /card/update/Analysis?card[codename]=wikirate_analysis
     # /card/update/Topic?card[codename]=wikirate_topic
 
     
@@ -111,7 +111,8 @@ module Wagn
     
     define_view :navdrop do |args|
       items = Card.search( :type_id=>card.type_id, :sort=>:name, :return=>:name ).map do |item|
-        %{<li>#{ link_to_page item }</li>}
+        klass = item.to_name.key == card.key ? 'class="current-item"' : ''
+        %{<li #{ klass }>#{ link_to_page item }</li>}
       end.join "\n"
       %{ <ul>#{items}</ul> }
     end
@@ -121,7 +122,8 @@ module Wagn
       topic_name = card.cardname.tag_name
       index = params[:index].to_i - 1
       items = topics_siblings( topic_name, index).map do |item|
-        %{<li>#{ link_to_page item, "#{anchor_name}+#{item}" }</li>}
+        klass = item.to_name.key == topic_name.key ? 'class="current-item"' : ''
+        %{<li #{klass}>#{ link_to_page item, "#{anchor_name}+#{item}" }</li>}
       end.join "\n"
       %{ <ul>#{items}</ul> }
     end
