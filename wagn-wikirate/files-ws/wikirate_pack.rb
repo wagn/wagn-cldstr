@@ -89,6 +89,21 @@ module Wagn
       end), :help=>''
     end
     
+    define_view :topic_tree do |args|
+      # 
+      kids = {}
+      Card.search( :left=>{:type=>'Topic'}, :right=>'subtopic', :limit=>0 ).each do |junc|
+        parent = junc.cardname.trunk_name.key
+        children = junc.item_names.map { |n| n.to_name.key }
+        kids[parent] = children        
+      end
+      
+      roots = kids.keys.find_all {|k| ![kids.values].flatten.member? k }
+      
+      roots.join ','
+        
+      
+    end
     
     
     # ALL the "branch" stuff is about the special Topics tree
