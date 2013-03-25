@@ -15,7 +15,7 @@
   "package" : { 
     "maintainer"      : "wagn.org",
     "packagebasename" : "wagn-arb",
-    "distros"         : [ "green" ]
+    "distros"         : [ "red","yellow","green" ]
   }, 
 
   "roles" : {

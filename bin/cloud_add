@@ -3,10 +3,9 @@
 CLD_PROVIDER=$1
 CLD_NAME=$2
 CLD_DISTRO=$3
-CLD_CTLR=$4
 
 if [ -z $CLD_DISTRO ]; then
-  echo "usage: cloud_add <provider> <name> <distro> (controller)"
+  echo "usage: cloud_add <provider> <name> <distro>"
   exit 1
 fi
 
@@ -15,13 +14,15 @@ if [ -z $CLD_CTLR ]; then
   if [ $CLD_PROVIDER == "rackspace" ]; then
     CLD_CTLR=rackspace-us-ss
   elif [ $CLD_PROVIDER == "amazon" ]; then
-    CLD_CTLR=amazon-us-east-1-ss
+    CLD_CTLR=amazon-us-east-1d-ss
+#    CLD_CTLR=amazon-us-east-1-ss
   fi
 fi
 
 cldstr-instantiate-cloud.pl --verbose \
 	--accounts ${CLOUDS}/accounts.json \
 	--out ${CLOUDS}/$CLD_NAME.json \
+	--cloudpars ${CLOUDS}/defaultparams.json \
   https://cc.cldstr.com/controllers/$CLD_DISTRO/$CLD_CTLR
 
 exit 0
