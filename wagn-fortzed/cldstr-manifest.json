@@ -15,7 +15,7 @@
   "package" : { 
     "maintainer"      : "wagn.org",
     "packagebasename" : "wagn-fortzed",
-    "distros"         : [ "red","yellow" ]
+    "distros"         : [ "red","yellow","green" ]
   }, 
 
   "roles" : {
