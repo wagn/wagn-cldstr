@@ -19,7 +19,7 @@ if [ -z $CLD_CTLR ]; then
   fi
 fi
 
-cldstr-instantiate-cloud.pl --verbose \
+time cldstr-instantiate-cloud.pl --verbose \
 	--accounts ${CLOUDS}/accounts.json \
 	--out ${CLOUDS}/$CLD_NAME.json \
 	--cloudpars ${CLOUDS}/defaultparams.json \
