@@ -7,16 +7,9 @@ module Wagn
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
     define_view :titled do |args|
-      edit_link = type_link = follow_link = ''
-    
-      if !card.virtual? && card.ok?(:update)
-        text = (icon_card = Card['edit_icon']) ? subrenderer(icon_card)._render_core : 'edit' 
-        edit_link = link_to_view( text, :edit, :class=>'slotter titled-edit-link' ) + raw(_render_menu)
-      end
+      edit_link = type_link = ''
 
       if main?
-        follow_link = render_watch 
-
         typecode = card.typecode
         if %w{ Foundations Topic Organization User Opportunity State County City }.member?(typecode)
           type_link = link_to_page Cardtype.name_for(typecode), nil, :class=>"cp-typelink cp-type-#{typecode}" 
@@ -27,8 +20,8 @@ module Wagn
         %{
           <div class="cp-titled-header">
             <div class="cp-titled-right card-menu-link">
-              #{ follow_link }
-              #{ edit_link }
+              #{ render_watch if main? }
+              #{ render_menu }
             </div>
             <div class="cp-title">
               #{ type_link }
@@ -38,6 +31,14 @@ module Wagn
           #{ wrap_content(:titled) { _render_core args } }
           #{ render_comment_box }
         }
+      end
+    end
+    
+    define_view :menu_link, :perms=>:update, :denial=>:blank do |args|
+      if icon_card = Card['edit_icon']
+        subrenderer(icon_card)._render_core
+      else
+        'edit'
       end
     end
  
