@@ -19,7 +19,7 @@ module Wagn
       wrap :titled, args do
         %{
           <div class="cp-titled-header">
-            <div class="cp-titled-right card-menu-link">
+            <div class="cp-titled-right">
               #{ render_watch if main? }
               #{ render_menu }
             </div>
@@ -35,11 +35,17 @@ module Wagn
     end
     
     define_view :menu_link, :perms=>:update, :denial=>:blank do |args|
-      if icon_card = Card['edit_icon']
-        subrenderer(icon_card)._render_core
-      else
-        'edit'
-      end
+      %{
+        <a>
+          #{
+            if icon_card = Card['edit_icon']
+              subrenderer(icon_card)._render_core
+            else
+              'edit'
+            end
+          }
+        </a>
+      }
     end
  
     # show default image if user has no image
