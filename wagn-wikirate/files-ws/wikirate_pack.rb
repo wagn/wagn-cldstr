@@ -105,7 +105,7 @@ module Wagn
       initial_content = card.item_names.map { |n| 'wtt-' + n.to_name.safe_key } * '|'
       
       %{
-        <script src="/jstree-v.pre1.0/jquery.jstree.js" type="text/javascript"></script>
+        <script src="/assets2bpacked/jstree/jquery.jstree.js" type="text/javascript"></script>
         #{ form.hidden_field :content, :class=>'card-content' }
         <span class="initial-content" style="display:none">#{initial_content}</span>        
         <div class="wikirate-topic-tree">

@@ -113,6 +113,7 @@
           "target"       : "/usr/cldstr/wagn.org/wagn/ws/web/public/$4",
           "names"        : [
             "assets",
+            "assets2bpacked",
             "files",
             "404.html",
             "500.html",
