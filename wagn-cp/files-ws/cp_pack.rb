@@ -25,7 +25,7 @@ module Wagn
             </div>
             <div class="cp-title">
               #{ type_link }
-              #{ _render_title }
+              #{ _render_title args }
             </div>
           </div>
           #{ wrap_content(:titled) { _render_core args } }

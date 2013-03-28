@@ -105,7 +105,6 @@ module Wagn
       initial_content = card.item_names.map { |n| 'wtt-' + n.to_name.safe_key } * '|'
       
       %{
-        <script src="/assets2bpacked/jstree/jquery.jstree.js" type="text/javascript"></script>
         #{ form.hidden_field :content, :class=>'card-content' }
         <span class="initial-content" style="display:none">#{initial_content}</span>        
         <div class="wikirate-topic-tree">
@@ -133,7 +132,7 @@ module Wagn
       end
     end
     
-    define_view :navdrop do |args|
+    define_view :navdrop, :tags=>:unknown_ok do |args|
       items = Card.search( :type_id=>card.type_id, :sort=>:name, :return=>:name ).map do |item|
         klass = item.to_name.key == card.key ? 'class="current-item"' : ''
         %{<li #{ klass }>#{ link_to_page item }</li>}
