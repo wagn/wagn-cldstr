@@ -154,8 +154,10 @@ module Wagn
       fieldset "confirm permissions", (editor_wrap(:mmt_confirm) do
         %{
           <div style="text-align: left">
-            #{ radio_button_tag 'card[comment_author]', 'restrict', false, :onclick=>'this.form.submit()' } <label>restrict to MMT Staff</label><br/>
-            #{ radio_button_tag 'card[comment_author]', 'allow', false,    :onclick=>'this.form.submit()' } <label>do not restrict</label>
+            #{ radio_button_tag 'card[comment_author]', 'restrict', false, :class=>'submitter' } 
+            <label>restrict to MMT Staff</label><br/>
+            #{ radio_button_tag 'card[comment_author]', 'allow', false,     :class=>'submitter'}
+            <label>do not restrict</label>
           </div>
           }
       end),
