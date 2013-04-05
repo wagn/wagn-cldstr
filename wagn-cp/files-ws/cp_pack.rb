@@ -21,7 +21,7 @@ module Wagn
           <div class="cp-titled-header">
             <div class="cp-titled-right">
               #{ render_watch if main? }
-              #{ render_menu }
+              #{ optional_render :menu, args, args[:menu_default_hidden] || false }
             </div>
             <div class="cp-title">
               #{ type_link }
