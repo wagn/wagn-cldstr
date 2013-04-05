@@ -263,7 +263,7 @@ end
 
 module Cardlib::Patterns
   class LtypeRtypePattern < BasePattern
-    register 'ltype_rtype', [:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
+    register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
     class << self
       def label name
         %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
