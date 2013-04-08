@@ -40,6 +40,14 @@
         "libapache2-mod-passenger",
         "libapache2-mod-xsendfile"
       ],
+      "robotstxt" : {
+        "disallow" : [
+          "/card/",
+          "/admin/",
+          "/account/",
+          "/*?*"
+        ]
+      },
       "apache2modules" : [
         "passenger",
         "expires",
