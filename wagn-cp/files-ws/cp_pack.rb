@@ -7,16 +7,9 @@ module Wagn
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
     define_view :titled do |args|
-      edit_link = type_link = follow_link = ''
-    
-      if !card.virtual? && card.ok?(:update)
-        text = (icon_card = Card['edit_icon']) ? subrenderer(icon_card)._render_core : 'edit' 
-        edit_link = link_to_view( text, :edit, :class=>'slotter titled-edit-link' ) + raw(_render_menu)
-      end
+      edit_link = type_link = ''
 
       if main?
-        follow_link = render_watch 
-
         typecode = card.typecode
         if %w{ Foundations Topic Organization User Opportunity State County City }.member?(typecode)
           type_link = link_to_page Cardtype.name_for(typecode), nil, :class=>"cp-typelink cp-type-#{typecode}" 
@@ -26,19 +19,33 @@ module Wagn
       wrap :titled, args do
         %{
           <div class="cp-titled-header">
-            <div class="cp-titled-right card-menu-link">
-              #{ follow_link }
-              #{ edit_link }
+            <div class="cp-titled-right">
+              #{ render_watch if main? }
+              #{ optional_render :menu, args, args[:menu_default_hidden] || false }
             </div>
             <div class="cp-title">
               #{ type_link }
-              #{ _render_title }
+              #{ _render_title args }
             </div>
           </div>
           #{ wrap_content(:titled) { _render_core args } }
           #{ render_comment_box }
         }
       end
+    end
+    
+    define_view :menu_link, :perms=>:update, :denial=>:blank do |args|
+      %{
+        <a>
+          #{
+            if icon_card = Card['edit_icon']
+              subrenderer(icon_card)._render_core
+            else
+              'edit'
+            end
+          }
+        </a>
+      }
     end
  
     # show default image if user has no image
@@ -147,8 +154,10 @@ module Wagn
       fieldset "confirm permissions", (editor_wrap(:mmt_confirm) do
         %{
           <div style="text-align: left">
-            #{ radio_button_tag 'card[comment_author]', 'restrict', false, :onclick=>'this.form.submit()' } <label>restrict to MMT Staff</label><br/>
-            #{ radio_button_tag 'card[comment_author]', 'allow', false,    :onclick=>'this.form.submit()' } <label>do not restrict</label>
+            #{ radio_button_tag 'card[comment_author]', 'restrict', false, :class=>'submitter' } 
+            <label>restrict to MMT Staff</label><br/>
+            #{ radio_button_tag 'card[comment_author]', 'allow', false,     :class=>'submitter'}
+            <label>do not restrict</label>
           </div>
           }
       end),
@@ -191,9 +200,9 @@ module Wagn
   class Renderer::Json 
     # bit of a hack to make navbox results restrictable
     def goto_wql(term)
-     xtra = search_params
-     xtra.delete :default_limit
-     xtra.merge( { :complete=>term, :limit=>8, :sort=>'name', :return=>'name' } )
+      xtra = search_params
+      xtra.delete :default_limit
+      xtra.merge( { :complete=>term, :limit=>8, :sort=>'name', :return=>'name' } )
     end
   end
 

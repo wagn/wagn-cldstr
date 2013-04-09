@@ -41,7 +41,7 @@ module Wagn
           partname = '_1'.to_name.to_absolute main.name
           Card[partname]
         end
-        base_type = base.type_name
+        base_type = base && base.type_name
         return '' unless  %w{ Market Company }.member? base_type
       
         topics = main.simple? ? [] : begin
@@ -50,6 +50,9 @@ module Wagn
             topics_lineage(part2.name)
           end
         end
+        
+        return '' unless topics
+        
         links = [ [ base.name, nil, base_type ] ]
         topics.each { |topic| links << [topic, "#{base.name}+#{topic}", 'Topic', ] }
       
@@ -84,25 +87,30 @@ module Wagn
     end
     
     define_view :name_editor, :type=>:claim do |args|
-      fieldset 'claim', (editor_wrap :name do
+      fieldset 'Claim', (editor_wrap :name do
          raw( name_field form )
       end), :help=>''
     end
     
-    define_view :topic_tree do |args|
-      # 
+    
+    define_view :editor, :right=>:wikirate_topic do |args|
       kids = {}
-      Card.search( :left=>{:type=>'Topic'}, :right=>'subtopic', :limit=>0 ).each do |junc|
+      Card.search( :left=>{:type=>'Topic'}, :right=>'subtopic', :limit=>0, :sort=>:name ).each do |junc|
         parent = junc.cardname.trunk_name.key
         children = junc.item_names.map { |n| n.to_name.key }
         kids[parent] = children        
       end
-      
+
       roots = kids.keys.find_all {|k| ![kids.values].flatten.member? k }
+      initial_content = card.item_names.map { |n| 'wtt-' + n.to_name.safe_key } * '|'
       
-      roots.join ','
-        
-      
+      %{
+        #{ form.hidden_field :content, :class=>'card-content' }
+        <span class="initial-content" style="display:none">#{initial_content}</span>        
+        <div class="wikirate-topic-tree">
+          #{ build_topic_tree roots, kids }
+        </div>
+      }
     end
     
     
@@ -124,7 +132,7 @@ module Wagn
       end
     end
     
-    define_view :navdrop do |args|
+    define_view :navdrop, :tags=>:unknown_ok do |args|
       items = Card.search( :type_id=>card.type_id, :sort=>:name, :return=>:name ).map do |item|
         klass = item.to_name.key == card.key ? 'class="current-item"' : ''
         %{<li #{ klass }>#{ link_to_page item }</li>}
@@ -148,7 +156,7 @@ module Wagn
   end
 
   
-  class Renderer::Html
+  class Renderer
     
     def topics_siblings topic, index
       wql = if index==0
@@ -219,7 +227,59 @@ module Wagn
         </div>
       }
     end
+  
     
+    def build_topic_tree nodes, flathash
+      items = nodes.map do |n|
+        warn "looking up: #{n}"
+        card = Card[n]
+        %{
+          <li id="wtt-#{card.cardname.safe_key}">
+            #{link_to_page card.name }
+            #{
+              if kids = flathash[n]
+                build_topic_tree kids, flathash
+              end
+            }
+          </li>
+        }
+      end.join "\n"
+      %{<ul>#{items}</ul>}
+    end
+    
+    def build_topic_tree_old nodes, flathash
+      nodes.sort.map do |n|
+        card = Card[n]
+        hash = { :name=>card.name, :card=>card }
+        if kids = flathash[n]
+          hash[:kids] = build_topic_tree kids, flathash
+        end
+        hash
+      end
+    end
+    
+  end
+end
 
+module Cardlib::Patterns
+  class LtypeRtypePattern < BasePattern
+    register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
+    class << self
+      def label name
+        %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
+      end
+      def prototype_args anchor
+        { }# :name=>"*dummy+#{anchor.tag}",
+          #:loaded_left=> Card.new( :name=>'*dummy', :type=>anchor.trunk_name )
+        #}
+      end
+      def anchor_name card
+        left = card.loaded_left || card.left
+        right = card.right
+        ltype_name = (left && left.type_name) || Card[ Card::DefaultTypeID ].name
+        rtype_name = (right && right.type_name) || Card[ Card::DefaultTypeID ].name
+        "#{ltype_name}+#{rtype_name}"
+      end
+    end
   end
 end

@@ -40,6 +40,14 @@
         "libapache2-mod-passenger",
         "libapache2-mod-xsendfile"
       ],
+      "robotstxt" : {
+        "disallow" : [
+          "/card/",
+          "/admin/",
+          "/account/",
+          "/*?*"
+        ]
+      },
       "apache2modules" : [
         "passenger",
         "expires",
@@ -113,6 +121,7 @@
           "target"       : "/usr/cldstr/wagn.org/wagn/ws/web/public/$4",
           "names"        : [
             "assets",
+            "assets2bpacked",
             "files",
             "404.html",
             "500.html",
