@@ -40,13 +40,13 @@ if out_of_date
   migration_command = "bundle exec env RAILS_ENV=production STAMP_MIGRATIONS=true WAGN_CONFIG_FILE=#{appconfigDir}/wagn.yml rake wagn:migrate --trace"
   migration_results = `#{migration_command} 2>&1`
 
-  msg = "Migration Results:\n  #{migration_command}\n  #{migration_results}"
-  #puts msg
-  log msg
+  log "Migration Results:\n  #{migration_command}\n  #{migration_results}"
+
   ['', '_cards'].each do |suffix|
     appconfigVersion = get_version appconfigDir, suffix
     raise msg if !appconfigVersion or appconfigVersion < dbversion[suffix]
   end
+  puts "Successful Wagn Migration: #{appconfigid}"
 else
   log "Migration Skipped: already up to date"
 end  
