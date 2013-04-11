@@ -8,8 +8,8 @@ raise "no appconfigid" unless appconfigid && !appconfigid.empty?
 appconfigDir = "/var/cldstr/wagn.org/wagn/ws/#{appconfigid}"
 LogFile = "/var/log/cldstr+wagn.org+wagn+ws/#{appconfigid}.log"
 
-def get_version dir
-  filename = "#{dir}/version.txt"
+def get_version dir, suffix
+  filename = "#{ dir }/version#{ suffix }.txt"
   if File.exists? filename
     File.read( filename ).strip
   end
@@ -21,22 +21,32 @@ def log msg
   end
 end
 
-dbversion = get_version "#{wsDir}/web/db"
-appconfigVersion = get_version appconfigDir
+out_of_date = false
+dbversion = {}
 
+['', '_cards'].each do |suffix|
+  dbversion[suffix] = get_version "#{ wsDir }/web/config", suffix
+  appconfigVersion = get_version appconfigDir, suffix
+  if !appconfigVersion or appconfigVersion < dbversion[suffix]
+    out_of_date = true
+    break
+  end
+end
 #raise "DELETE ME" unless appconfigid == 'a0005'
 
-if !appconfigVersion or appconfigVersion < dbversion
+if out_of_date
   Dir.chdir "#{wsDir}/web" # get us into the web directory, from which the migrate command must be run
     
-  migration_command = "bundle exec env RAILS_ENV=production WAGN_CONFIG_FILE=#{appconfigDir}/wagn.yml rake db:migrate_and_stamp --trace"
+  migration_command = "bundle exec env RAILS_ENV=production STAMP_MIGRATIONS=true WAGN_CONFIG_FILE=#{appconfigDir}/wagn.yml rake wagn:migrate --trace"
   migration_results = `#{migration_command} 2>&1`
 
   msg = "Migration Results:\n  #{migration_command}\n  #{migration_results}"
   #puts msg
-  log msg 
-  appconfigVersion = get_version appconfigDir
-  raise msg if !appconfigVersion or appconfigVersion < dbversion
+  log msg
+  ['', '_cards'].each do |suffix|
+    appconfigVersion = get_version appconfigDir, suffix
+    raise msg if !appconfigVersion or appconfigVersion < dbversion[suffix]
+  end
 else
   log "Migration Skipped: already up to date"
 end  
