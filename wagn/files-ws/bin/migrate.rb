@@ -44,7 +44,7 @@ if out_of_date
 
   ['', '_cards'].each do |suffix|
     appconfigVersion = get_version appconfigDir, suffix
-    fail 'migration failure' if !appconfigVersion or appconfigVersion < dbversion[suffix]
+    puts 'migration failure' if !appconfigVersion or appconfigVersion < dbversion[suffix]
   end
 else
   log "Migration Skipped: already up to date"
