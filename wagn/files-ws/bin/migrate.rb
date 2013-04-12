@@ -44,9 +44,8 @@ if out_of_date
 
   ['', '_cards'].each do |suffix|
     appconfigVersion = get_version appconfigDir, suffix
-    raise 'migration failure' if !appconfigVersion or appconfigVersion < dbversion[suffix]
+    fail 'migration failure' if !appconfigVersion or appconfigVersion < dbversion[suffix]
   end
-  puts "Successful Wagn Migration: #{appconfigid}"
 else
   log "Migration Skipped: already up to date"
 end  
