@@ -44,7 +44,7 @@ if out_of_date
 
   ['', '_cards'].each do |suffix|
     appconfigVersion = get_version appconfigDir, suffix
-    raise msg if !appconfigVersion or appconfigVersion < dbversion[suffix]
+    raise 'migration failure' if !appconfigVersion or appconfigVersion < dbversion[suffix]
   end
   puts "Successful Wagn Migration: #{appconfigid}"
 else
