@@ -29,7 +29,6 @@ dbversion = {}
   appconfigVersion = get_version appconfigDir, suffix
   if !appconfigVersion or appconfigVersion < dbversion[suffix]
     out_of_date = true
-    break
   end
 end
 #raise "DELETE ME" unless appconfigid == 'a0005'
@@ -48,5 +47,5 @@ if out_of_date
   end
 else
   log "Migration Skipped: already up to date"
-end  
+end
 
