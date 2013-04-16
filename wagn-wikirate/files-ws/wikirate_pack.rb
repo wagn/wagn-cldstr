@@ -87,9 +87,7 @@ module Wagn
     end
     
     define_view :name_editor, :type=>:claim do |args|
-      fieldset 'Claim', (editor_wrap :name do
-         raw( name_field form )
-      end), :help=>''
+      fieldset 'Claim', raw( name_field form ), :editor=>'name', :help=>args[:help]
     end
     
     
