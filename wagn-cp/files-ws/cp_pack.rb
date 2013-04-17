@@ -151,16 +151,14 @@ module Wagn
 
     define_view :mmt_confirm, :tags=>:unknown_ok do |args|
       roles = card.who_can(:read).map{ |id| Card[id].name }
-      fieldset "confirm permissions", begin
-        %{
-          <div style="text-align: left">
-            #{ radio_button_tag 'card[comment_author]', 'restrict', false, :class=>'submitter' } 
-            <label>restrict to MMT Staff</label><br/>
-            #{ radio_button_tag 'card[comment_author]', 'allow', false,     :class=>'submitter'}
-            <label>do not restrict</label>
-          </div>
-          }
-      end),
+      fieldset "confirm permissions", %{
+        <div style="text-align: left">
+          #{ radio_button_tag 'card[comment_author]', 'restrict', false, :class=>'submitter' } 
+          <label>restrict to MMT Staff</label><br/>
+          #{ radio_button_tag 'card[comment_author]', 'allow'   , false, :class=>'submitter' }
+          <label>do not restrict</label>
+        </div>
+      },
       :editor => 'mmt_confirm',
       :help   => "<div style='font-weight:normal'>By default, this card will be visible to: #{ roles * ', '}.</div>"
     end
