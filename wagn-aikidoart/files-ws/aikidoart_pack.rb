@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'zip/zipfilesystem'
 
 AIKI_ORIG = 'image'
