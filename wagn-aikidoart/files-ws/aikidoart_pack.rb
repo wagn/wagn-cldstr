@@ -101,7 +101,7 @@ module Wagn
 
       #~~~~~~ create new card for watermarked version
       wcard = Card.fetch_or_new "#{card.cardname.trunk_name}+#{AIKI_MARK}", :type=>'Image'
-      wcard = wcard.refresh if wcard.frozen?
+      wcard = wcard.refresh
       wcard.attach = File.new( tmp_filename )
       wcard.save!
     end
