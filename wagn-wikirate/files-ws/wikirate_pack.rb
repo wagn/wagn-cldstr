@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Wagn
   module Set::Type::Source
     include Sets
@@ -87,9 +88,7 @@ module Wagn
     end
     
     define_view :name_editor, :type=>:claim do |args|
-      fieldset 'Claim', (editor_wrap :name do
-         raw( name_field form )
-      end), :help=>''
+      fieldset 'Claim', raw( name_field form ), :editor=>'name', :help=>args[:help]
     end
     
     
@@ -125,7 +124,7 @@ module Wagn
   
     define_view :open_branch do |args|
       @paging_params = { :limit=> 1000 }
-      subtopics_card = Card.fetch "#{card.cardname.trunk_name}+*children+branch"#{}"+unlimited"
+      subtopics_card = Card.fetch "#{card.cardname.trunk_name}+children+branch"#{}"+unlimited"
       wrap :open_branch do
         basic_branch(:open) + 
         subrenderer( subtopics_card )._render_content( :item => :closed_branch )
