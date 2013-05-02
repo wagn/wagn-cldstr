@@ -131,12 +131,12 @@ module Wagn
     define_view :thumbnail, :type=>'item' do |args|
       wrap :thumbnail, args do
         text = subrenderer( Card["#{card.name}+image"] ).render_core :size=>:medium
-        build_link card.name, text
+        card_link card.name, text, true
       end
     end
   
     define_view :taglink do |args|
-      build_link "#{card.name}+*tagged", card.name
+      card_link "#{card.name}+*tagged", card.name, true
     end
   
   end
