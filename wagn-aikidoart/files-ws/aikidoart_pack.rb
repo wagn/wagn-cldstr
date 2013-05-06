@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'zip/zipfilesystem'
+require 'RMagick'
 
 AIKI_ORIG = 'image'
 AIKI_MARK = :watermark
@@ -9,6 +10,10 @@ class AAHelper
   def self.aa_name cardname
     Card.exists?(cardname) ? "#{cardname}-#{Time.now.to_i}" : cardname
   end  
+end
+
+class Card
+  include Magick
 end
 
 module Wagn
@@ -61,10 +66,8 @@ module Wagn
   end
 
   Hook.add :after_save, "#{AIKI_ORIG}+*right" do |card|
-    require 'RMagick'
-    include Magick
-
-    unless card.left.typecode == AIKI_MARK
+    l = card.left
+    unless l && l.typecode == AIKI_MARK
     #~~~~~~~~ get "large" version of original and watermark
       img = Magick::Image.read( card.attach.path('large')            ).first
   
@@ -100,7 +103,7 @@ module Wagn
       img.write( tmp_filename ) { self.quality = img_quality }
 
       #~~~~~~ create new card for watermarked version
-      wcard = Card.fetch_or_new "#{card.cardname.trunk_name}+#{AIKI_MARK}", :type=>'Image'
+      wcard = Card.fetch "#{card.cardname.trunk_name}+#{AIKI_MARK}", :new=>{ :type=>'Image' }
       wcard = wcard.refresh
       wcard.attach = File.new( tmp_filename )
       wcard.save!
