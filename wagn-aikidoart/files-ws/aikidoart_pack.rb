@@ -7,8 +7,10 @@ AIKI_MARK = :watermark
 AIKI_UPLOAD = 'item upload'
 
 class AAHelper
-  def self.aa_name cardname
-    Card.exists?(cardname) ? "#{cardname}-#{Time.now.to_i}" : cardname
+  def self.aa_name cardname, append_card
+    cardname = Card.exists?(cardname) ? "#{cardname}-#{Time.now.to_i}" : cardname
+    cardname = "#{cardname}+#{append_card.content}" if append_card and append_card.content.present?
+    cardname
   end  
 end
 
@@ -40,13 +42,14 @@ module Wagn
     if file_card = Card["#{card.name}+file"]
       collection_card = Card["#{card.name}+collection"]
       tag_card = Card["#{card.name}+tags"]
+      append_card = Card["#{card.name}+append"]
 
       tmp_filename = '/tmp/aazipextractor'
   
       Zip::ZipFile.open file_card.attach.path do |zipfile|
         zipfile.each do |zf|
           m = zf.name.match /(.*)\.(\w+)$/
-          cardname = AAHelper.aa_name( m[1] )
+          cardname = AAHelper.aa_name m[1], append_card
           tmpf = "#{tmp_filename}.#{m[2]}"
           zf.extract tmpf do true end
           Card.create! :name=>cardname, :type=>'Item'
