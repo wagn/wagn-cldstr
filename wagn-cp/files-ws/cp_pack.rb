@@ -8,11 +8,11 @@ module Wagn
   
     define_view :titled do |args|
       edit_link = type_link = ''
-
+      
       if main?
-        typecode = card.typecode
-        if %w{ Foundations Topic Organization User Opportunity State County City }.member?(typecode)
-          type_link = link_to_page Cardtype.name_for(typecode), nil, :class=>"cp-typelink cp-type-#{typecode}" 
+        @@displayed_type_ids ||= %w{ Foundations Topic Organization Person Opportunity State County City }.map { |n| Card[n].id }
+        if @@displayed_type_ids.member? card.type_id
+          type_link = link_to_page card.type_name, nil, :class=>"cp-typelink cp-type-#{ Wagn::Codename[ card.type_id ] }" 
         end
       end
     
@@ -28,7 +28,7 @@ module Wagn
               #{ _render_title args }
             </div>
           </div>
-          #{ wrap_content(:titled) { _render_core args } }
+          #{ wrap_content(:titled, :body=>true) { _render_core args } }
           #{ render_comment_box }
         }
       end
