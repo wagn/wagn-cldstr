@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Wagn
   module Set::TransitionPack
-    include Sets
+    extend Sets
     format :html
     
     define_view :core, :right=>:pattern_confidence do |args|

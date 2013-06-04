@@ -1,6 +1,32 @@
 module Wagn
-  module Set::Connectipedia
-    include Sets
+  module Set::All::Connectipedia
+    extend Sets
+
+
+    event :propose_mmt_restriction, :after=>:create do
+      role_name = 'MMT staff'
+      if !nested_edit and
+        !Account.always_ok? and                                                             # user is not admin
+        Account.as_card.fetch(:trait=>:roles, :new=>{}).item_names.member?( role_name ) and # user is mmt staff
+        who_can(:read) != [ Card[role_name].id ]                                       # card is not already restricted to MMT Staff
+
+        case comment_author #KLUDGE!!! using this to hold restriction info.  need to figure out how to get params through.
+        when nil
+          errors.add :mmt, 'mmt confirm'
+          error_view = :mmt_confirm
+          raise ActiveRecord::Rollback, "kludge"
+        when 'restrict'
+          Account.as_bot do
+            [:read, :update, :delete].each do |task|
+              Card.create! :name=>"#{name}+*self+*#{task}", :content=>"[[#{role_name}]]"
+            end
+          end
+        when 'allow'
+          # noop
+        end
+      end
+    end
+
     format :html
   
     # Special titled view.  Much of this is probably reusable
@@ -214,29 +240,4 @@ module Wagn
       end      
     end
   end
-  
-  Hook.add :after_create, '*all' do |card|
-    role_name = 'MMT staff'
-    if !card.nested_edit and
-      !Account.always_ok? and                                                             # user is not admin
-      Account.as_card.fetch(:trait=>:roles, :new=>{}).item_names.member?( role_name ) and # user is mmt staff
-      card.who_can(:read) != [ Card[role_name].id ]                                       # card is not already restricted to MMT Staff
-      
-      case card.comment_author #KLUDGE!!! using this to hold restriction info.  need to figure out how to get params through.
-      when nil
-        card.errors.add :mmt, 'mmt confirm'
-        card.error_view = :mmt_confirm
-        raise ActiveRecord::Rollback, "kludge"
-      when 'restrict'
-        Account.as_bot do
-          [:read, :update, :delete].each do |task|
-            Card.create! :name=>"#{card.name}+*self+*#{task}", :content=>"[[#{role_name}]]"
-          end
-        end
-      when 'allow'
-        # noop
-      end
-    end
-  end
-
 end

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Wagn
   module Set::Type::Source
-    include Sets
+    extend Sets
     
     module Model
       def autoname ignore=nil
