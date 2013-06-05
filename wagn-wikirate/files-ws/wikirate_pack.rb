@@ -260,7 +260,7 @@ module Wagn
   end
 end
 
-module Cardlib::Patterns
+module Wagn::SetPatterns
   class LtypeRtypePattern < BasePattern
     register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
     class << self
