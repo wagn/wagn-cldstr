@@ -21,7 +21,7 @@ module Wagn
     #~~~~~~~~*all~~~~~~~~~~
   
     module All::AikidoArchives
-      extend Sets
+      extend Set
     
       format :html
   
@@ -56,7 +56,7 @@ module Wagn
   
     module Right
       module Tag #need codename
-        extend Sets
+        extend Set
         event :create_missing_tags, :after=>:store, :on=>:save do
           item_names.each do |name|
             if !Card.exists? name
@@ -67,7 +67,7 @@ module Wagn
       end
      
       module Agree #need codename
-        extend Sets
+        extend Set
         event :require_eula, :after=>:create do
           unless raw_content.to_i == 1
             msg = if msgcard = Card['eula error message']
@@ -81,7 +81,7 @@ module Wagn
       end
     
       module Image
-        extend Sets
+        extend Set
         event :create_watermark, :after=>:store do
           warn "create watermark called for #{name}.  id = #{id}, revision = #{current_revision_id}"
     
@@ -138,7 +138,7 @@ module Wagn
     #~~~~~~~~*self~~~~~~~~~~
   
     module Self::ItemUpload #needs codename
-      extend Sets
+      extend Set
     
       event :extract_files, :after=>:store do
 

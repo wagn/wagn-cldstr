@@ -1,6 +1,6 @@
 module Wagn
   module Set::All::Connectipedia
-    extend Sets
+    extend Set
 
 
     event :propose_mmt_restriction, :after=>:create do

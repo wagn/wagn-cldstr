@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Wagn::Set::WagnOrg
 
-  extend Wagn::Sets
+  extend Wagn::Set
   format :html
   
   define_view :shade do |args|

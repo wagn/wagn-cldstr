@@ -2,7 +2,7 @@
 module Wagn
 
   module Set::Arb
-    extend Wagn::Sets
+    extend Wagn::Set
 
     format :html
 
