@@ -35,7 +35,7 @@ module Wagn
     
 
     
-    define_view :core, :name=>:wikirate_nav do |args|
+    view :core, :name=>:wikirate_nav do |args|
       
       if main = root.card
         base = main.simple? ? main : begin
@@ -74,25 +74,25 @@ module Wagn
 
     
   
-    define_view :core, :right=>:claim_perspective do |args|
+    view :core, :right=>:claim_perspective do |args|
       add_name_context
       _final_core args
     end
   
-    define_view :titled, :right=>:source_type do |args|
+    view :titled, :right=>:source_type do |args|
       ''
     end
   
-    define_view :missing, :right=>:source_type do |args|
+    view :missing, :right=>:source_type do |args|
       ''
     end
     
-    define_view :name_editor, :type=>:claim do |args|
+    view :name_editor, :type=>:claim do |args|
       fieldset 'Claim', raw( name_field form ), :editor=>'name', :help=>args[:help]
     end
     
     
-    define_view :editor, :right=>:wikirate_topic do |args|
+    view :editor, :right=>:wikirate_topic do |args|
       kids = {}
       Card.search( :left=>{:type=>'Topic'}, :right=>'subtopic', :limit=>0, :sort=>:name ).each do |junc|
         parent = junc.cardname.trunk_name.key
@@ -116,13 +116,13 @@ module Wagn
     # ALL the "branch" stuff is about the special Topics tree
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
-    define_view :closed_branch do |args|
+    view :closed_branch do |args|
       wrap :closed_branch do
         basic_branch :closed, show_arrow = branch_has_kids?
       end
     end
   
-    define_view :open_branch do |args|
+    view :open_branch do |args|
       @paging_params = { :limit=> 1000 }
       subtopics_card = Card.fetch "#{card.cardname.trunk_name}+children+branch"#{}"+unlimited"
       wrap :open_branch do
@@ -131,7 +131,7 @@ module Wagn
       end
     end
     
-    define_view :navdrop, :tags=>:unknown_ok do |args|
+    view :navdrop, :tags=>:unknown_ok do |args|
       items = Card.search( :type_id=>card.type_id, :sort=>:name, :return=>:name ).map do |item|
         klass = item.to_name.key == card.key ? 'class="current-item"' : ''
         %{<li #{ klass }>#{ link_to_page item }</li>}
@@ -139,7 +139,7 @@ module Wagn
       %{ <ul>#{items}</ul> }
     end
     
-    define_view :navdrop, :type=>:wikirate_analysis do |args|
+    view :navdrop, :type=>:wikirate_analysis do |args|
       anchor_name = card.cardname.trunk_name
       topic_name = card.cardname.tag_name
       index = params[:index].to_i - 1
@@ -150,7 +150,7 @@ module Wagn
       %{ <ul>#{items}</ul> }
     end
     
-    #alias_view :titled, { :right=>'source_type' }, :missing
+    #view :titled, { :right=>'source_type' }, :missing
   
   end
 
