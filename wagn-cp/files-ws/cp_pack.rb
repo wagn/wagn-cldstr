@@ -32,7 +32,7 @@ module Wagn
     # Special titled view.  Much of this is probably reusable
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
-    define_view :titled do |args|
+    view :titled do |args|
       edit_link = type_link = ''
       
       if main?
@@ -60,7 +60,7 @@ module Wagn
       end
     end
     
-    define_view :menu_link, :perms=>:update, :denial=>:blank do |args|
+    view :menu_link, :perms=>:update, :denial=>:blank do |args|
       %{
         <a>
           #{
@@ -78,7 +78,7 @@ module Wagn
     #~~~~~~~~~~~~~~~~~~~~~~
  
  
-    define_view :missing, :ltype=>:user, :right=>:image do |args|
+    view :missing, :ltype=>:user, :right=>:image do |args|
       wrap :missing_image do
         subrenderer( Card['missing person'] )._render_core
       end
@@ -89,7 +89,7 @@ module Wagn
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-    define_view :watch do |args|
+    view :watch do |args|
       wrap :watch do
         if card.watching_type?
           watching_type_cards
@@ -105,7 +105,7 @@ module Wagn
     end
 
   
-    define_view :watch, :type=>:cardtype do |args|
+    view :watch, :type=>:cardtype do |args|
       wrap :watch do
         type_link = card.watching_type? ? "#{watching_type_cards} | " : ""
         plural = card.name.pluralize
@@ -124,14 +124,14 @@ module Wagn
     # ALL the "branch" stuff is about the special Topics tree
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
-    define_view :closed_branch do |args|
+    view :closed_branch do |args|
       has_subtopics = Card.exists? "#{card.cardname.trunk_name}+subtopics"
       wrap :closed_branch do
         basic_branch :closed, !!has_subtopics
       end
     end
   
-    define_view :open_branch do |args|
+    view :open_branch do |args|
       @paging_params = { :limit=> 1000 }
       subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+unlimited"
       wrap :open_branch do
@@ -143,7 +143,7 @@ module Wagn
     # Everything below is about the special navbox behavior
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
-    define_view :raw, :name=>:cp_navbox do |args|
+    view :raw, :name=>:cp_navbox do |args|
       %{ <form action="#{Card.path_setting '/:search'}" id="navbox-form" method="get">
         #{hidden_field_tag :item, 'cp_result_item' }
         #{text_field_tag :_keyword, '', :class=>'navbox'
@@ -152,7 +152,7 @@ module Wagn
        </form>}
     end
   
-    define_view :cp_result_item do |args|
+    view :cp_result_item do |args|
       wrap :cp_result_item, args do
         %{
         <hr>
@@ -174,7 +174,7 @@ module Wagn
       end
     end
 
-    define_view :mmt_confirm, :tags=>:unknown_ok do |args|
+    view :mmt_confirm, :tags=>:unknown_ok do |args|
       roles = card.who_can(:read).map{ |id| Card[id].name }
       fieldset "confirm permissions", %{
         <div style="text-align: left">
@@ -188,7 +188,7 @@ module Wagn
       :help   => "<div style='font-weight:normal'>By default, this card will be visible to: #{ roles * ', '}.</div>"
     end
     
-    alias_view(:raw, { :name=>:cp_navbox }, :core)
+    view(:raw, { :name=>:cp_navbox }, :core)
   
   end
 

@@ -4,7 +4,7 @@ module Wagn
     extend Set
     format :html
     
-    define_view :core, :right=>:pattern_confidence do |args|
+    view :core, :right=>:pattern_confidence do |args|
       star_card = Card[ "#{Card[:pattern_confidence].name}+#{Card[:image].name}" ]
       star = if star_card
         args[:size] ||= :icon
@@ -22,7 +22,7 @@ module Wagn
       end
     end
     
-    define_view :core, :right=>:pattern_summary do |args|
+    view :core, :right=>:pattern_summary do |args|
       add_name_context
       _final_core args
     end    
