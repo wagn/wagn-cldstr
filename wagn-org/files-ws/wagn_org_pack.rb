@@ -4,7 +4,7 @@ module Wagn::Set::WagnOrg
   extend Wagn::Set
   format :html
   
-  define_view :shade do |args|
+  view :shade do |args|
     wrap :shade, args do
       %{
         <h1>

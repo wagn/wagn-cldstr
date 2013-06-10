@@ -25,7 +25,7 @@ module Wagn
     
       format :html
   
-      define_view :denial, :right=>:image do |args|
+      view :denial, :right=>:image do |args|
         view = args[:denied_view] || :titled
     
         itemname = card.cardname.trunk_name
@@ -33,21 +33,21 @@ module Wagn
         _render view, args
       end
   
-      define_view :core, :right=>:watermark do |args|
+      view :core, :right=>:watermark do |args|
         if !Account.logged_in?
           args[:size] = :medium if [:large, :full, :original].member?( args[:size] )
         end
         _final_image_type_core args
       end  
   
-      define_view :thumbnail, :type=>'item' do |args|
+      view :thumbnail, :type=>'item' do |args|
         wrap :thumbnail, args do
           text = subrenderer( Card["#{card.name}+image"] ).render_core :size=>:medium
           card_link card.name, text, true
         end
       end
   
-      define_view :taglink do |args|
+      view :taglink do |args|
         card_link "#{card.name}+*tagged", card.name, true
       end
     end
