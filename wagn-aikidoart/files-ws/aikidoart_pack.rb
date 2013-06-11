@@ -23,32 +23,33 @@ module Wagn
     module All::AikidoArchives
       extend Set
     
-      format :html
+      format :html do
   
-      view :denial, :right=>:image do |args|
-        view = args[:denied_view] || :titled
+        view :denial, :right=>:image do |args|
+          view = args[:denied_view] || :titled
     
-        itemname = card.cardname.trunk_name
-        @card = Card["#{itemname}+watermark"]
-        _render view, args
-      end
-  
-      view :core, :right=>:watermark do |args|
-        if !Account.logged_in?
-          args[:size] = :medium if [:large, :full, :original].member?( args[:size] )
+          itemname = card.cardname.trunk_name
+          @card = Card["#{itemname}+watermark"]
+          _render view, args
         end
-        _final_image_type_core args
-      end  
   
-      view :thumbnail, :type=>'item' do |args|
-        wrap :thumbnail, args do
-          text = subrenderer( Card["#{card.name}+image"] ).render_core :size=>:medium
-          card_link card.name, text, true
+        view :core, :right=>:watermark do |args|
+          if !Account.logged_in?
+            args[:size] = :medium if [:large, :full, :original].member?( args[:size] )
+          end
+          _final_image_type_core args
+        end  
+  
+        view :thumbnail, :type=>'item' do |args|
+          wrap :thumbnail, args do
+            text = subrenderer( Card["#{card.name}+image"] ).render_core :size=>:medium
+            card_link card.name, text, true
+          end
         end
-      end
   
-      view :taglink do |args|
-        card_link "#{card.name}+*tagged", card.name, true
+        view :taglink do |args|
+          card_link "#{card.name}+*tagged", card.name, true
+        end
       end
     end
   

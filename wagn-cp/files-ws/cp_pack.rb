@@ -27,168 +27,172 @@ module Wagn
       end
     end
 
-    format :html
+    format :html do
   
-    # Special titled view.  Much of this is probably reusable
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # Special titled view.  Much of this is probably reusable
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
-    view :titled do |args|
-      edit_link = type_link = ''
+      view :titled do |args|
+        edit_link = type_link = ''
       
-      if main?
-        @@displayed_type_ids ||= %w{ Foundations Topic Organization Person Opportunity State County City }.map { |n| Card[n].id }
-        if @@displayed_type_ids.member? card.type_id
-          type_link = link_to_page card.type_name, nil, :class=>"cp-typelink cp-type-#{ Wagn::Codename[ card.type_id ] }" 
-        end
-      end
-    
-      wrap :titled, args do
-        %{
-          <div class="cp-titled-header">
-            <div class="cp-titled-right">
-              #{ render_watch if main? }
-              #{ optional_render :menu, args, args[:menu_default_hidden] || false }
-            </div>
-            <div class="cp-title">
-              #{ type_link }
-              #{ _render_title args }
-            </div>
-          </div>
-          #{ wrap_content(:titled, :body=>true) { _render_core args } }
-          #{ render_comment_box }
-        }
-      end
-    end
-    
-    view :menu_link, :perms=>:update, :denial=>:blank do |args|
-      %{
-        <a>
-          #{
-            if icon_card = Card['edit_icon']
-              subrenderer(icon_card)._render_core
-            else
-              'edit'
-            end
-          }
-        </a>
-      }
-    end
- 
-    # show default image if user has no image
-    #~~~~~~~~~~~~~~~~~~~~~~
- 
- 
-    view :missing, :ltype=>:user, :right=>:image do |args|
-      wrap :missing_image do
-        subrenderer( Card['missing person'] )._render_core
-      end
-    end
- 
-    # Customize watching/following.  
-    # Too much work for what is really only changing text and hover behavior
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-    view :watch do |args|
-      wrap :watch do
-        if card.watching_type?
-          watching_type_cards
-        else
-          link_args = if card.watching?
-            ["Following", :off, "stop sending emails about changes to #{card.cardname}", { :hover_content=>'Stop Following' }]
-          else
-            ["Follow", :on, "send emails about changes to #{card.cardname}"]
+        if main?
+          @@displayed_type_ids ||= %w{ Foundations Topic Organization Person Opportunity State County City }.map { |n| Card[n].id }
+          if @@displayed_type_ids.member? card.type_id
+            type_link = link_to_page card.type_name, nil, :class=>"cp-typelink cp-type-#{ Wagn::Codename[ card.type_id ] }" 
           end
-          watch_link *link_args
+        end
+    
+        wrap :titled, args do
+          %{
+            <div class="cp-titled-header">
+              <div class="cp-titled-right">
+                #{ render_watch if main? }
+                #{ optional_render :menu, args, args[:menu_default_hidden] || false }
+              </div>
+              <div class="cp-title">
+                #{ type_link }
+                #{ _render_title args }
+              </div>
+            </div>
+            #{ wrap_content(:titled, :body=>true) { _render_core args } }
+            #{ render_comment_box }
+          }
         end
       end
-    end
-
-  
-    view :watch, :type=>:cardtype do |args|
-      wrap :watch do
-        type_link = card.watching_type? ? "#{watching_type_cards} | " : ""
-        plural = card.name.pluralize
-        link_args = if card.watching?
-          ["Following", :off, "stop sending", { :hover_content=>"Stop Following all #{plural}" } ]
-        else
-          ["Follow", :on, "send"]
-        end
-        link_args[0] += " all #{plural}"
-        link_args[2] += " emails about changes to #{plural}"
-        type_link + watch_link( *link_args )
-      end
-    end
-
- 
-    # ALL the "branch" stuff is about the special Topics tree
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  
-    view :closed_branch do |args|
-      has_subtopics = Card.exists? "#{card.cardname.trunk_name}+subtopics"
-      wrap :closed_branch do
-        basic_branch :closed, !!has_subtopics
-      end
-    end
-  
-    view :open_branch do |args|
-      @paging_params = { :limit=> 1000 }
-      subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+unlimited"
-      wrap :open_branch do
-        basic_branch(:open) + subrenderer( subtopics_card )._render_content( :item => :closed_branch )
-      end
-    end
-  
-  
-    # Everything below is about the special navbox behavior
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  
-    view :raw, :name=>:cp_navbox do |args|
-      %{ <form action="#{Card.path_setting '/:search'}" id="navbox-form" method="get">
-        #{hidden_field_tag :item, 'cp_result_item' }
-        #{text_field_tag :_keyword, '', :class=>'navbox'
-        }#{select_tag '_wql[type]', options_for_select([['All Content',nil], 'Foundations', 'Organizations', 'Topics', 'People'])
-        }#{submit_tag 'search'}
-       </form>}
-    end
-  
-    view :cp_result_item do |args|
-      wrap :cp_result_item, args do
+    
+      view :menu_link, :perms=>:update, :denial=>:blank do |args|
         %{
-        <hr>
-        <div class="cp-result-top">
-          <span class="cp-item-name">
-            #{ link_to_page fancy_title, card.name }
-          </span>
-          <span class="cp-item-date">
-            #{ time_ago_in_words card.updated_at } ago
-          </span>
-          <span class="cp-item-type">
-            #{ link_to_page card.type_name }
-          </span>
-        </div>
-        <div class="cp-item-content">
-          <div class="closed-content">#{ _render_closed_content }</div>
-        </div>
+          <a>
+            #{
+              if icon_card = Card['edit_icon']
+                subrenderer(icon_card)._render_core
+              else
+                'edit'
+              end
+            }
+          </a>
         }
       end
-    end
+ 
+      # show default image if user has no image
+      #~~~~~~~~~~~~~~~~~~~~~~
+ 
+ 
+      view :missing, :ltype=>:user, :right=>:image do |args|
+        wrap :missing_image do
+          subrenderer( Card['missing person'] )._render_core
+        end
+      end
+ 
+      # Customize watching/following.  
+      # Too much work for what is really only changing text and hover behavior
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    view :mmt_confirm, :tags=>:unknown_ok do |args|
-      roles = card.who_can(:read).map{ |id| Card[id].name }
-      fieldset "confirm permissions", %{
-        <div style="text-align: left">
-          #{ radio_button_tag 'card[comment_author]', 'restrict', false, :class=>'submitter' } 
-          <label>restrict to MMT Staff</label><br/>
-          #{ radio_button_tag 'card[comment_author]', 'allow'   , false, :class=>'submitter' }
-          <label>do not restrict</label>
-        </div>
-      },
-      :editor => 'mmt_confirm',
-      :help   => "<div style='font-weight:normal'>By default, this card will be visible to: #{ roles * ', '}.</div>"
+
+      view :watch do |args|
+        wrap :watch do
+          if card.watching_type?
+            watching_type_cards
+          else
+            link_args = if card.watching?
+              ["Following", :off, "stop sending emails about changes to #{card.cardname}", { :hover_content=>'Stop Following' }]
+            else
+              ["Follow", :on, "send emails about changes to #{card.cardname}"]
+            end
+            watch_link *link_args
+          end
+        end
+      end
+
+  
+      view :watch, :type=>:cardtype do |args|
+        wrap :watch do
+          type_link = card.watching_type? ? "#{watching_type_cards} | " : ""
+          plural = card.name.pluralize
+          link_args = if card.watching?
+            ["Following", :off, "stop sending", { :hover_content=>"Stop Following all #{plural}" } ]
+          else
+            ["Follow", :on, "send"]
+          end
+          link_args[0] += " all #{plural}"
+          link_args[2] += " emails about changes to #{plural}"
+          type_link + watch_link( *link_args )
+        end
+      end
+
+ 
+      # ALL the "branch" stuff is about the special Topics tree
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+      view :closed_branch do |args|
+        has_subtopics = Card.exists? "#{card.cardname.trunk_name}+subtopics"
+        wrap :closed_branch do
+          basic_branch :closed, !!has_subtopics
+        end
+      end
+  
+      view :open_branch do |args|
+        @paging_params = { :limit=> 1000 }
+        subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+unlimited"
+        wrap :open_branch do
+          basic_branch(:open) + subrenderer( subtopics_card )._render_content( :item => :closed_branch )
+        end
+      end
+  
+  
+      # Everything below is about the special navbox behavior
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+      view :raw, :self=>:cp_navbox do |args|
+        %{ <form action="#{Card.path_setting '/:search'}" id="navbox-form" method="get">
+          #{hidden_field_tag :item, 'cp_result_item' }
+          #{text_field_tag :_keyword, '', :class=>'navbox'
+          }#{select_tag '_wql[type]', options_for_select([['All Content',nil], 'Foundations', 'Organizations', 'Topics', 'People'])
+          }#{submit_tag 'search'}
+         </form>}
+      end
+  
+      view :cp_result_item do |args|
+        wrap :cp_result_item, args do
+          %{
+          <hr>
+          <div class="cp-result-top">
+            <span class="cp-item-name">
+              #{ link_to_page fancy_title, card.name }
+            </span>
+            <span class="cp-item-date">
+              #{ time_ago_in_words card.updated_at } ago
+            </span>
+            <span class="cp-item-type">
+              #{ link_to_page card.type_name }
+            </span>
+          </div>
+          <div class="cp-item-content">
+            <div class="closed-content">#{ _render_closed_content }</div>
+          </div>
+          }
+        end
+      end
+
+      view :mmt_confirm, :tags=>:unknown_ok do |args|
+        roles = card.who_can(:read).map{ |id| Card[id].name }
+        fieldset "confirm permissions", %{
+          <div style="text-align: left">
+            #{ radio_button_tag 'card[comment_author]', 'restrict', false, :class=>'submitter' } 
+            <label>restrict to MMT Staff</label><br/>
+            #{ radio_button_tag 'card[comment_author]', 'allow'   , false, :class=>'submitter' }
+            <label>do not restrict</label>
+          </div>
+        },
+        :editor => 'mmt_confirm',
+        :help   => "<div style='font-weight:normal'>By default, this card will be visible to: #{ roles * ', '}.</div>"
+      end
+
+      view :core, :self=>:cp_navbox do
+        _render_raw
+      end
+  
     end
-    
-    view(:raw, { :name=>:cp_navbox }, :core)
   
   end
 
