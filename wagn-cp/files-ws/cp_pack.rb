@@ -197,7 +197,7 @@ module Wagn
   end
 
 
-  class Renderer::Html
+  class Renderer::Html < Renderer
     def basic_branch state, show_arrow=true
       arrow_link = case
         when state==:open
