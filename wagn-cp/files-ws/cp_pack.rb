@@ -188,7 +188,7 @@ module Wagn
         :help   => "<div style='font-weight:normal'>By default, this card will be visible to: #{ roles * ', '}.</div>"
       end
 
-      view :core, :self=>:cp_navbox do
+      view :core, :self=>:cp_navbox do |args|
         _render_raw
       end
   
