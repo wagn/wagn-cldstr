@@ -34,7 +34,6 @@ module Wagn
     format :html do
     
       view :core, :self=>:wikirate_nav do |args|
-      
         if main = root.card
           base = main.simple? ? main : begin
             partname = '_1'.to_name.to_absolute main.name
