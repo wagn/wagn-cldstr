@@ -3,7 +3,7 @@ module Wagn
     extend Set
 
 
-    event :propose_mmt_restriction, :after=>:create do
+    event :propose_mmt_restriction, :after=>:store, :on=>:create do
       role_name = 'MMT staff'
       if !nested_edit and
         !Account.always_ok? and                                                             # user is not admin
@@ -12,8 +12,8 @@ module Wagn
 
         case comment_author #KLUDGE!!! using this to hold restriction info.  need to figure out how to get params through.
         when nil
-          errors.add :mmt, 'mmt confirm'
-          error_view = :mmt_confirm
+          self.errors.add :mmt, 'mmt confirm'
+          self.error_view = :mmt_confirm
           raise ActiveRecord::Rollback, "kludge"
         when 'restrict'
           Account.as_bot do
