@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/aussiegeek/rubyzip"
   s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.8.7")
-  s.rubygems_version = "1.8.23"
+  s.rubygems_version = "1.8.25"
   s.summary = "rubyzip is a ruby module for reading and writing zip files"
 
   if s.respond_to? :specification_version then

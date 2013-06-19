@@ -25,7 +25,10 @@ checked program was:
 /* begin */
 1: #include "ruby.h"
 2: 
-3: int main() {return 0;}
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
 /* end */
 
 "gcc -E -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp  conftest.c -o conftest.i"
@@ -80,8 +83,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))snprintf; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))snprintf; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -104,8 +114,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))AcquireImage; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))AcquireImage; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -114,7 +131,7 @@ have_func: checking for AffinityImage() in assert.h,ctype.h,stdio.h,stdlib.h,mat
 
 "gcc -o conftest -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl  -lruby-1.9.1  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 conftest.c: In function ‘t’:
-conftest.c:15:1: warning: ‘AffinityImage’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:167) [-Wdeprecated-declarations]
+conftest.c:14:1: warning: ‘AffinityImage’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:167) [-Wdeprecated-declarations]
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -130,8 +147,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))AffinityImage; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))AffinityImage; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -140,7 +164,7 @@ have_func: checking for AffinityImages() in assert.h,ctype.h,stdio.h,stdlib.h,ma
 
 "gcc -o conftest -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl  -lruby-1.9.1  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 conftest.c: In function ‘t’:
-conftest.c:15:1: warning: ‘AffinityImages’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:169) [-Wdeprecated-declarations]
+conftest.c:14:1: warning: ‘AffinityImages’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:169) [-Wdeprecated-declarations]
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -156,8 +180,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))AffinityImages; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))AffinityImages; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -180,8 +211,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))AutoGammaImageChannel; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))AutoGammaImageChannel; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -204,8 +242,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))AutoLevelImageChannel; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))AutoLevelImageChannel; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -228,8 +273,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))BlueShiftImage; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))BlueShiftImage; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -252,8 +304,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))ConstituteComponentTerminus; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))ConstituteComponentTerminus; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -276,8 +335,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))DeskewImage; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))DeskewImage; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -300,8 +366,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))EncipherImage; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))EncipherImage; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -324,8 +397,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))EqualizeImageChannel; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))EqualizeImageChannel; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -348,8 +428,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))FloodfillPaintImage; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))FloodfillPaintImage; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -372,8 +459,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))FunctionImageChannel; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))FunctionImageChannel; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -396,8 +490,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))GetAuthenticIndexQueue; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))GetAuthenticIndexQueue; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -420,8 +521,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))GetAuthenticPixels; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))GetAuthenticPixels; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -444,8 +552,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))GetImageAlphaChannel; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))GetImageAlphaChannel; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -468,8 +583,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))GetVirtualPixels; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))GetVirtualPixels; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -478,7 +600,7 @@ have_func: checking for LevelImageColors() in assert.h,ctype.h,stdio.h,stdlib.h,
 
 "gcc -o conftest -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl  -lruby-1.9.1  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 conftest.c: In function ‘t’:
-conftest.c:15:1: warning: ‘LevelImageColors’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:190) [-Wdeprecated-declarations]
+conftest.c:14:1: warning: ‘LevelImageColors’ is deprecated (declared at /usr/include/ImageMagick/magick/deprecate.h:190) [-Wdeprecated-declarations]
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -494,8 +616,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))LevelImageColors; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))LevelImageColors; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -518,8 +647,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))LevelColorsImageChannel; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))LevelColorsImageChannel; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -542,8 +678,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))LevelizeImageChannel; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))LevelizeImageChannel; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -566,8 +709,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))LiquidRescaleImage; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))LiquidRescaleImage; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -590,8 +740,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))MagickLibAddendum; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))MagickLibAddendum; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -614,8 +771,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))OpaquePaintImageChannel; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))OpaquePaintImageChannel; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -638,8 +802,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))QueueAuthenticPixels; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))QueueAuthenticPixels; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -662,8 +833,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))RemapImage; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))RemapImage; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -686,8 +864,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))RemoveImageArtifact; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))RemoveImageArtifact; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -710,8 +895,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))SelectiveBlurImageChannel; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))SelectiveBlurImageChannel; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -734,8 +926,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))SetImageAlphaChannel; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))SetImageAlphaChannel; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -758,8 +957,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))SetImageArtifact; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))SetImageArtifact; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -782,8 +988,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))SetMagickMemoryMethods; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))SetMagickMemoryMethods; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -806,8 +1019,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))SparseColorImage; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))SparseColorImage; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -830,8 +1050,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))SyncAuthenticPixels; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))SyncAuthenticPixels; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -854,8 +1081,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))TransformImageColorspace; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))TransformImageColorspace; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -878,8 +1112,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))TransparentPaintImage; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))TransparentPaintImage; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -902,8 +1143,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int t() { void ((*volatile p)()); p = (void ((*)()))TransparentPaintImageChroma; return 0; }
+14: int t() { void ((*volatile p)()); p = (void ((*)()))TransparentPaintImageChroma; return 0; }
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &t);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -959,8 +1207,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int s = (char *)&((Image*)0)->type - (char *)0;
+14: int s = (char *)&((Image*)0)->type - (char *)0;
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &s);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -983,8 +1238,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int s = (char *)&((DrawInfo*)0)->kerning - (char *)0;
+14: int s = (char *)&((DrawInfo*)0)->kerning - (char *)0;
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &s);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -1007,8 +1269,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int s = (char *)&((DrawInfo*)0)->interline_spacing - (char *)0;
+14: int s = (char *)&((DrawInfo*)0)->interline_spacing - (char *)0;
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &s);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -1031,8 +1300,15 @@ checked program was:
 11: #include <wand/MagickWand.h>
 12: 
 13: /*top*/
-14: int main() {return 0;}
-15: int s = (char *)&((DrawInfo*)0)->interword_spacing - (char *)0;
+14: int s = (char *)&((DrawInfo*)0)->interword_spacing - (char *)0;
+15: int main(int argc, char **argv)
+16: {
+17:   if (argc > 1000000) {
+18:     printf("%p", &s);
+19:   }
+20: 
+21:   return 0;
+22: }
 /* end */
 
 --------------------
@@ -2675,14 +2951,21 @@ have_func: checking for rb_frame_this_func() in ruby.h,ruby/io.h... ------------
 "gcc -o conftest -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I.  -I/usr/include/ImageMagick  -I/usr/include/ImageMagick -fopenmp conftest.c  -L. -L/usr/lib  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11    -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl  -lruby-1.9.1  -lpthread -lrt -ldl -lcrypt -lm   -lc"
 checked program was:
 /* begin */
-1: #include "ruby.h"
-2: 
-3: #include <ruby.h>
-4: #include <ruby/io.h>
-5: 
-6: /*top*/
-7: int main() {return 0;}
-8: int t() { void ((*volatile p)()); p = (void ((*)()))rb_frame_this_func; return 0; }
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: #include <ruby/io.h>
+ 5: 
+ 6: /*top*/
+ 7: int t() { void ((*volatile p)()); p = (void ((*)()))rb_frame_this_func; return 0; }
+ 8: int main(int argc, char **argv)
+ 9: {
+10:   if (argc > 1000000) {
+11:     printf("%p", &t);
+12:   }
+13: 
+14:   return 0;
+15: }
 /* end */
 
 --------------------
@@ -2813,7 +3096,7 @@ extconf.h is:
 
 
 ======================================================================
-Thu 18Apr13 19:57:49
+Wed 12Jun13 02:15:06
 This installation of RMagick 2.13.2 is configured for
 Ruby 1.9.3 (x86_64-linux) and ImageMagick 6.6.9 Q16 
 ======================================================================

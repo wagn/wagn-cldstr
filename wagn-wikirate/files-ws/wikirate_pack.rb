@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Wagn
   module Set::Type::Source
-    include Sets
+    extend Set
     
     module Model
       def autoname ignore=nil
@@ -31,126 +31,124 @@ module Wagn
     end
 
 
-    format :html
+    format :html do
     
+      view :core, :self=>:wikirate_nav do |args|
+        if main = root.card
+          base = main.simple? ? main : begin
+            partname = '_1'.to_name.to_absolute main.name
+            Card[partname]
+          end
+          base_type = base && base.type_name
+          return '' unless  %w{ Market Company }.member? base_type
+      
+          topics = main.simple? ? [] : begin
+            part2name = '_2'.to_name.to_absolute main.name
+            if part2 = Card[part2name] and part2.type_name == 'Topic'
+              topics_lineage(part2.name)
+            end
+          end
+        
+          return '' unless topics
+        
+          links = [ [ base.name, nil, base_type ] ]
+          topics.each { |topic| links << [topic, "#{base.name}+#{topic}", 'Topic', ] }
+      
+          %{
+            <div id="wikirate-nav">
+            #{
+              links.map do |text, title, type|
+                link_to_page text, title, :navType=>type
+              end * "<span>&raquo;</span>"
+            }
+            </div>
+          }
+        end
+      end
+    
+      # /card/update/Analysis?card[codename]=wikirate_analysis
+      # /card/update/Topic?card[codename]=wikirate_topic
 
     
-    define_view :core, :name=>:wikirate_nav do |args|
-      
-      if main = root.card
-        base = main.simple? ? main : begin
-          partname = '_1'.to_name.to_absolute main.name
-          Card[partname]
+  
+      view :core, :right=>:claim_perspective do |args|
+        add_name_context
+        _final_core args
+      end
+  
+      view :titled, :right=>:source_type do |args|
+        ''
+      end
+  
+      view :missing, :right=>:source_type do |args|
+        ''
+      end
+    
+      view :name_editor, :type=>:claim do |args|
+        fieldset 'Claim', raw( name_field form ), :editor=>'name', :help=>args[:help]
+      end
+    
+    
+      view :editor, :right=>:wikirate_topic do |args|
+        kids = {}
+        Card.search( :left=>{:type=>'Topic'}, :right=>'subtopic', :limit=>0, :sort=>:name ).each do |junc|
+          parent = junc.cardname.trunk_name.key
+          children = junc.item_names.map { |n| n.to_name.key }
+          kids[parent] = children        
         end
-        base_type = base && base.type_name
-        return '' unless  %w{ Market Company }.member? base_type
-      
-        topics = main.simple? ? [] : begin
-          part2name = '_2'.to_name.to_absolute main.name
-          if part2 = Card[part2name] and part2.type_name == 'Topic'
-            topics_lineage(part2.name)
-          end
-        end
-        
-        return '' unless topics
-        
-        links = [ [ base.name, nil, base_type ] ]
-        topics.each { |topic| links << [topic, "#{base.name}+#{topic}", 'Topic', ] }
+
+        roots = kids.keys.find_all {|k| ![kids.values].flatten.member? k }
+        initial_content = card.item_names.map { |n| 'wtt-' + n.to_name.safe_key } * '|'
       
         %{
-          <div id="wikirate-nav">
-          #{
-            links.map do |text, title, type|
-              link_to_page text, title, :navType=>type
-            end * "<span>&raquo;</span>"
-          }
+          #{ form.hidden_field :content, :class=>'card-content' }
+          <span class="initial-content" style="display:none">#{initial_content}</span>        
+          <div class="wikirate-topic-tree">
+            #{ build_topic_tree roots, kids }
           </div>
         }
       end
-    end
     
-    # /card/update/Analysis?card[codename]=wikirate_analysis
-    # /card/update/Topic?card[codename]=wikirate_topic
-
     
+      # ALL the "branch" stuff is about the special Topics tree
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
-    define_view :core, :right=>:claim_perspective do |args|
-      add_name_context
-      _final_core args
-    end
-  
-    define_view :titled, :right=>:source_type do |args|
-      ''
-    end
-  
-    define_view :missing, :right=>:source_type do |args|
-      ''
-    end
-    
-    define_view :name_editor, :type=>:claim do |args|
-      fieldset 'Claim', raw( name_field form ), :editor=>'name', :help=>args[:help]
-    end
-    
-    
-    define_view :editor, :right=>:wikirate_topic do |args|
-      kids = {}
-      Card.search( :left=>{:type=>'Topic'}, :right=>'subtopic', :limit=>0, :sort=>:name ).each do |junc|
-        parent = junc.cardname.trunk_name.key
-        children = junc.item_names.map { |n| n.to_name.key }
-        kids[parent] = children        
+      view :closed_branch do |args|
+        wrap :closed_branch do
+          basic_branch :closed, show_arrow = branch_has_kids?
+        end
       end
-
-      roots = kids.keys.find_all {|k| ![kids.values].flatten.member? k }
-      initial_content = card.item_names.map { |n| 'wtt-' + n.to_name.safe_key } * '|'
-      
-      %{
-        #{ form.hidden_field :content, :class=>'card-content' }
-        <span class="initial-content" style="display:none">#{initial_content}</span>        
-        <div class="wikirate-topic-tree">
-          #{ build_topic_tree roots, kids }
-        </div>
-      }
-    end
-    
-    
-    # ALL the "branch" stuff is about the special Topics tree
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
-    define_view :closed_branch do |args|
-      wrap :closed_branch do
-        basic_branch :closed, show_arrow = branch_has_kids?
+      view :open_branch do |args|
+        @paging_params = { :limit=> 1000 }
+        subtopics_card = Card.fetch "#{card.cardname.trunk_name}+children+branch"#{}"+unlimited"
+        wrap :open_branch do
+          basic_branch(:open) + 
+          subrenderer( subtopics_card )._render_content( :item => :closed_branch )
+        end
       end
-    end
-  
-    define_view :open_branch do |args|
-      @paging_params = { :limit=> 1000 }
-      subtopics_card = Card.fetch "#{card.cardname.trunk_name}+children+branch"#{}"+unlimited"
-      wrap :open_branch do
-        basic_branch(:open) + 
-        subrenderer( subtopics_card )._render_content( :item => :closed_branch )
+    
+      view :navdrop, :tags=>:unknown_ok do |args|
+        items = Card.search( :type_id=>card.type_id, :sort=>:name, :return=>:name ).map do |item|
+          klass = item.to_name.key == card.key ? 'class="current-item"' : ''
+          %{<li #{ klass }>#{ link_to_page item }</li>}
+        end.join "\n"
+        %{ <ul>#{items}</ul> }
+      end
+    
+      view :navdrop, :type=>:wikirate_analysis do |args|
+        anchor_name = card.cardname.trunk_name
+        topic_name = card.cardname.tag_name
+        index = params[:index].to_i - 1
+        items = topics_siblings( topic_name, index).map do |item|
+          klass = item.to_name.key == topic_name.key ? 'class="current-item"' : ''
+          %{<li #{klass}>#{ link_to_page item, "#{anchor_name}+#{item}" }</li>}
+        end.join "\n"
+        %{ <ul>#{items}</ul> }
       end
     end
     
-    define_view :navdrop, :tags=>:unknown_ok do |args|
-      items = Card.search( :type_id=>card.type_id, :sort=>:name, :return=>:name ).map do |item|
-        klass = item.to_name.key == card.key ? 'class="current-item"' : ''
-        %{<li #{ klass }>#{ link_to_page item }</li>}
-      end.join "\n"
-      %{ <ul>#{items}</ul> }
-    end
-    
-    define_view :navdrop, :type=>:wikirate_analysis do |args|
-      anchor_name = card.cardname.trunk_name
-      topic_name = card.cardname.tag_name
-      index = params[:index].to_i - 1
-      items = topics_siblings( topic_name, index).map do |item|
-        klass = item.to_name.key == topic_name.key ? 'class="current-item"' : ''
-        %{<li #{klass}>#{ link_to_page item, "#{anchor_name}+#{item}" }</li>}
-      end.join "\n"
-      %{ <ul>#{items}</ul> }
-    end
-    
-    #alias_view :titled, { :right=>'source_type' }, :missing
+    #view :titled, { :right=>'source_type' }, :missing
   
   end
 
@@ -258,26 +256,26 @@ module Wagn
     end
     
   end
-end
 
-module Cardlib::Patterns
-  class LtypeRtypePattern < BasePattern
-    register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
-    class << self
-      def label name
-        %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
-      end
-      def prototype_args anchor
-        { }# :name=>"*dummy+#{anchor.tag}",
-          #:loaded_left=> Card.new( :name=>'*dummy', :type=>anchor.trunk_name )
-        #}
-      end
-      def anchor_name card
-        left = card.loaded_left || card.left
-        right = card.right
-        ltype_name = (left && left.type_name) || Card[ Card::DefaultTypeID ].name
-        rtype_name = (right && right.type_name) || Card[ Card::DefaultTypeID ].name
-        "#{ltype_name}+#{rtype_name}"
+  module SetPatterns
+    class LtypeRtypePattern < BasePattern
+      register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
+      class << self
+        def label name
+          %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
+        end
+        def prototype_args anchor
+          { }# :name=>"*dummy+#{anchor.tag}",
+            #:loaded_left=> Card.new( :name=>'*dummy', :type=>anchor.trunk_name )
+          #}
+        end
+        def anchor_name card
+          left = card.loaded_left || card.left
+          right = card.right
+          ltype_name = (left && left.type_name) || Card[ Card::DefaultTypeID ].name
+          rtype_name = (right && right.type_name) || Card[ Card::DefaultTypeID ].name
+          "#{ltype_name}+#{rtype_name}"
+        end
       end
     end
   end

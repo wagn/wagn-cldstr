@@ -74,7 +74,7 @@ DEFS     =
 CPPFLAGS = -DHAVE_RB_THREAD_BLOCKING_REGION -DHAVE_RB_WAIT_FOR_SINGLE_FD -DHAVE_MYSQL_H -DHAVE_ERRMSG_H -DHAVE_MYSQLD_ERROR_H -D_FORTIFY_SOURCE=2 $(DEFS) $(cppflags) -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing  -g
 CXXFLAGS = $(CFLAGS) -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security -Wall -fno-strict-aliasing
 ldflags  = -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -rdynamic -Wl,-export-dynamic -Wl,-rpath,/usr/lib/x86_64-linux-gnu
-dldflags = 
+dldflags =  
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
 LDSHARED = $(CC) -shared
@@ -120,6 +120,8 @@ LIBS = $(LIBRUBYARG_SHARED) -L/usr/lib/x86_64-linux-gnu -lmysqlclient_r -lpthrea
 SRCS = result.c mysql2_ext.c client.c
 OBJS = result.o mysql2_ext.o client.o
 TARGET = mysql2
+TARGET_NAME = mysql2
+TARGET_ENTRY = Init_$(TARGET_NAME)
 DLLIB = $(TARGET).so
 EXTSTATIC = 
 STATIC_LIB = 
@@ -140,11 +142,12 @@ static: $(STATIC_LIB)
 .PHONY: all install static install-so install-rb
 .PHONY: clean clean-so clean-rb
 
+clean-static::
 clean-rb-default::
 clean-rb::
 clean-so::
-clean: clean-so clean-rb-default clean-rb
-		@-$(RM) $(CLEANLIBS) $(CLEANOBJS) $(CLEANFILES)
+clean: clean-so clean-static clean-rb-default clean-rb
+		-$(Q)$(RM) $(CLEANLIBS) $(CLEANOBJS) $(CLEANFILES) .*.time
 
 distclean-rb-default::
 distclean-rb::

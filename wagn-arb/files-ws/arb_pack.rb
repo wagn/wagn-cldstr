@@ -2,12 +2,13 @@
 module Wagn
 
   module Set::Arb
-    include Wagn::Sets
+    extend Wagn::Set
 
-    format :html
+    format :html do
 
-    define_view :edit_in_form, :right=>:contact do |args|
-      Account.as_bot { _final_edit_in_form args }
+      view :edit_in_form, :right=>:contact do |args|
+        Account.as_bot { _final_edit_in_form args }
+      end
     end
   end
 
