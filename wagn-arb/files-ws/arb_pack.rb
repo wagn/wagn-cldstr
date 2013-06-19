@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
-module Wagn
-
+class Card
   module Set::Arb
-    extend Wagn::Set
+    extend Set
 
     format :html do
 

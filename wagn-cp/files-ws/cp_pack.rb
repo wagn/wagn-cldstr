@@ -1,4 +1,4 @@
-module Wagn
+class Card
   module Set::All::Connectipedia
     extend Set
 
@@ -196,7 +196,10 @@ module Wagn
   
   end
 
+end
 
+
+module Wagn
   class Renderer::Html < Renderer
     def basic_branch state, show_arrow=true
       arrow_link = case

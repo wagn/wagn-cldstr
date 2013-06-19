@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-module Wagn
+class Card
   module Set::TransitionPack
     extend Set
     

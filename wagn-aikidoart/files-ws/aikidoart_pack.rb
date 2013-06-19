@@ -11,11 +11,8 @@ class AAHelper  #fixme - want better patterns for adding custom classes
   end  
 end
 
-class Card #FIXME - just the right set (though test live; this broke before.)
-  include Magick
-end
-
-module Wagn
+class Card 
+  include Magick #FIXME - just the right set (though test live; this broke before.)
   module Set
   
     #~~~~~~~~*all~~~~~~~~~~

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-module Wagn
+class Card
   module Set::Type::Source
     extend Set
     
@@ -152,6 +152,34 @@ module Wagn
   
   end
 
+
+  module SetPatterns
+    class LtypeRtypePattern < BasePattern
+      register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
+      class << self
+        def label name
+          %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
+        end
+        def prototype_args anchor
+          { }# :name=>"*dummy+#{anchor.tag}",
+            #:loaded_left=> Card.new( :name=>'*dummy', :type=>anchor.trunk_name )
+          #}
+        end
+        def anchor_name card
+          left = card.loaded_left || card.left
+          right = card.right
+          ltype_name = (left && left.type_name) || Card[ Card::DefaultTypeID ].name
+          rtype_name = (right && right.type_name) || Card[ Card::DefaultTypeID ].name
+          "#{ltype_name}+#{rtype_name}"
+        end
+      end
+    end
+  end
+
+
+end
+
+module Wagn
   
   class Renderer
     
@@ -257,26 +285,5 @@ module Wagn
     
   end
 
-  module SetPatterns
-    class LtypeRtypePattern < BasePattern
-      register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
-      class << self
-        def label name
-          %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
-        end
-        def prototype_args anchor
-          { }# :name=>"*dummy+#{anchor.tag}",
-            #:loaded_left=> Card.new( :name=>'*dummy', :type=>anchor.trunk_name )
-          #}
-        end
-        def anchor_name card
-          left = card.loaded_left || card.left
-          right = card.right
-          ltype_name = (left && left.type_name) || Card[ Card::DefaultTypeID ].name
-          rtype_name = (right && right.type_name) || Card[ Card::DefaultTypeID ].name
-          "#{ltype_name}+#{rtype_name}"
-        end
-      end
-    end
-  end
+
 end
