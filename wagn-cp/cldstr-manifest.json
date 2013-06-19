@@ -15,7 +15,6 @@
   "package" : { 
     "maintainer"      : "wagn.org",
     "packagebasename" : "wagn-cp",
-    "distros"         : [ "red","yellow","green" ]
   }, 
 
   "roles" : {

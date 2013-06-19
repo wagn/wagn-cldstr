@@ -15,14 +15,13 @@
   "package" : { 
     "maintainer"      : "wagn.org",
     "packagebasename" : "wagn-aikidoart",
-    "distros"         : [ "red","yellow","green" ]
   }, 
 
   "roles" : {
     "ws" : {
       "appconfigitems" : [
         {
-          "type"         : "symlink",
+          "type"         : "symlink", 
           "target"       : "/usr/cldstr/wagn.org/wagn-aikidoart/ws/aikidoart_pack.rb",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/aikidoart_pack.rb"
         }
