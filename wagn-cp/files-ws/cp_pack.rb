@@ -38,7 +38,7 @@ module Wagn
         if main?
           @@displayed_type_ids ||= %w{ Foundations Topic Organization Person Opportunity State County City }.map { |n| Card[n].id }
           if @@displayed_type_ids.member? card.type_id
-            type_link = link_to_page card.type_name, nil, :class=>"cp-typelink cp-type-#{ Wagn::Codename[ card.type_id ] }" 
+            type_link = link_to_page card.type_name, nil, :class=>"cp-typelink cp-type-#{ Card::Codename[ card.type_id ] }" 
           end
         end
     
