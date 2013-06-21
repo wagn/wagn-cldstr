@@ -39,7 +39,7 @@ class Card
   
         view :thumbnail, :type=>'item' do |args|
           wrap :thumbnail, args do
-            text = subrenderer( Card["#{card.name}+image"] ).render_core :size=>:medium
+            text = subformat( Card["#{card.name}+image"] ).render_core :size=>:medium
             card_link card.name, text, true
           end
         end

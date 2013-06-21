@@ -65,7 +65,7 @@ class Card
           <a>
             #{
               if icon_card = Card['edit_icon']
-                subrenderer(icon_card)._render_core
+                subformat(icon_card)._render_core
               else
                 'edit'
               end
@@ -80,7 +80,7 @@ class Card
  
       view :missing, :ltype=>:user, :right=>:image do |args|
         wrap :missing_image do
-          subrenderer( Card['missing person'] )._render_core
+          subformat( Card['missing person'] )._render_core
         end
       end
  
@@ -135,7 +135,7 @@ class Card
         @paging_params = { :limit=> 1000 }
         subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+unlimited"
         wrap :open_branch do
-          basic_branch(:open) + subrenderer( subtopics_card )._render_content( :item => :closed_branch )
+          basic_branch(:open) + subformat( subtopics_card )._render_content( :item => :closed_branch )
         end
       end
   
@@ -200,7 +200,7 @@ end
 
 
 module Wagn
-  class Renderer::Html < Renderer
+  class Card::HtmlFormat
     def basic_branch state, show_arrow=true
       arrow_link = case
         when state==:open
@@ -228,7 +228,7 @@ module Wagn
     end
   end
 
-  class Renderer::Json 
+  class Card::JsonFormat 
     # bit of a hack to make navbox results restrictable
     def goto_wql(term)
       xtra = search_params
@@ -237,7 +237,7 @@ module Wagn
     end
   end
 
-  class Renderer
+  class Card::Format
     #probably need more general handling of WQL add-ons like this
     def params
       @params ||= begin
