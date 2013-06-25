@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
-module Wagn::Set::WagnOrg
+module Card::Set::WagnOrg
 
-  extend Wagn::Set
+  extend Card::Set
   format :html do
   
     view :shade do |args|

@@ -11,11 +11,8 @@ class AAHelper  #fixme - want better patterns for adding custom classes
   end  
 end
 
-class Card #FIXME - just the right set (though test live; this broke before.)
-  include Magick
-end
-
-module Wagn
+class Card 
+  include Magick #FIXME - just the right set (though test live; this broke before.)
   module Set
   
     #~~~~~~~~*all~~~~~~~~~~
@@ -42,7 +39,7 @@ module Wagn
   
         view :thumbnail, :type=>'item' do |args|
           wrap :thumbnail, args do
-            text = subrenderer( Card["#{card.name}+image"] ).render_core :size=>:medium
+            text = subformat( Card["#{card.name}+image"] ).render_core :size=>:medium
             card_link card.name, text, true
           end
         end

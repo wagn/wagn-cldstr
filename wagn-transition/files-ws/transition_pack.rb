@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-module Wagn
+class Card
   module Set::TransitionPack
     extend Set
     
@@ -9,7 +9,7 @@ module Wagn
         star_card = Card[ "#{Card[:pattern_confidence].name}+#{Card[:image].name}" ]
         star = if star_card
           args[:size] ||= :icon
-          subrenderer(star_card).render_core args
+          subformat(star_card).render_core args
         else
           '*'
         end

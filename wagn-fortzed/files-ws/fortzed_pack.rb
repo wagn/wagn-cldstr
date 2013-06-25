@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
-module Wagn::Set::FortZed
-  extend Wagn::Set
+module Card::Set::FortZed
+  extend Card::Set
   
   format :html do
   

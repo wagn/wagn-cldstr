@@ -1,33 +1,31 @@
 # -*- encoding : utf-8 -*-
-module Wagn
+class Card
   module Set::Type::Source
     extend Set
     
-    module Model
-      def autoname ignore=nil
-    #    Rails.logger.info "auto"
-        size_limit = 80
-    
-        %w{ Origin Title Date }.map do |field|
-          value = if cards.blank?
-              #currently only for migrations
-              c = Card["#{self.name}+#{field}"] and c.content
-            else
-              field = cards[ "~plus~#{field}" ] and field["content"]
-            end
-          if value.blank?
-            errors.add :autoname, "need valid #{field}"
-            value = nil
+    def autoname ignore=nil
+  #    Rails.logger.info "auto"
+      size_limit = 80
+  
+      %w{ Origin Title Date }.map do |field|
+        value = if cards.blank?
+            #currently only for migrations
+            c = Card["#{self.name}+#{field}"] and c.content
           else
-            unwanted_characters_regexp = %{[#{(Wagn::Cardname::BANNED_ARRAY + %w{ [ ] n }).join('\\')}/]}
-            value.gsub! /#{unwanted_characters_regexp}/, ''
-            if past_size_limit = value[size_limit+1] and past_size_limit =~ /^\S/
-              value = value[0..size_limit].gsub /\s+\S*$/, '...'
-            end
+            field = cards[ "~plus~#{field}" ] and field["content"]
           end
-          value
-        end.compact.join ', '
-      end
+        if value.blank?
+          errors.add :autoname, "need valid #{field}"
+          value = nil
+        else
+          unwanted_characters_regexp = %{[#{(Cardname::BANNED_ARRAY + %w{ [ ] n }).join('\\')}/]}
+          value.gsub! /#{unwanted_characters_regexp}/, ''
+          if past_size_limit = value[size_limit+1] and past_size_limit =~ /^\S/
+            value = value[0..size_limit].gsub /\s+\S*$/, '...'
+          end
+        end
+        value
+      end.compact.join ', '
     end
 
 
@@ -124,7 +122,7 @@ module Wagn
         subtopics_card = Card.fetch "#{card.cardname.trunk_name}+children+branch"#{}"+unlimited"
         wrap :open_branch do
           basic_branch(:open) + 
-          subrenderer( subtopics_card )._render_content( :item => :closed_branch )
+          subformat( subtopics_card )._render_content( :item => :closed_branch )
         end
       end
     
@@ -152,8 +150,29 @@ module Wagn
   
   end
 
-  
-  class Renderer
+
+  class SetPattern::LtypeRtypePattern < SetPattern
+    register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
+    class << self
+      def label name
+        %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
+      end
+      def prototype_args anchor
+        { }# :name=>"*dummy+#{anchor.tag}",
+          #:loaded_left=> Card.new( :name=>'*dummy', :type=>anchor.trunk_name )
+        #}
+      end
+      def anchor_name card
+        left = card.loaded_left || card.left
+        right = card.right
+        ltype_name = (left && left.type_name) || Card[ Card::DefaultTypeID ].name
+        rtype_name = (right && right.type_name) || Card[ Card::DefaultTypeID ].name
+        "#{ltype_name}+#{rtype_name}"
+      end
+    end
+  end
+
+  class Format
     
     def topics_siblings topic, index
       wql = if index==0
@@ -257,26 +276,5 @@ module Wagn
     
   end
 
-  module SetPatterns
-    class LtypeRtypePattern < BasePattern
-      register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
-      class << self
-        def label name
-          %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
-        end
-        def prototype_args anchor
-          { }# :name=>"*dummy+#{anchor.tag}",
-            #:loaded_left=> Card.new( :name=>'*dummy', :type=>anchor.trunk_name )
-          #}
-        end
-        def anchor_name card
-          left = card.loaded_left || card.left
-          right = card.right
-          ltype_name = (left && left.type_name) || Card[ Card::DefaultTypeID ].name
-          rtype_name = (right && right.type_name) || Card[ Card::DefaultTypeID ].name
-          "#{ltype_name}+#{rtype_name}"
-        end
-      end
-    end
-  end
+
 end

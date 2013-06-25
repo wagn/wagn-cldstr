@@ -1,9 +1,9 @@
-module Wagn
+class Card
   module Set::All::Connectipedia
     extend Set
 
 
-    event :propose_mmt_restriction, :after=>:create do
+    event :propose_mmt_restriction, :after=>:store, :on=>:create do
       role_name = 'MMT staff'
       if !nested_edit and
         !Account.always_ok? and                                                             # user is not admin
@@ -12,8 +12,8 @@ module Wagn
 
         case comment_author #KLUDGE!!! using this to hold restriction info.  need to figure out how to get params through.
         when nil
-          errors.add :mmt, 'mmt confirm'
-          error_view = :mmt_confirm
+          self.errors.add :mmt, 'mmt confirm'
+          self.error_view = :mmt_confirm
           raise ActiveRecord::Rollback, "kludge"
         when 'restrict'
           Account.as_bot do
@@ -38,7 +38,7 @@ module Wagn
         if main?
           @@displayed_type_ids ||= %w{ Foundations Topic Organization Person Opportunity State County City }.map { |n| Card[n].id }
           if @@displayed_type_ids.member? card.type_id
-            type_link = link_to_page card.type_name, nil, :class=>"cp-typelink cp-type-#{ Wagn::Codename[ card.type_id ] }" 
+            type_link = link_to_page card.type_name, nil, :class=>"cp-typelink cp-type-#{ Card::Codename[ card.type_id ] }" 
           end
         end
     
@@ -65,7 +65,7 @@ module Wagn
           <a>
             #{
               if icon_card = Card['edit_icon']
-                subrenderer(icon_card)._render_core
+                subformat(icon_card)._render_core
               else
                 'edit'
               end
@@ -80,7 +80,7 @@ module Wagn
  
       view :missing, :ltype=>:user, :right=>:image do |args|
         wrap :missing_image do
-          subrenderer( Card['missing person'] )._render_core
+          subformat( Card['missing person'] )._render_core
         end
       end
  
@@ -135,7 +135,7 @@ module Wagn
         @paging_params = { :limit=> 1000 }
         subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+unlimited"
         wrap :open_branch do
-          basic_branch(:open) + subrenderer( subtopics_card )._render_content( :item => :closed_branch )
+          basic_branch(:open) + subformat( subtopics_card )._render_content( :item => :closed_branch )
         end
       end
   
@@ -196,8 +196,11 @@ module Wagn
   
   end
 
+end
 
-  class Renderer::Html < Renderer
+
+module Wagn
+  class Card::HtmlFormat
     def basic_branch state, show_arrow=true
       arrow_link = case
         when state==:open
@@ -225,7 +228,7 @@ module Wagn
     end
   end
 
-  class Renderer::Json 
+  class Card::JsonFormat 
     # bit of a hack to make navbox results restrictable
     def goto_wql(term)
       xtra = search_params
@@ -234,7 +237,7 @@ module Wagn
     end
   end
 
-  class Renderer
+  class Card::Format
     #probably need more general handling of WQL add-ons like this
     def params
       @params ||= begin

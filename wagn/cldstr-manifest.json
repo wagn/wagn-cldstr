@@ -22,7 +22,6 @@
   "package"       : { 
     "maintainer"      : "wagn.org", 
     "packagebasename" : "wagn",
-    "distros"         : [ "red","yellow","green" ]
   }, 
 
   "roles" : {
