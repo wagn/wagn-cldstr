@@ -47,13 +47,18 @@ class Card
         view :taglink do |args|
           card_link "#{card.name}+*tagged", card.name, true
         end
+        
+        view :core, :right=>:short do |args|
+          add_name_context
+          _final_core args
+        end
       end
     end
   
     #~~~~~~~~*right~~~~~~~~~~
   
     module Right
-      module Tag #need codename
+      module Tag
         extend Set
         event :create_missing_tags, :after=>:store, :on=>:save do
           item_names.each do |name|
@@ -64,7 +69,7 @@ class Card
         end
       end
      
-      module Agree #need codename
+      module Agree 
         extend Set
         event :require_eula, :after=>:create do
           unless raw_content.to_i == 1
@@ -80,8 +85,8 @@ class Card
     
       module Image
         extend Set
-        event :create_watermark, :after=>:store do
-          warn "create watermark called for #{name}.  id = #{id}, revision = #{current_revision_id}"
+        event :create_watermark, :before=>:extend do
+          #warn "create watermark called for #{name}.  id = #{id}, revision = #{current_revision_id}"
     
           l = left
           unless l && l.typecode == :watermark
@@ -135,7 +140,7 @@ class Card
   
     #~~~~~~~~*self~~~~~~~~~~
   
-    module Self::ItemUpload #needs codename
+    module Self::ItemUpload
       extend Set
     
       event :extract_files, :after=>:store do
@@ -144,6 +149,7 @@ class Card
           collection_card = Card["#{name}+collection"]
           tag_card = Card["#{name}+tags"]
           append_card = Card["#{name}+append"]
+          item_type_card = Card["#{name}+item type"]
 
           tmp_filename = '/tmp/aazipextractor'
 
@@ -154,7 +160,8 @@ class Card
               tmpf = "#{tmp_filename}.#{m[2]}"
               zf.extract tmpf do true end
               Card.create! :name=>cardname, :type=>'Item'
-              c = Card.new :name=>"#{cardname}+image", :type=>'Image'
+              item_type = item_type_card.item_names.first
+              c = Card.new :name=>"#{cardname}+#{item_type.downcase}", :type=>item_type
               c.attach = File.new(tmpf)
               c.save!
               if collection_card
