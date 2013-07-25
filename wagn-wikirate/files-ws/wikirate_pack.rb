@@ -165,8 +165,8 @@ class Card
       def anchor_name card
         left = card.loaded_left || card.left
         right = card.right
-        ltype_name = (left && left.type_name) || Card[ Card::DefaultTypeID ].name
-        rtype_name = (right && right.type_name) || Card[ Card::DefaultTypeID ].name
+        ltype_name = (left && left.type_name) || Card[ Card.default_type_id ].name
+        rtype_name = (right && right.type_name) || Card[ Card.default_type_id ].name
         "#{ltype_name}+#{rtype_name}"
       end
     end
