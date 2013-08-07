@@ -89,7 +89,7 @@ class Card
           #warn "create watermark called for #{name}.  id = #{id}, revision = #{current_revision_id}"
     
           l = left
-          unless l && l.typecode == :watermark
+          unless l && l.type_code == :watermark
           #~~~~~~~~ get "large" version of original and watermark
             img = Magick::Image.read( self.attach.path 'large' ).first
 
