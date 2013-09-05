@@ -215,10 +215,10 @@ module Wagn
     
       %{ 
         <div class="closed-view">
-          <div class="card-header">
+          <h1 class="card-header">
             #{ arrow_link }
             #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
-          </div> 
+          </h1> 
           #{ wrap_content(:closed) { render_closed_content } }
         </div>
       }

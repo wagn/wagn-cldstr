@@ -235,10 +235,10 @@ class Card
     
       %{ 
         <div class="closed-view">
-          <div class="card-header">
+          <h1 class="card-header">
             #{ arrow_link }
             #{ link_to_page branch_name, nil, :class=>"branch-direct-link", :title=>"go to #{branch_name}" }
-          </div> 
+          </h1> 
           #{ wrap_content(:closed) { render_closed_content } }
         </div>
       }
