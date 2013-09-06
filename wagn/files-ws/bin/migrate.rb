@@ -33,9 +33,13 @@ dbversion = {}
 end
 #raise "DELETE ME" unless appconfigid == 'a0005'
 
+
 if out_of_date
   Dir.chdir "#{wsDir}/web" # get us into the web directory, from which the migrate command must be run
-    
+  
+  `chown -R www-data.www-data #{appconfigDir}` # this is needed as of wagn v1.12 to fix version.txt and version_cards.txt.  can probably remove soon
+  
+  
   migration_command = "bundle exec env RAILS_ENV=production STAMP_MIGRATIONS=true WAGN_CONFIG_FILE=#{appconfigDir}/wagn.yml rake wagn:migrate --trace"
   migration_results = `su www-data -c "#{migration_command}" 2> #{LogFile}`
 
@@ -48,4 +52,3 @@ if out_of_date
 else
   log "Migration Skipped: already up to date"
 end
-
