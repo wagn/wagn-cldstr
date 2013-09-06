@@ -65,7 +65,7 @@
             "web/tmp",
             "web/script/rails",
             "bin/migrate.rb",
-            "db/schema.rb"
+            "web/db/schema.rb"
           ]
         },
         {
