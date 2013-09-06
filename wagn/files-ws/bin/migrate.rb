@@ -37,7 +37,7 @@ if out_of_date
   Dir.chdir "#{wsDir}/web" # get us into the web directory, from which the migrate command must be run
     
   migration_command = "bundle exec env RAILS_ENV=production STAMP_MIGRATIONS=true WAGN_CONFIG_FILE=#{appconfigDir}/wagn.yml rake wagn:migrate --trace"
-  migration_results = `#{migration_command} 2>&1`
+  migration_results = `su www-data -c "#{migration_command}" 2> #{LogFile}`
 
   log "Migration Results:\n  #{migration_command}\n  #{migration_results}"
 

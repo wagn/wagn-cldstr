@@ -64,7 +64,8 @@
             "web/Gemfile.lock",
             "web/tmp",
             "web/script/rails",
-            "bin/migrate.rb"
+            "bin/migrate.rb",
+            "db/schema.rb"
           ]
         },
         {
