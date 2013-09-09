@@ -90,7 +90,7 @@ class Card
 
 
       view :watch do |args|
-        wrap :watch do
+        wrap :watch, args do
           if card.watching_type?
             watching_type_cards
           else
@@ -106,7 +106,7 @@ class Card
 
   
       view :watch, :type=>:cardtype do |args|
-        wrap :watch do
+        wrap :watch, args do
           type_link = card.watching_type? ? "#{watching_type_cards} | " : ""
           plural = card.name.pluralize
           link_args = if card.watching?
