@@ -90,7 +90,7 @@ class Card
 
 
       view :watch do |args|
-        wrap :watch do
+        wrap :watch, args do
           if card.watching_type?
             watching_type_cards
           else
@@ -106,7 +106,7 @@ class Card
 
   
       view :watch, :type=>:cardtype do |args|
-        wrap :watch do
+        wrap :watch, args do
           type_link = card.watching_type? ? "#{watching_type_cards} | " : ""
           plural = card.name.pluralize
           link_args = if card.watching?
@@ -215,10 +215,10 @@ module Wagn
     
       %{ 
         <div class="closed-view">
-          <div class="card-header">
+          <h1 class="card-header">
             #{ arrow_link }
             #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
-          </div> 
+          </h1> 
           #{ wrap_content(:closed) { render_closed_content } }
         </div>
       }
