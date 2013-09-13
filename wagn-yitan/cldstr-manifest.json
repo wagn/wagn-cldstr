@@ -22,7 +22,7 @@
       "appconfigitems" : [
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn-arb/ws/yitan_pack.rb",
+          "target"       : "/usr/cldstr/wagn.org/wagn-yitan/ws/yitan_pack.rb",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/yitan_pack.rb"
         }
       ]
