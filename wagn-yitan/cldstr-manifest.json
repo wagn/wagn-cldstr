@@ -4,7 +4,7 @@
   "architectures" : [ "arch_nwsa_1dbm" ],
 
   "info" : {
-    "name"            : "Yi-Tan pack",
+    "name"            : "Yi-Tan mod",
     "tagline"         : "custom code for yi-tan.com",
     "developer"       : "wagn.org",
     "licenses"        : ["gplv2"],
@@ -22,8 +22,8 @@
       "appconfigitems" : [
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn-yitan/ws/yitan_pack.rb",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/yitan_pack.rb"
+          "target"       : "/usr/cldstr/wagn.org/wagn-yitan/ws/yitan_mod.rb",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods/yitan_mod.rb"
         }
       ]
     }

@@ -4,7 +4,7 @@
   "architectures" : [ "arch_nwsa_1dbm" ],
 
   "info" : {
-    "name"            : "California Air Resources Board pack",
+    "name"            : "California Air Resources Board mod",
     "tagline"         : "custom code for researchplanning.arb.wagn.org",
     "developer"       : "wagn.org",
     "licenses"        : ["gplv2"],
@@ -22,8 +22,8 @@
       "appconfigitems" : [
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn-arb/ws/arb_pack.rb",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/arb_pack.rb"
+          "target"       : "/usr/cldstr/wagn.org/wagn-arb/ws/arb_mod.rb",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods/arb_mod.rb"
         }
       ]
     }

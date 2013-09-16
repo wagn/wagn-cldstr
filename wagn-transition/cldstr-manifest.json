@@ -4,7 +4,7 @@
   "architectures" : [ "arch_nwsa_1dbm" ],
 
   "info" : {
-    "name"            : "transition research pack",
+    "name"            : "transition research mod",
     "tagline"         : "special behavior for transition research patterns site",
     "developer"       : "wagn.org",
     "licenses"        : ["gplv2"],
@@ -22,8 +22,8 @@
       "appconfigitems" : [
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn-transition/ws/transition_pack.rb",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/transition_pack.rb"
+          "target"       : "/usr/cldstr/wagn.org/wagn-transition/ws/transition_mod.rb",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods/transition_mod.rb"
         }
       ]
     }
