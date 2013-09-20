@@ -239,7 +239,11 @@ class Card
             #{ arrow_link }
             #{ link_to_page branch_name, nil, :class=>"branch-direct-link", :title=>"go to #{branch_name}" }
           </h1> 
-          #{ wrap_content(:closed) { render_closed_content } }
+          #{ 
+            wrap_body :body_class=>'closed-content', :content=>true do
+              render_closed_content
+            end          
+          }
         </div>
       }
     end

@@ -54,7 +54,7 @@ class Card
                 #{ _render_title args }
               </div>
             </div>
-            #{ wrap_content(:titled, :body=>true) { _render_core args } }
+            #{ wrap_body( :content=>true ) { _render_core args } }
             #{ render_comment_box }
           }
         end
@@ -218,8 +218,12 @@ module Wagn
           <h1 class="card-header">
             #{ arrow_link }
             #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
-          </h1> 
-          #{ wrap_content(:closed) { render_closed_content } }
+          </h1>
+          #{ 
+            wrap_body :body_class=>'closed-content', :content=>true do
+              render_closed_content
+            end          
+          }
         </div>
       }
     end
