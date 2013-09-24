@@ -27,8 +27,8 @@
         },
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn-fortzed/ws/fortzed_pack.rb",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/fortzed_pack.rb"
+          "target"       : "/usr/cldstr/wagn.org/wagn-fortzed/ws/fortzed_mod.rb",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods/fortzed_mod.rb"
         }
       ]
     }

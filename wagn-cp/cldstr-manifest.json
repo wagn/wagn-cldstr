@@ -22,8 +22,8 @@
       "appconfigitems" : [
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn-cp/ws/cp_pack.rb",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs/cp_pack.rb"
+          "target"       : "/usr/cldstr/wagn.org/wagn-cp/ws/cp_mod.rb",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods/cp_mod.rb"
         }
       ]
     }

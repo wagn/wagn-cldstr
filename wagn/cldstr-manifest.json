@@ -86,7 +86,7 @@
         },
         {
           "type"         : "directory",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/packs"
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods"
         },
         {
           "type"         : "directory",
