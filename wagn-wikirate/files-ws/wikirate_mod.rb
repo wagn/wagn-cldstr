@@ -118,7 +118,7 @@ class Card
       end
   
       view :open_branch do |args|
-        @paging_params = { :limit=> 1000 }
+        @default_search_params = { :limit=> 1000 }
         subtopics_card = Card.fetch "#{card.cardname.trunk_name}+children+branch"#{}"+unlimited"
         wrap :open_branch do
           basic_branch(:open) + 
