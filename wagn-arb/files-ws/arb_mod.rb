@@ -1,14 +1,27 @@
-# -*- encoding : utf-8 -*-
+ # -*- encoding : utf-8 -*-
+
+# /card/update/contact?card[codename]=arb_contact
+
 class Card
-  module Set::Arb
-    extend Set
-
-    format :html do
-
-      view :edit_in_form, :right=>:contact do |args|
-        Account.as_bot { _final_edit_in_form args }
+  def self.default_accounted_type_id
+    Card::ArbContactID
+  end
+  
+  module Set
+    module Type::ArbContact
+      extend Set
+      event :set_contact_permissions, :on=>:create, :after=>:store do
+        Account.as_bot do
+          
+        end
+        
       end
     end
+    
+    
+#    module All::Arb
+
+#    end
   end
 
 end
