@@ -19,6 +19,18 @@ class Card
       end
       
       
+      module ArbProposal
+        extend Card::Set
+        event :require_proposal_fields, :after=>:approve, :on=>:create do
+          %w{ title contacts proposal }.each do |field|
+          
+            unless c = cards["~plus~#{field}"] and !c['content'].blank?
+              errors.add field, "#{field} required"
+            end
+          end
+        end
+      end
+      
       module ArbContact
         extend Card::Set
         event :set_contact_permissions, :after=>:activate_account do
