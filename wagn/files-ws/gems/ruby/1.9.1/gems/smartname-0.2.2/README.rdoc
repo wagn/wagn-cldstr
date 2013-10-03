@@ -1,7 +1,0 @@
-
-== SmartName
-
-Wiki Segmented Name Logic
-
-== Abstract
-
