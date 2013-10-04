@@ -152,7 +152,6 @@ class Card
 
 
   class SetPattern::LtypeRtypePattern < SetPattern
-    register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
     class << self
       def label name
         %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
@@ -170,6 +169,8 @@ class Card
         "#{ltype_name}+#{rtype_name}"
       end
     end
+    register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
+    
   end
 
   class Format
