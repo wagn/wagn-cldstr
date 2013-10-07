@@ -2,6 +2,7 @@
 class Card
   module Set::Type::Source
     extend Set
+    Rails.logger.info "reloaded wikirate mod!"
     
     def autoname ignore=nil
   #    Rails.logger.info "auto"
