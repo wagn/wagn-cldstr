@@ -2,6 +2,7 @@
 class Card
   module Set::Type::Source
     extend Set
+    Rails.logger.info "reloaded wikirate mod!"
     
     def autoname ignore=nil
   #    Rails.logger.info "auto"
@@ -118,7 +119,7 @@ class Card
       end
   
       view :open_branch do |args|
-        @paging_params = { :limit=> 1000 }
+        @default_search_params = { :limit=> 1000 }
         subtopics_card = Card.fetch "#{card.cardname.trunk_name}+children+branch"#{}"+unlimited"
         wrap :open_branch do
           basic_branch(:open) + 
@@ -152,7 +153,6 @@ class Card
 
 
   class SetPattern::LtypeRtypePattern < SetPattern
-    register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
     class << self
       def label name
         %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
@@ -170,6 +170,8 @@ class Card
         "#{ltype_name}+#{rtype_name}"
       end
     end
+    register 'ltype_rtype', :opt_keys=>[:ltype, :rtype], :junction_only=>true, :assigns_type=>true, :index=>4
+    
   end
 
   class Format
@@ -239,7 +241,11 @@ class Card
             #{ arrow_link }
             #{ link_to_page branch_name, nil, :class=>"branch-direct-link", :title=>"go to #{branch_name}" }
           </h1> 
-          #{ wrap_content(:closed) { render_closed_content } }
+          #{ 
+            wrap_body :body_class=>'closed-content', :content=>true do
+              render_closed_content
+            end          
+          }
         </div>
       }
     end

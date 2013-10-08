@@ -54,7 +54,7 @@ class Card
                 #{ _render_title args }
               </div>
             </div>
-            #{ wrap_content(:titled, :body=>true) { _render_core args } }
+            #{ wrap_body( :content=>true ) { _render_core args } }
             #{ render_comment_box }
           }
         end
@@ -132,7 +132,7 @@ class Card
       end
   
       view :open_branch do |args|
-        @paging_params = { :limit=> 1000 }
+        @default_search_params = { :limit=> 1000 }
         subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+unlimited"
         wrap :open_branch do
           basic_branch(:open) + subformat( subtopics_card )._render_content( :item => :closed_branch )
@@ -218,8 +218,12 @@ module Wagn
           <h1 class="card-header">
             #{ arrow_link }
             #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
-          </h1> 
-          #{ wrap_content(:closed) { render_closed_content } }
+          </h1>
+          #{ 
+            wrap_body :body_class=>'closed-content', :content=>true do
+              render_closed_content
+            end          
+          }
         </div>
       }
     end
