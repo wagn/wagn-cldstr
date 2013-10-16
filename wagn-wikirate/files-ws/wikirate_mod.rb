@@ -1,15 +1,15 @@
 # -*- encoding : utf-8 -*-
 class Card
   
-  Rails.logger.info "reloaded wikirate mod"
-    
-  
   module Set
     module All::Wikirate
       extend Set
 
       format :html do
     
+    
+        # top drill-down navigation on Market and Company cards
+        
         view :core, :self=>:wikirate_nav do |args|
           if main = root.card
             base = main.simple? ? main : begin
@@ -43,31 +43,22 @@ class Card
           end
         end
     
-        # /card/update/Analysis?card[codename]=wikirate_analysis
-        # /card/update/Topic?card[codename]=wikirate_topic
-
     
-  
+      
+        # short view of claims (should be obviatable)
         view :core, :right=>:claim_perspective do |args|
           add_name_context
           _final_core args
         end
   
-        view :titled, :right=>:source_type do |args|
-          ''
-        end
-  
-        view :missing, :right=>:source_type do |args|
-          ''
-        end
     
+        # changes label of name on claims (should be obviatable)
         view :name_editor, :type=>:claim do |args|
           fieldset 'Claim', raw( name_field form ), :editor=>'name', :help=>args[:help]
         end
     
-    
-
-        
+  
+        # jstree-based 
         view :editor, :right=>:wikirate_topic do |args|
           kids = {}
           Card.search( :left=>{:type=>'Topic'}, :right=>'subtopic', :limit=>0, :sort=>:name ).each do |junc|
@@ -89,7 +80,7 @@ class Card
         end
     
     
-        # ALL the "branch" stuff is about the special Topics tree
+        # ALL the "branch" stuff is about the Topics tree on the main page (revisit??)
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
         view :closed_branch do |args|
@@ -253,31 +244,87 @@ class Card
     end
 
 
-    module Type::Webpage
-      extend Set
-      def autoname ignore=nil
-        size_limit = 80
+    module Type
+      module Webpage
+        extend Card::Set
+        def re_autoname ignore=nil
+          size_limit = 80
   
-        title, date = %w{ Title Date }.map do |field|
-          value = if cards.blank?
-              #currently only for migrations
-              c = Card["#{self.name}+#{field}"] and c.content
+          title, date = %w{ Title Date }.map do |field|
+            value = if cards.blank?
+                #currently only for migrations
+                c = Card["#{self.name}+#{field}"] and c.content
+              else
+                fld = cards[ "~plus~#{field}" ] and fld["content"]
+              end
+            if value.blank?
+              errors.add :autoname, "need valid #{field}"
+              value = nil
             else
-              fld = cards[ "~plus~#{field}" ] and fld["content"]
+              unwanted_characters_regexp = %{[#{(Card::Name.banned_array + %w{ [ ] n }).join('\\')}/]}
+              value.gsub! /#{unwanted_characters_regexp}/, ''
+              if past_size_limit = value[size_limit+1] and past_size_limit =~ /^\S/
+                value = value[0..size_limit].gsub /\s+\S*$/, '...'
+              end
             end
-          if value.blank?
-            errors.add :autoname, "need valid #{field}"
-            value = nil
-          else
-            unwanted_characters_regexp = %{[#{(Card::Name.banned_array + %w{ [ ] n }).join('\\')}/]}
-            value.gsub! /#{unwanted_characters_regexp}/, ''
-            if past_size_limit = value[size_limit+1] and past_size_limit =~ /^\S/
-              value = value[0..size_limit].gsub /\s+\S*$/, '...'
+            value
+          end
+          "#{title} - #{date}"
+        end
+        
+        
+        event :parse_link, :before=>:approve do
+          @cards ||= {}
+          link = content
+          self.content = ''
+          
+          #check uniqueness
+          host = URI.split( link )[2]
+          
+          cards['~plus~Link']    = {:content => link }
+          cards['~plus~Website'] = {:content => "[[#{host}]]" }
+          
+          if !Card.exists? host
+            Card.create :name=>host, :type=>'Website'
+          end
+        end
+        
+      end
+      
+      module Source
+        extend Card::Set
+        
+        view :new, :perms=>:create, :tags=>:unknown_ok do |args|
+          wrap_frame :new, args.merge(:show_help=>true, :hide_menu=>true) do
+            card.name = ''
+            
+            card_form :create, 'card-form' do |form|
+              @form = form
+              %{
+                #{ hidden_field_tag 'success[redirect]', true    }
+                #{ hidden_field_tag 'success[id]',       '_self' }
+                #{ hidden_field_tag 'success[view]',     'edit'  }
+                
+                #{ hidden_field_tag 'card[type_id]', Card::WebpageID }
+                <div class="card-editor editor">
+                  #{ edit_slot args }
+                </div>
+                <fieldset>
+                  <div class="button-area">
+                    #{ submit_tag 'Submit', :class=>'create-submit-button', :disable_with=>'Submitting' }
+                  </div>
+                </fieldset>                
+              }
             end
           end
-          value
         end
-        "#{title} - #{date}"
+        
+        view :editor do |args|
+          form.text_field :content, :class=>'card-content'
+        end
+        
+        
+
       end
     end
     
@@ -319,4 +366,10 @@ class Card
   end
   
 
+end
+
+module Wikirate
+#  class << self
+#    def 
+  
 end
