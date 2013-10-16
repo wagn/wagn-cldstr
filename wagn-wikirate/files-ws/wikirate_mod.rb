@@ -7,7 +7,6 @@ class Card
 
       format :html do
     
-    
         # top drill-down navigation on Market and Company cards
         
         view :core, :self=>:wikirate_nav do |args|
@@ -209,9 +208,6 @@ class Card
           end.join "\n"
           %{<ul>#{items}</ul>}
         end
-        
-        
-
       end
 
     end
@@ -273,7 +269,7 @@ class Card
         end
         
         
-        event :parse_link, :before=>:approve do
+        event :parse_link, :before=>:approve, :on=>:create do
           @cards ||= {}
           link = content
           self.content = ''
