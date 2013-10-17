@@ -1,4 +1,4 @@
- # -*- encoding : utf-8 -*-
+  # -*- encoding : utf-8 -*-
 
 
 class Card
@@ -7,6 +7,27 @@ class Card
   end
   
   module Set
+    module Right
+      module ArbEmail
+        extend Card::Set
+        view :missing do |args|
+          if acct = card.trunk.account
+            acct.email
+          else
+            _final_missing args
+          end      
+        end
+        
+        view :closed_missing do |args|
+          if acct = card.trunk.account
+            acct.email
+          else
+            _final_closed_missing args
+          end      
+        end
+      end
+    end
+    
     module Type
       module ArbIdea
         extend Card::Set
