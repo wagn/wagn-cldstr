@@ -37,13 +37,10 @@ class Card
         %{All "#{name.to_name.left_name}" + "#{name.to_name.tag}" cards}
       end
       def prototype_args anchor
-        { }# :name=>"*dummy+#{anchor.tag}",
-          #:loaded_left=> Card.new( :name=>'*dummy', :type=>anchor.trunk_name )
-        #}
+        { }
       end
       def anchor_name card
-        left = card.loaded_left || card.left
-        right = card.right
+        left, right = card.left, card.right
         ltype_name = (left && left.type_name) || Card[ Card.default_type_id ].name
         rtype_name = (right && right.type_name) || Card[ Card.default_type_id ].name
         "#{ltype_name}+#{rtype_name}"

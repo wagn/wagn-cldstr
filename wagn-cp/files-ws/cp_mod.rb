@@ -2,6 +2,7 @@ class Card
   module Set::All::Connectipedia
     extend Set
 
+    Card.error_codes[:mmt_confirm] = [ :mmt_confirm, 422 ]
 
     event :propose_mmt_restriction, :after=>:store, :on=>:create do
       role_name = 'MMT staff'
@@ -12,8 +13,7 @@ class Card
 
         case comment_author #KLUDGE!!! using this to hold restriction info.  need to figure out how to get params through.
         when nil
-          self.errors.add :mmt, 'mmt confirm'
-          self.error_view = :mmt_confirm
+          self.errors.add :mmt_confirm, 'mmt confirm'
           raise ActiveRecord::Rollback, "kludge"
         when 'restrict'
           Account.as_bot do
