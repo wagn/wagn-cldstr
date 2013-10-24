@@ -33,7 +33,7 @@ class Card
         extend Card::Set
         
         event :require_arb_contact, :after=>:approve, :on=>:create do
-          unless c = cards['~plus~contacts'] and !c['content'].blank?
+          unless c = cards['+contacts'] and !c['content'].blank?
             errors.add :contact, 'contact information required'
           end
         end
@@ -45,7 +45,7 @@ class Card
         event :require_proposal_fields, :after=>:approve, :on=>:create do
           %w{ title contacts proposal }.each do |field|
           
-            unless c = cards["~plus~#{field}"] and !c['content'].blank?
+            unless c = cards["+#{field}"] and !c['content'].blank?
               errors.add field, "#{field} required"
             end
           end

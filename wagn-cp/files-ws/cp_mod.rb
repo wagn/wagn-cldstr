@@ -6,7 +6,7 @@ class Card
 
     event :propose_mmt_restriction, :after=>:store, :on=>:create do
       role_name = 'MMT staff'
-      if !nested_edit and
+      if !@supercard and
         !Account.always_ok? and                                                             # user is not admin
         Account.as_card.fetch(:trait=>:roles, :new=>{}).item_names.member?( role_name ) and # user is mmt staff
         who_can(:read) != [ Card[role_name].id ]                                       # card is not already restricted to MMT Staff
