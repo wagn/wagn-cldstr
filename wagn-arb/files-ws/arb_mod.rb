@@ -1,4 +1,4 @@
- # -*- encoding : utf-8 -*-
+  # -*- encoding : utf-8 -*-
 
 
 class Card
@@ -7,12 +7,33 @@ class Card
   end
   
   module Set
+    module Right
+      module ArbEmail
+        extend Card::Set
+        view :missing do |args|
+          if acct = card.trunk.account
+            acct.email
+          else
+            _final_missing args
+          end      
+        end
+        
+        view :closed_missing do |args|
+          if acct = card.trunk.account
+            acct.email
+          else
+            _final_closed_missing args
+          end      
+        end
+      end
+    end
+    
     module Type
       module ArbIdea
         extend Card::Set
         
         event :require_arb_contact, :after=>:approve, :on=>:create do
-          unless c = cards['~plus~contacts'] and !c['content'].blank?
+          unless c = cards['+contacts'] and !c['content'].blank?
             errors.add :contact, 'contact information required'
           end
         end
@@ -24,7 +45,7 @@ class Card
         event :require_proposal_fields, :after=>:approve, :on=>:create do
           %w{ title contacts proposal }.each do |field|
           
-            unless c = cards["~plus~#{field}"] and !c['content'].blank?
+            unless c = cards["+#{field}"] and !c['content'].blank?
               errors.add field, "#{field} required"
             end
           end
