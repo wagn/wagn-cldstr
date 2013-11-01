@@ -26,6 +26,14 @@ class Card
           end      
         end
       end
+      
+      module ArbDescription
+        extend Card::Set
+        event :validate_length, :after=>:approve do
+          length = content.split.size
+          errors.add :content, "cannot be more than 200 characters (currently #{length})" if length > 200
+        end
+      end
     end
     
     module Type
