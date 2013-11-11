@@ -1,4 +1,12 @@
+
 format :html do
+
+  view :cite do |args|
+    @parent.vars[:citation_number] ||= 0
+    num = @parent.vars[:citation_number] += 1
+    %{<a class="citation" href="##{card.cardname.url_key}">#{num}</a>}
+  end
+
 
   # navdrop views are called by wikirate-nav js
   view :navdrop, :tags=>:unknown_ok do |args|
