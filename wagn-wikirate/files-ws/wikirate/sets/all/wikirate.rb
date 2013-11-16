@@ -1,10 +1,127 @@
 
+CLAIM_SUBJECT_SQL = %{
+  select subjects.`key` as subject, claims.id from cards claims 
+  join cards as pointers on claims.id=pointers.left_id
+  join card_references on pointers.id = referer_id
+  join cards as subjects on referee_id = subjects.id
+  where claims.type_id = #{Card::ClaimID}
+  and pointers.right_id in (#{ [ Card::WikirateTopicID, Card['Company'].id, Card['Market'].id ] * ', ' })
+  and claims.trash is false
+  and pointers.trash is false    
+  and subjects.trash is false; 
+}
+
+module ClassMethods
+  def topic_children
+    @@topic_children ||= begin
+      Account.as_bot do
+        hash = {}
+        Card.search( :left=>{:type=>'Topic'}, :right=>'subtopic', :limit=>0, :sort=>:name ).each do |junc|
+          parent = junc.cardname.trunk_name.key
+          children = junc.item_names.map { |n| n.to_name.key }
+          hash[parent] = children        
+        end
+        hash
+      end
+    end
+  end
+  
+  def root_topics
+    @@root_topics ||= begin
+      all_topics_that_are_children = [ topic_children.values ].flatten.uniq
+      array = []
+      topic_children.each do |parent, children|
+        if !all_topics_that_are_children.member? parent
+          array << parent
+        end
+      end
+      array
+    end
+  end
+  
+  def all_topics
+    @@all_topics ||= [ topic_children.keys, topic_children.values ].flatten  
+  end
+  
+  def leaf_topics
+    @@leaf_topics ||= begin
+      all_topics.flatten.find_all do |topic|
+        !topic_children[topic]
+      end
+    end
+  end
+  
+  def topic_descendants topic
+    list = [ topic ]
+    if children = topic_children[ topic ]
+      children.each do |child|
+        list += topic_descendants( child )
+      end
+    end
+    list
+  end
+  
+  def topic_parent topic
+    topic_children.each do |parent, children|
+      return parent if children.member? topic
+    end
+    nil
+  end
+  
+  def claim_counts subj
+    @@claim_counts ||= {}
+    @@claim_counts[ subj ] ||= begin
+      subjname = subj.to_name
+      if subjname.simple?
+        if all_topics.member? subj
+          subj = topic_descendants subj
+        end
+        claim_subjects.find_all do |id, subjects|
+          subjects_apply? subjects, subj
+        end
+      else
+        left = subjname.left
+        right = topic_descendants subjname.right
+        claim_subjects.find_all do |id, subjects|
+          subjects_apply? subjects, left  and subjects_apply? subjects, right
+        end
+      end.size
+    end
+  end
+  
+  
+  
+  def subjects_apply? references, test_list
+    !!Array.wrap(test_list).find do |subject|
+      references.member? subject
+    end
+    
+  end
+  
+  def claim_subjects
+    @@claim_subjects ||= begin
+      hash = {}
+      sql = 
+      ActiveRecord::Base.connection.select_all( CLAIM_SUBJECT_SQL ).each do |row|
+        hash[ row['id'] ] ||= []
+        hash[ row['id'] ] << row['subject']
+      end
+      hash
+    end
+  end
+
+  def reset_claim_counts
+    @@claim_counts = nil
+    @@claim_subjects = nil
+  end
+end
+
 format :html do
 
   view :cite do |args|
     @parent.vars[:citation_number] ||= 0
     num = @parent.vars[:citation_number] += 1
-    %{<a class="citation" href="##{card.cardname.url_key}">#{num}</a>}
+    %{<sup><a class="citation" href="##{card.cardname.url_key}">#{num}</a></sup>}
   end
 
 
@@ -20,7 +137,7 @@ format :html do
 
   # TOPIC TREE 
   # this is different from (and pre-dates) the jstree-based topic editor.
-  # it's the Topics tree on the main Topics page
+  # it's the old Topics tree on the main Topics page
   # merits revisiting (and unification?)
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
