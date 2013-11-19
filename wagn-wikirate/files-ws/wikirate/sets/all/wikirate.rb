@@ -1,4 +1,6 @@
 
+
+
 CLAIM_SUBJECT_SQL = %{
   select subjects.`key` as subject, claims.id from cards claims 
   join cards as pointers on claims.id=pointers.left_id

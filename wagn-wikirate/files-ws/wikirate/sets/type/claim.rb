@@ -4,3 +4,6 @@ view :name_editor do |args|
 end
 
 
+event :reset_claim_counts, :after=>:store do
+  Card.reset_claim_counts
+end
