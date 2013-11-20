@@ -1,5 +1,4 @@
-  # -*- encoding : utf-8 -*-
-
+# -*- encoding : utf-8 -*-
 
 class Card
   def self.default_accounted_type_id
@@ -7,9 +6,36 @@ class Card
   end
   
   module Set
+    module All
+      module Arb
+        extend Card::Set
+          event :set_contact_permissions, :after=>:create_account do
+            if @newly_activated_account
+            ::Account.as_bot do
+              permitted = [ Card['Staff'], self ].map { |p| "[[#{p.name}]]" }.join("\n")
+              Card.create! :name=>"#{name}+*self+*update", :content=>permitted
+          
+              cr = creator
+              if creator != self && creator.codename != 'anonymous'
+                permitted << "\n[[#{creator.name}]]"
+              end
+              Card.create! :name=>"#{name}+*self+*read",   :content=>permitted
+            end
+          end
+        end
+      end
+    end 
+
     module Right
       module ArbEmail
         extend Card::Set
+
+        format :csv do
+          view :core do |args|
+            _render_raw args
+          end
+        end
+        
         view :missing do |args|
           if acct = card.trunk.account
             acct.email
@@ -60,21 +86,6 @@ class Card
         end
       end
       
-      module ArbContact
-        extend Card::Set
-        event :set_contact_permissions, :after=>:activate_account do
-          Account.as_bot do
-            permitted = [ Card['Staff'], self ].map { |p| "[[#{p.name}]]" }.join("\n")
-            Card.create! :name=>"#{name}+*self+*update", :content=>permitted
-          
-            cr = creator
-            if creator != self && creator.codename != 'anonymous'
-              permitted << "\n[[#{creator.name}]]"
-            end
-            Card.create! :name=>"#{name}+*self+*read",   :content=>permitted
-          end
-        end
-      end
     end
     
     
