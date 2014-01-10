@@ -71,4 +71,7 @@ cd ..
 git commit -a -q -m 'auto-adding new gems'
 git status
 
+# note: on 1/10/14 I ran this and noticed that old rails versions were not getting deleted in the cldstr directory.
+# I cleaned this up manually but need to check again next time to make sure this is not an ongoing issue.
+
 
