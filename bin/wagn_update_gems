@@ -61,7 +61,7 @@ echo "adding new gems"
 cd ..
 git add gems
 
-echo "updating Gemfile.lock"
+echo "updating Gemfile.lock" # why??
 cp $TMPDIR/Gemfile* web
 
 echo "committing changes "
