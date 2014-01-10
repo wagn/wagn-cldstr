@@ -52,7 +52,7 @@ case $DISTRO in
   build_mods $DISTRO
   cd $MANIFEST_DIR
   cloud_build $DISTRO
-  cloud_update wikirate
+#  cloud_update wikirate
   git checkout develop
 ;;
 'green')
