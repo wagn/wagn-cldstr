@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.8.6")
   s.rubyforge_project = "coderay"
-  s.rubygems_version = "1.8.25"
+  s.rubygems_version = "1.8.28"
   s.summary = "Fast syntax highlighting for selected languages."
 
   if s.respond_to? :specification_version then

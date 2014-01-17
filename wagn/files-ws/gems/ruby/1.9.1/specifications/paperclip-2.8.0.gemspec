@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.requirements = ["ImageMagick"]
   s.rubyforge_project = "paperclip"
-  s.rubygems_version = "1.8.25"
+  s.rubygems_version = "1.8.28"
   s.summary = "File attachments as attributes for ActiveRecord"
 
   if s.respond_to? :specification_version then

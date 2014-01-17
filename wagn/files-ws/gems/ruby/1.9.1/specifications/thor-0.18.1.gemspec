@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://whatisthor.com/"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.25"
+  s.rubygems_version = "1.8.28"
   s.summary = "A scripting framework that replaces rake, sake and rubigen"
 
   if s.respond_to? :specification_version then

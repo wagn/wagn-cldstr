@@ -46,8 +46,8 @@ sbindir = $(exec_prefix)/sbin
 bindir = $(exec_prefix)/bin
 rubylibdir = $(rubylibprefix)/$(ruby_version)
 archdir = $(rubylibdir)/$(arch)
-sitelibdir = $(sitedir)/$(ruby_version)
-sitearchdir = $(sitelibdir)/$(sitearch)
+sitelibdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/rmagick-2.13.2/ext/RMagick/.gem.20140110-27485-1ido64z
+sitearchdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/rmagick-2.13.2/ext/RMagick/.gem.20140110-27485-1ido64z
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 
@@ -128,8 +128,8 @@ STATIC_LIB =
 
 BINDIR        = $(bindir)
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/rmagick-2.13.2/lib$(target_prefix)
-RUBYARCHDIR = /usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/rmagick-2.13.2/lib$(target_prefix)
+RUBYLIBDIR    = $(sitelibdir)$(target_prefix)
+RUBYARCHDIR   = $(sitearchdir)$(target_prefix)
 HDRDIR        = $(rubyhdrdir)/ruby$(target_prefix)
 ARCHHDRDIR    = $(rubyhdrdir)/$(arch)/ruby$(target_prefix)
 

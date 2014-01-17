@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.licenses = ["GPL-2"]
   s.rdoc_options = ["--main", "README.rdoc", "--inline-source", "--line-numbers"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.25"
+  s.rubygems_version = "1.8.28"
   s.summary = "Wagn names without all the wagn"
 
   if s.respond_to? :specification_version then

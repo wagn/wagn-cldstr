@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email = ["joshua.clayton@gmail.com"]
   s.homepage = "https://github.com/thoughtbot/climate_control"
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.25"
+  s.rubygems_version = "1.8.28"
   s.summary = "Modify your ENV easily with ClimateControl"
 
   if s.respond_to? :specification_version then

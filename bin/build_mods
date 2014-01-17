@@ -11,7 +11,8 @@ fi
 
 cd $APP_DIR
 
-for MOD_DIR in wagn-*
+# loop through and build mods modified since last wagn build
+for MOD_DIR in $(find wagn-* -newer wagn/build-$DISTRO-ws | cut -f1 -d"/" | uniq);
 do
   cd $MOD_DIR
   cloud_build $DISTRO
