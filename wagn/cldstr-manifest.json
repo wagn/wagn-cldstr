@@ -59,7 +59,9 @@
           "gname" : "www-data",
           "mode"  : "0755",
           "paths" : [ 
-            "/var/log/cldstr+wagn.org+wagn+ws"
+            "/var/log/cldstr+wagn.org+wagn+ws",
+            "bin/migrate.rb",
+            "web/script/wagn.rb"
           ]
         }
       ],
@@ -71,20 +73,35 @@
           "templatelang" : "varsubst"
         },
         {
-          "type"         : "directory",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}"
+          "type"         : "symlink",
+          "target"       : "/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-*/public/$4",
+          "names"        : [
+            "assets",
+            "assets2bpacked",
+            "404.html",
+            "500.html",
+            "favicon.ico"
+          ]
         },
         {
           "type"         : "directory",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/.bundle"
+          "names"        : [
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config"            
+          ]
         },
         {
-          "type"         : "directory",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods"
-        },
-        {
-          "type"         : "directory",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config"
+          "type"         : "symlink",
+          "target"       : "/usr/cldstr/wagn.org/wagn/ws/web/$4",
+          "names"        : [
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/.bundle",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Gemfile",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Rakefile",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/boot.rb",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/environment.rb",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/script"
+          ]
         },
         {
           "type"         : "file",
@@ -97,48 +114,6 @@
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/application.rb",
           "template"     : "tmpl/application.rb.tmpl",
           "templatelang" : "varsubst"
-		    },
-        {
-          "type"         : "file",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/boot.rb",
-          "template"     : "tmpl/boot.rb"
-		    },
-		    {
-          "type"         : "file",
-          "uname"        : "www-data",
-          "gname"        : "www-data",
-          "mode"         : "0755",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config.ru",
-          "template"     : "tmpl/config.ru"
-        },
-        {
-          "type"         : "file",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Gemfile",
-          "template"     : "tmpl/Gemfile"
-        },
-        {
-          "type"         : "file",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/.bundle/config",
-          "template"     : "tmpl/bundleconfig"
-        },
-        {
-          "type"         : "file",
-          "uname"        : "www-data",
-          "gname"        : "www-data",
-          "mode"         : "0755",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Gemfile.lock",
-          "template"     : "tmpl/Gemfile.lock"
-        },
-        {
-          "type"         : "file",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Rakefile",
-          "template"     : "tmpl/Rakefile"
-        },
-		    
-        {
-          "type"         : "file",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/environment.rb",
-          "template"     : "tmpl/environment.rb"
 		    },
         
         {
@@ -157,7 +132,23 @@
           "mode"         : "0755",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/tmp",
         },
-        
+        {
+          "type"         : "file",
+          "uname"        : "www-data",
+          "gname"        : "www-data",
+          "mode"         : "0755",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config.ru",
+          "template"     : "tmpl/config.ru"
+        },
+        {
+          "type"         : "file",
+          "uname"        : "www-data",
+          "gname"        : "www-data",
+          "mode"         : "0755",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Gemfile.lock",
+          "template"     : "tmpl/Gemfile.lock"
+        },
+
         {
           "type"         : "file",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/tmp/restart.txt",
@@ -169,18 +160,8 @@
           "gname"        : "www-data",
           "mode"         : "0666",
           "name"         : "/var/log/cldstr+wagn.org+wagn+ws/${appconfig.appconfigid}.log"
-        },
-        {
-          "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-1.12.7/public/$4",
-          "names"        : [
-            "assets",
-            "assets2bpacked",
-            "404.html",
-            "500.html",
-            "favicon.ico"
-          ]
         }
+
       ],
       "postappconfiginst" : {
         "type" : "perlscript",
