@@ -39,11 +39,9 @@ git status
 
 case $DISTRO in
 'red')
+  git commit -a -m 'red commit sweep'
   build_mods $DISTRO
-#  cd $WAGN_DIR
-#  git pull --no-edit origin $WAGN_BRANCH
   cd $MANIFEST_DIR
-#  git commit -a -m 'auto-pulled latest wagn code'
   cloud_build $DISTRO
   cloud_update dev
 ;;
@@ -52,13 +50,10 @@ case $DISTRO in
   build_mods $DISTRO
   cd $MANIFEST_DIR
   cloud_build $DISTRO
-#  cloud_update wikirate
   git checkout develop
 ;;
 'green')
   git merge --no-edit master
-  cd ..
-  git submodule update
   build_mods $DISTRO
   cd $MANIFEST_DIR
   cloud_build $DISTRO
