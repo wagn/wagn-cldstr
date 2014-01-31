@@ -8,10 +8,10 @@ Options +FollowSymLinks
 SetEnv UUID_STATE_FILE off
 
 # wagn.yml sets upload dir, database config file, log file, etc
-SetEnv WAGN_CONFIG_FILE /var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/wagn.yml
+#SetEnv WAGN_CONFIG_FILE /var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/wagn.yml
 
 # Wagn root dir
-PassengerAppRoot /usr/cldstr/wagn.org/wagn/ws/web
+PassengerAppRoot /var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}
 
 # identifies ApplicationSpawner group; without this Passenger overshares among appconfigs
 PassengerAppGroupName ${site.hostname}-${appconfig.appconfigid}

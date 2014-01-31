@@ -1,0 +1,7 @@
+source 'http://rubygems.org'
+
+gem 'wagn', :path=>'/usr/cldstr/wagn.org/wagn/ws/web'
+
+gem 'mysql2'
+
+gem 'dalli'
