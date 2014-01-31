@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ethan McCutchen", "Lewis Hoffman", "Gerry Gleason"]
-  s.date = "2014-01-30"
+  s.date = "2014-01-31"
   s.description = "Create dynamic web systems out of wiki-inspired building blocks."
   s.email = ["info@wagn.org"]
   s.executables = ["wagn"]
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://wagn.org"
   s.licenses = ["GPL"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.28"
+  s.rubygems_version = "1.8.25"
   s.summary = "Wagn: team-driven websites"
 
   if s.respond_to? :specification_version then

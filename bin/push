@@ -16,34 +16,38 @@ if [ -z $WAGN_BRANCH ]; then
 fi
 
 cd $MANIFEST_DIR
+
 case $DISTRO in
-'red')    WAGN_CLDSTR_BRANCH='develop';;
-'yellow') WAGN_CLDSTR_BRANCH='master' ;;
-'green')  WAGN_CLDSTR_BRANCH='stable' ;;
+'red')
+  git checkout develop
+  git commit -a -m 'red commit sweep'
+  update_cldstr_wagn
+;;
+'yellow')
+  git checkout master
+  git merge --no-edit develop
+;;
+'green')
+  git checkout stable
+  git merge --no-edit master
+;;
 *)  
   echo "unknown distro: $DISTRO";
   exit 1 ;;
 esac
 
-git checkout $WAGN_CLDSTR_BRANCH
-git status
-#read -p "Is this repo (a) correct and (b) clean? [y/n] " -n 1
-#echo ""
-#if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-#  echo "stopping push to $DISTRO ($WAGN_CLDSTR_BRANCH)"
-#  exit 1
-#fi
-
+build_mods $DISTRO
+cd $MANIFEST_DIR
+cloud_build $DISTRO
+cloud_update dev
 
 
 
 case $DISTRO in
 'red')
-  git commit -a -m 'red commit sweep'
-  build_mods $DISTRO
-  cd $MANIFEST_DIR
-  cloud_build $DISTRO
-  cloud_update dev
+  
+  update_cldstr_wagn
+
 ;;
 'yellow')
   git merge --no-edit develop
@@ -53,7 +57,7 @@ case $DISTRO in
   git checkout develop
 ;;
 'green')
-  git merge --no-edit master
+  
   build_mods $DISTRO
   cd $MANIFEST_DIR
   cloud_build $DISTRO
