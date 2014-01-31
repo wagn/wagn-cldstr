@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-wsDir = '/usr/cldstr/wagn.org/wagn/ws'
+gemdir = '/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-*'
 
 appconfigid = ENV['APPCONFIGID']
 raise "no appconfigid" unless appconfigid && !appconfigid.empty?
@@ -10,7 +10,7 @@ LogFile = "/var/log/cldstr+wagn.org+wagn+ws/#{appconfigid}.log"
 
 def get_version dir, suffix
   filename = "#{ dir }/version#{ suffix }.txt"
-  if File.exists? filename
+  if filename = Dir.glob( filename ).first #completes wildcard
     File.read( filename ).strip
   end
 end
@@ -25,7 +25,7 @@ out_of_date = false
 dbversion = {}
 
 ['', '_cards'].each do |suffix|
-  dbversion[suffix] = get_version "#{ wsDir }/web/config", suffix
+  dbversion[suffix] = get_version "#{ gemdir }/web/config", suffix
   appconfigVersion = get_version appconfigDir, suffix
   if !appconfigVersion or appconfigVersion < dbversion[suffix]
     out_of_date = true
@@ -35,12 +35,11 @@ end
 
 
 if out_of_date
-  Dir.chdir "#{wsDir}/web" # get us into the web directory, from which the migrate command must be run
+  `chown -R www-data.www-data #{appconfigDir}/version*` # this is needed as of wagn v1.12 to fix version.txt and version_cards.txt.  can probably remove soon
   
-  `chown -R www-data.www-data #{appconfigDir}` # this is needed as of wagn v1.12 to fix version.txt and version_cards.txt.  can probably remove soon
+  Dir.chdir appconfigDir # get us into the appconfig directory, from which the migrate command must be run
   
-  
-  migration_command = "bundle exec env RAILS_ENV=production STAMP_MIGRATIONS=true WAGN_CONFIG_FILE=#{appconfigDir}/wagn.yml rake wagn:migrate --trace"
+  migration_command = "bundle exec STAMP_MIGRATIONS=true rake wagn:migrate --trace"
   migration_results = `su www-data -c "#{migration_command}" 2> #{LogFile}`
 
   log "Migration Results:\n  #{migration_command}\n  #{migration_results}"
