@@ -4,15 +4,9 @@ MANIFEST_DIR=$CLDHOME/apps/wagn-cldstr/wagn
 WAGN_DIR=$MANIFEST_DIR/files-ws/web
 
 DISTRO=$1
-WAGN_BRANCH=$2
-
 if [ -z $DISTRO ]; then
   echo "usage: push <distro>"
   exit 1
-fi
-
-if [ -z $WAGN_BRANCH ]; then
-  WAGN_BRANCH=develop
 fi
 
 cd $MANIFEST_DIR
@@ -39,34 +33,18 @@ esac
 build_mods $DISTRO
 cd $MANIFEST_DIR
 cloud_build $DISTRO
-cloud_update dev
-
-
-
-case $DISTRO in
-'red')
-  
-  update_cldstr_wagn
-
-;;
-'yellow')
-  git merge --no-edit develop
-  build_mods $DISTRO
-  cd $MANIFEST_DIR
-  cloud_build $DISTRO
-  git checkout develop
-;;
-'green')
-  
-  build_mods $DISTRO
-  cd $MANIFEST_DIR
-  cloud_build $DISTRO
-  git checkout develop
-;;
-esac
-
 
 git push
+
+if [ $DISTRO == "red" ]; then
+  cloud_update dev
+else
+  git checkout develop
+fi
+
+
+
+
 
  
 
