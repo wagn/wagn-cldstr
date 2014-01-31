@@ -59,16 +59,9 @@
           "gname" : "www-data",
           "mode"  : "0755",
           "paths" : [ 
-            "/var/log/cldstr+wagn.org+wagn+ws",
-            "web/script/rails",
-            "bin/migrate.rb",
-            "web/db/schema.rb"
+            "/var/log/cldstr+wagn.org+wagn+ws"
           ]
-        },
-        {
-          "mode"  : "0666",
-          "paths" : [  "web/tmp/restart.txt" ]
-        }        
+        }
       ],
       "appconfigitems" : [
         {
@@ -164,6 +157,12 @@
           "mode"         : "0755",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/tmp",
         },
+        
+        {
+          "type"         : "file",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/tmp/restart.txt",
+          "template"     : "tmpl/restart.txt"
+		    },
         {
           "type"         : "file",
           "uname"        : "www-data",
@@ -173,11 +172,10 @@
         },
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn/ws/web/public/$4",
+          "target"       : "/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-1.12.7/public/$4",
           "names"        : [
             "assets",
             "assets2bpacked",
-            "files",
             "404.html",
             "500.html",
             "favicon.ico"

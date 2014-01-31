@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'wagn', :path=>'/usr/cldstr/wagn.org/wagn/ws/web'
+gem 'wagn'
 
 gem 'mysql2'
 

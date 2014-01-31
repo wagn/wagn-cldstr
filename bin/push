@@ -39,11 +39,11 @@ git status
 
 case $DISTRO in
 'red')
-  build_mods $DISTRO  
-  cd $WAGN_DIR
-  git pull --no-edit origin $WAGN_BRANCH
+  build_mods $DISTRO
+#  cd $WAGN_DIR
+#  git pull --no-edit origin $WAGN_BRANCH
   cd $MANIFEST_DIR
-  git commit -a -m 'auto-pulled latest wagn code'
+#  git commit -a -m 'auto-pulled latest wagn code'
   cloud_build $DISTRO
   cloud_update dev
 ;;
