@@ -2,6 +2,7 @@
 
 LOCAL_WS_DIR=/Users/ethan/dev/cldstr/apps/wagn-cldstr/wagn/files-ws
 REMOTE_WS_DIR=/usr/cldstr/wagn.org/wagn/ws/
+REMOTE_APP_CONFIG_DIR=/var/cldstr/wagn.org/wagn/ws/a0004
 CLOUD=$1
 
 if [ -z $CLOUD ]; then
@@ -28,15 +29,15 @@ ssh root@$CLOUD "
 #  apt-get install -y build-essential
   cd $REMOTE_WS_DIR
   rm -rf gems
-  cd web
+  cd $REMOTE_APP_CONFIG_DIR
   rm Gemfile.lock
   bundle install
-  
+
   mkdir -p $TMPDIR
   rm -rf $TMPDIR/*
-  cp Gemfile* $TMPDIR
+  cp Gemfile.lock $TMPDIR
   
-  cd ..
+  cd $REMOTE_WS_DIR
   tar -czf $TMPDIR/newgems.tgz gems";
 
 scp root@$CLOUD:$TMPDIR/* $TMPDIR

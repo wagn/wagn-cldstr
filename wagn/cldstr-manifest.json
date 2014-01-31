@@ -83,6 +83,10 @@
         },
         {
           "type"         : "directory",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/.bundle"
+        },
+        {
+          "type"         : "directory",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods"
         },
         {
@@ -118,6 +122,11 @@
           "type"         : "file",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Gemfile",
           "template"     : "tmpl/Gemfile"
+        },
+        {
+          "type"         : "file",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/.bundle/config",
+          "template"     : "tmpl/bundleconfig"
         },
         {
           "type"         : "file",
