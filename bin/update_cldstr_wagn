@@ -1,0 +1,17 @@
+#!/bin/sh
+
+MANIFEST_DIR=$CLDHOME/apps/wagn-cldstr/wagn
+CLDSTR_GEMS_DIR=$MANIFEST_DIR/files-ws/gems/ruby/1.9.1
+
+cd /opt/wagn
+rm wagn-*gem
+gem build wagn.gemspec; gem install ./wagn-*gem
+gem clean wagn
+
+rm -rf $CLDSTR_GEMS_DIR/gems/wagn*
+rm $CLDSTR_GEMS_DIR/specifications/wagn*
+rm $CLDSTR_GEMS_DIR/cache/wagn*
+
+cp -r $GEM_HOME/gems/wagn* $CLDSTR_GEMS_DIR/gems
+cp $GEM_HOME/cache/wagn* $CLDSTR_GEMS_DIR/cache
+cp $GEM_HOME/specifications/wagn* $CLDSTR_GEMS_DIR/specifications

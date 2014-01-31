@@ -1,1 +1,0 @@
-gem 'wagn', :git=>'git@github.com:wagn/wagn.git', :branch=>'develop'
