@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ethan McCutchen", "Lewis Hoffman", "Gerry Gleason"]
-  s.date = "2014-01-31"
+  s.date = "2014-02-01"
   s.description = "Create dynamic web systems out of wiki-inspired building blocks."
   s.email = ["info@wagn.org"]
   s.executables = ["wagn"]
