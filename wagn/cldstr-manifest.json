@@ -74,7 +74,7 @@
         },
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-*/public/$4",
+          "target"       : "/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-1.12.7/public/$4",
           "names"        : [
             "assets",
             "assets2bpacked",
