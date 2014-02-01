@@ -25,7 +25,7 @@ out_of_date = false
 dbversion = {}
 
 ['', '_cards'].each do |suffix|
-  dbversion[suffix] = get_version "#{ gemdir }/web/config", suffix
+  dbversion[suffix] = get_version "#{ gemdir }/config", suffix
   appconfigVersion = get_version appconfigDir, suffix
   if !appconfigVersion or appconfigVersion < dbversion[suffix]
     out_of_date = true
@@ -35,7 +35,7 @@ end
 
 
 if out_of_date
-  `chown -R www-data.www-data #{appconfigDir}/version*` # this is needed as of wagn v1.12 to fix version.txt and version_cards.txt.  can probably remove soon
+  `chown www-data.www-data #{appconfigDir}/version*` # this is needed as of wagn v1.12 to fix version.txt and version_cards.txt.  can probably remove soon
   
   Dir.chdir appconfigDir # get us into the appconfig directory, from which the migrate command must be run
   
