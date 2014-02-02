@@ -61,7 +61,7 @@
           "paths" : [ 
             "/var/log/cldstr+wagn.org+wagn+ws",
             "bin/migrate.rb",
-            "web/script/wagn.rb"
+            "web/script/wagn"
           ]
         }
       ],
