@@ -4,70 +4,49 @@ MANIFEST_DIR=$CLDHOME/apps/wagn-cldstr/wagn
 WAGN_DIR=$MANIFEST_DIR/files-ws/web
 
 DISTRO=$1
-WAGN_BRANCH=$2
-
 if [ -z $DISTRO ]; then
   echo "usage: push <distro>"
   exit 1
 fi
 
-if [ -z $WAGN_BRANCH ]; then
-  WAGN_BRANCH=develop
-fi
-
 cd $MANIFEST_DIR
+
 case $DISTRO in
-'red')    WAGN_CLDSTR_BRANCH='develop';;
-'yellow') WAGN_CLDSTR_BRANCH='master' ;;
-'green')  WAGN_CLDSTR_BRANCH='stable' ;;
+'red')
+  git checkout develop
+  git commit -a -m 'red commit sweep'
+  update_cldstr_wagn
+  update_manifest.rb
+  git commit -a -m 'regenerate manifest'
+;;
+'yellow')
+  git checkout master
+  git merge --no-edit develop
+;;
+'green')
+  git checkout stable
+  git merge --no-edit master
+;;
 *)  
   echo "unknown distro: $DISTRO";
   exit 1 ;;
 esac
 
-git checkout $WAGN_CLDSTR_BRANCH
-git status
-#read -p "Is this repo (a) correct and (b) clean? [y/n] " -n 1
-#echo ""
-#if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-#  echo "stopping push to $DISTRO ($WAGN_CLDSTR_BRANCH)"
-#  exit 1
-#fi
-
-
-
-
-case $DISTRO in
-'red')
-  build_mods $DISTRO  
-  cd $WAGN_DIR
-  git pull --no-edit origin $WAGN_BRANCH
-  cd $MANIFEST_DIR
-  git commit -a -m 'auto-pulled latest wagn code'
-  cloud_build $DISTRO
-  cloud_update dev
-;;
-'yellow')
-  git merge --no-edit develop
-  build_mods $DISTRO
-  cd $MANIFEST_DIR
-  cloud_build $DISTRO
-#  cloud_update wikirate
-  git checkout develop
-;;
-'green')
-  git merge --no-edit master
-  cd ..
-  git submodule update
-  build_mods $DISTRO
-  cd $MANIFEST_DIR
-  cloud_build $DISTRO
-  git checkout develop
-;;
-esac
-
+build_mods $DISTRO
+cd $MANIFEST_DIR
+cloud_build $DISTRO
 
 git push
+
+if [ $DISTRO == "red" ]; then
+  cloud_update dev
+else
+  git checkout develop
+fi
+
+
+
+
 
  
 

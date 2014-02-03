@@ -46,8 +46,8 @@ sbindir = $(exec_prefix)/sbin
 bindir = $(exec_prefix)/bin
 rubylibdir = $(rubylibprefix)/$(ruby_version)
 archdir = $(rubylibdir)/$(arch)
-sitelibdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/json-1.8.1/ext/json/ext/parser/.gem.20140110-27485-x7qvfr
-sitearchdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/json-1.8.1/ext/json/ext/parser/.gem.20140110-27485-x7qvfr
+sitelibdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/json-1.8.1/ext/json/ext/parser/.gem.20140131-1164-4nke5i
+sitearchdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/json-1.8.1/ext/json/ext/parser/.gem.20140131-1164-4nke5i
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 

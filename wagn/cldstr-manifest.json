@@ -1,33 +1,34 @@
 {
-  "type"          : "app",
-  "bizmodels"     : [ 
+  "type": "app",
+  "bizmodels": [
     {
-      "model"      : "subscription",
-      "fee"        : "4.99 USD",
-      "period"     : "1 month",
-      "evalperiod" : "1 month"
+      "model": "subscription",
+      "fee": "4.99 USD",
+      "period": "1 month",
+      "evalperiod": "1 month"
     }
   ],
-  "architectures" : [ "arch_nwsa_1dbm" ],
-
-  "info" : {
-    "name"            : "Wagn",
-    "tagline"         : "how pioneers roll",
-    "developer"       : "wagn.org",
-    "upstreamversion" : "1.9.0",
-    "cldstrversion"   : "0.%{now.identifier}",
-    "licenses"        : [ "gplv2" ]
+  "architectures": [
+    "arch_nwsa_1dbm"
+  ],
+  "info": {
+    "name": "Wagn",
+    "tagline": "how pioneers roll",
+    "developer": "wagn.org",
+    "upstreamversion": "1.12.8",
+    "cldstrversion": "0.%{now.identifier}",
+    "licenses": [
+      "gplv2"
+    ]
   },
-
-  "package"       : { 
-    "maintainer"      : "wagn.org", 
-    "packagebasename" : "wagn",
-  }, 
-
-  "roles" : {
-    "ws" : {
-      "defaultcontext" : "/wagn",
-      "depends" : [
+  "package": {
+    "maintainer": "wagn.org",
+    "packagebasename": "wagn"
+  },
+  "roles": {
+    "ws": {
+      "defaultcontext": "/wagn",
+      "depends": [
         "cldstr+cldstr.com+passenger+ss",
         "cldstr+cldstr.com+rubygems+ss",
         "cldstr+cldstr.com+postfix+ss",
@@ -39,110 +40,141 @@
         "libapache2-mod-passenger",
         "libapache2-mod-xsendfile"
       ],
-      "robotstxt" : {
-        "disallow" : [
+      "robotstxt": {
+        "disallow": [
           "/card/",
           "/admin/",
           "/account/",
           "/*?*"
         ]
       },
-      "apache2modules" : [
+      "apache2modules": [
         "passenger",
         "expires",
         "xsendfile",
         "headers"
       ],
-      "files" : [
+      "files": [
         {
-          "uname" : "www-data",
-          "gname" : "www-data",
-          "mode"  : "0755",
-          "paths" : [ 
+          "uname": "www-data",
+          "gname": "www-data",
+          "mode": "0755",
+          "paths": [
             "/var/log/cldstr+wagn.org+wagn+ws",
-            "web/config.ru",
-            "web/Gemfile.lock",
-            "web/tmp",
-            "web/script/rails",
             "bin/migrate.rb",
-            "web/db/schema.rb"
+            "web/script/wagn"
           ]
-        },
-        {
-          "mode"  : "0666",
-          "paths" : [  "web/tmp/restart.txt" ]
-        }        
+        }
       ],
-      "appconfigitems" : [
+      "appconfigitems": [
         {
-          "type"         : "file",
-          "name"         : ".htaccess",
-          "template"     : "tmpl/htaccess.tmpl",
-          "templatelang" : "varsubst"
+          "type": "file",
+          "name": ".htaccess",
+          "template": "tmpl/htaccess.tmpl",
+          "templatelang": "varsubst"
         },
         {
-          "type"         : "directory",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}"
-        },
-        {
-          "type"         : "directory",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods"
-        },
-        {
-          "type"         : "directory",
-          "uname"        : "www-data",
-          "gname"        : "www-data",
-          "mode"         : "0755",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/files",
-          "retention"    : "backup",
-          "retentionbucket" : "uploads"
-        },
-        {
-          "type"         : "file",
-          "uname"        : "www-data",
-          "gname"        : "www-data",
-          "mode"         : "0666",
-          "name"         : "/var/log/cldstr+wagn.org+wagn+ws/${appconfig.appconfigid}.log"
-        },
-        {
-          "type"         : "file",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/database.yml",
-          "template"     : "tmpl/database.yml.tmpl",
-          "templatelang" : "varsubst"
-		    },
-        {
-          "type"         : "file",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/wagn.yml",
-          "template"     : "tmpl/wagn.yml.tmpl",
-          "templatelang" : "varsubst"
-        },
-        {
-          "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn/ws/web/public/$4",
-          "names"        : [
+          "type": "symlink",
+          "target": "/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-1.12.8/public/$4",
+          "names": [
             "assets",
             "assets2bpacked",
-            "files",
             "404.html",
             "500.html",
             "favicon.ico"
           ]
+        },
+        {
+          "type": "directory",
+          "names": [
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config"
+          ]
+        },
+        {
+          "type": "symlink",
+          "target": "/usr/cldstr/wagn.org/wagn/ws/web/$4",
+          "names": [
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/.bundle",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Gemfile",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Rakefile",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/boot.rb",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/environment.rb",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/script"
+          ]
+        },
+        {
+          "type": "file",
+          "name": "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/database.yml",
+          "template": "tmpl/database.yml.tmpl",
+          "templatelang": "varsubst"
+        },
+        {
+          "type": "file",
+          "name": "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/application.rb",
+          "template": "tmpl/application.rb.tmpl",
+          "templatelang": "varsubst"
+        },
+        {
+          "type": "directory",
+          "uname": "www-data",
+          "gname": "www-data",
+          "mode": "0755",
+          "name": "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/files",
+          "retention": "backup",
+          "retentionbucket": "uploads"
+        },
+        {
+          "type": "directory",
+          "uname": "www-data",
+          "gname": "www-data",
+          "mode": "0755",
+          "name": "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/tmp"
+        },
+        {
+          "type": "file",
+          "uname": "www-data",
+          "gname": "www-data",
+          "mode": "0755",
+          "name": "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config.ru",
+          "template": "tmpl/config.ru"
+        },
+        {
+          "type": "file",
+          "uname": "www-data",
+          "gname": "www-data",
+          "mode": "0755",
+          "name": "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Gemfile.lock",
+          "template": "tmpl/Gemfile.lock"
+        },
+        {
+          "type": "file",
+          "name": "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/tmp/restart.txt",
+          "template": "tmpl/restart.txt"
+        },
+        {
+          "type": "file",
+          "uname": "www-data",
+          "gname": "www-data",
+          "mode": "0666",
+          "name": "/var/log/cldstr+wagn.org+wagn+ws/${appconfig.appconfigid}.log"
         }
       ],
-      "postappconfiginst" : {
-        "type" : "perlscript",
-        "name" : "bin/migrate.pl"
+      "postappconfiginst": {
+        "type": "perlscript",
+        "name": "bin/migrate.pl"
       }
     },
-    "ctrl" : {
-      "appconfigitems" : [
+    "ctrl": {
+      "appconfigitems": [
         {
-          "type"            : "mysql-database",
-          "name"            : "maindb",
-          "create"          : "/usr/cldstr/wagn.org/wagn/ctrl/tmpl/bootstrap.sql",
-          "retention"       : "backup",
-          "retentionbucket" : "db",
-          "privileges"      : "create, alter, drop, index, select, insert, update, delete"
+          "type": "mysql-database",
+          "name": "maindb",
+          "create": "/usr/cldstr/wagn.org/wagn/ctrl/tmpl/bootstrap.sql",
+          "retention": "backup",
+          "retentionbucket": "db",
+          "privileges": "create, alter, drop, index, select, insert, update, delete"
         }
       ]
     }

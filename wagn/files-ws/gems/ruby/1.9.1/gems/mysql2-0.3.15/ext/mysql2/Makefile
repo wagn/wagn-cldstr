@@ -46,8 +46,8 @@ sbindir = $(exec_prefix)/sbin
 bindir = $(exec_prefix)/bin
 rubylibdir = $(rubylibprefix)/$(ruby_version)
 archdir = $(rubylibdir)/$(arch)
-sitelibdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/rmagick-2.13.2/ext/RMagick/.gem.20140131-1164-9099sk
-sitearchdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/rmagick-2.13.2/ext/RMagick/.gem.20140131-1164-9099sk
+sitelibdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/mysql2-0.3.15/ext/mysql2/.gem.20140131-1164-1f0nnyp
+sitearchdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/mysql2-0.3.15/ext/mysql2/.gem.20140131-1164-1f0nnyp
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 
@@ -63,17 +63,17 @@ empty =
 OUTFLAG = -o $(empty)
 COUTFLAG = -o $(empty)
 
-RUBY_EXTCONF_H = extconf.h
+RUBY_EXTCONF_H = 
 cflags   =  $(optflags) $(debugflags) $(warnflags)
 optflags = -O3
 debugflags = -ggdb
 warnflags = -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration
-CFLAGS   = -fPIC  -I/usr/include/ImageMagick -fopenmp $(ARCH_FLAG)
-INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
+CFLAGS   = -fPIC -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security -Wall -fno-strict-aliasing -fPIC -Wall -funroll-loops $(ARCH_FLAG)
+INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir) -I/usr/include/mysql
 DEFS     = 
-CPPFLAGS = -DRUBY_EXTCONF_H=\"$(RUBY_EXTCONF_H)\"  -I/usr/include/ImageMagick
+CPPFLAGS = -DHAVE_RB_THREAD_BLOCKING_REGION -DHAVE_RB_WAIT_FOR_SINGLE_FD -DHAVE_RB_HASH_DUP -DHAVE_RB_INTERN3 -DHAVE_MYSQL_H -DHAVE_ERRMSG_H -DHAVE_MYSQLD_ERROR_H -D_FORTIFY_SOURCE=2 $(DEFS) $(cppflags)
 CXXFLAGS = $(CFLAGS) -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security -Wall -fno-strict-aliasing
-ldflags  =  -L/usr/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -L/usr/lib/X11
+ldflags  = -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -rdynamic -Wl,-export-dynamic -Wl,-rpath,/usr/lib/x86_64-linux-gnu
 dldflags =  
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
@@ -114,13 +114,13 @@ DISTCLEANDIRS =
 
 extout = 
 extout_prefix = 
-target_prefix = 
-LOCAL_LIBS =  -L/usr/lib -lMagickCore -llcms -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lfontconfig -lXext -lSM -lICE -lX11 -lXt -lbz2 -lz -lm -lgomp -lpthread -lltdl
-LIBS = $(LIBRUBYARG_SHARED)  -lpthread -lrt -ldl -lcrypt -lm   -lc
-SRCS = rmmontage.c rmmain.c rmimage.c rmpixel.c rmenum.c rminfo.c rmagick.c rmfill.c rmstruct.c rmutil.c rmdraw.c rmilist.c
-OBJS = rmmontage.o rmmain.o rmimage.o rmpixel.o rmenum.o rminfo.o rmagick.o rmfill.o rmstruct.o rmutil.o rmdraw.o rmilist.o
-TARGET = RMagick2
-TARGET_NAME = RMagick2
+target_prefix = /mysql2
+LOCAL_LIBS = 
+LIBS = $(LIBRUBYARG_SHARED) -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc
+SRCS = result.c infile.c mysql2_ext.c client.c
+OBJS = result.o infile.o mysql2_ext.o client.o
+TARGET = mysql2
+TARGET_NAME = mysql2
 TARGET_ENTRY = Init_$(TARGET_NAME)
 DLLIB = $(TARGET).so
 EXTSTATIC = 
@@ -171,7 +171,7 @@ install-rb-default: pre-install-rb-default
 pre-install-rb: Makefile
 pre-install-rb-default: Makefile
 pre-install-rb-default:
-	$(ECHO) installing default RMagick2 libraries
+	$(ECHO) installing default mysql2 libraries
 ./.RUBYARCHDIR.time:
 	$(Q) $(MAKEDIRS) $(RUBYARCHDIR)
 	$(Q) $(TOUCH) $@
@@ -211,10 +211,10 @@ site-install-rb: install-rb
 	$(Q) $(CC) $(INCFLAGS) $(CPPFLAGS) $(CFLAGS) $(COUTFLAG)$@ -c $<
 
 $(DLLIB): $(OBJS) Makefile
-	$(ECHO) linking shared-object $(DLLIB)
+	$(ECHO) linking shared-object mysql2/$(DLLIB)
 	-$(Q)$(RM) $(@)
 	$(Q) $(LDSHARED) -o $@ $(OBJS) $(LIBPATH) $(DLDFLAGS) $(LOCAL_LIBS) $(LIBS)
 
 
 
-$(OBJS): $(hdrdir)/ruby.h $(hdrdir)/ruby/defines.h Makefile rmagick.h $(RUBY_EXTCONF_H)
+$(OBJS): $(hdrdir)/ruby.h $(hdrdir)/ruby/defines.h $(arch_hdrdir)/ruby/config.h
