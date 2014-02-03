@@ -18,5 +18,7 @@ cp $GEM_HOME/specifications/wagn* $CLDSTR_GEMS_DIR/specifications
 
 rm $CLDSTR_GEMS_DIR/gems/wagn*/.gitignore
 
+git add $CLDSTR_GEMS_DIR/*/wagn*
+
 cd $MANIFEST_DIR
-git commit -a -q -m 'updated wagn gem'
+git commit -q -m 'updated wagn gem'
