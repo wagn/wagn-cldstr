@@ -106,6 +106,16 @@ end
 
 def ok_to_create
   permit :create
+  if junction?
+    [:left, :right].each do |side|
+      part_card = send side, :new=>{}
+      if part_card && part_card.new_card? #if no card, there must be other errors
+        unless part_card.ok? :create
+          deny_because you_cant("create #{part_card.name}")
+        end
+      end
+    end
+  end
 end
 
 def ok_to_read
@@ -136,8 +146,6 @@ def ok_to_comment
     deny_because "No comments allowed on hard templated cards" if structure
   end
 end
-
-
 
 
 event :set_read_rule, :before=>:store do
@@ -213,6 +221,5 @@ event :recaptcha, :before=>:approve do
     Wagn::Env[:controller].verify_recaptcha :model=>self, :attribute=>:captcha
   end
 end
-
 
 
