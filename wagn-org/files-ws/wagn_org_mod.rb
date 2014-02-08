@@ -5,7 +5,7 @@ module Card::Set::WagnOrg
   format :html do
   
     view :shade do |args|
-      wrap :shade, args do
+      wrap args do
         %{
           <h1>
             <a href="#" class="ui-icon ui-icon-triangle-1-e"></a>
