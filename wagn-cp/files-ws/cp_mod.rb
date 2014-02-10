@@ -47,7 +47,7 @@ class Card
             <div class="cp-titled-header">
               <div class="cp-titled-right">
                 #{ render_watch if main? }
-                #{ optional_render :menu, args, :hide }
+                #{ optional_render :menu, args }
               </div>
               <div class="cp-title">
                 #{ type_link }
