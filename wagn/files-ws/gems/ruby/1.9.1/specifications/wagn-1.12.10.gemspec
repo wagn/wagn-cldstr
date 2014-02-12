@@ -8,13 +8,14 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Ethan McCutchen", "Lewis Hoffman", "Gerry Gleason"]
-  s.date = "2014-02-10"
+  s.date = "2014-02-12"
   s.description = "a wiki approach to stuctured data, dynamic interaction, and web design"
   s.email = ["info@wagn.org"]
   s.executables = ["wagn"]
   s.files = ["bin/wagn"]
   s.homepage = "http://wagn.org"
   s.licenses = ["GPL"]
+  s.required_ruby_version = Gem::Requirement.new(">= 1.8.7")
   s.rubygems_version = "2.2.1"
   s.summary = "structured wiki web platform"
 
@@ -24,7 +25,7 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, ["~> 3.2.16"])
+      s.add_runtime_dependency(%q<rails>, ["= 3.2.16"])
       s.add_runtime_dependency(%q<smartname>, ["= 0.2.3"])
       s.add_runtime_dependency(%q<htmlentities>, ["~> 4.3"])
       s.add_runtime_dependency(%q<uuid>, ["~> 2.3"])
@@ -37,7 +38,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<coderay>, ["~> 1.0"])
       s.add_runtime_dependency(%q<sass>, ["~> 3.2"])
     else
-      s.add_dependency(%q<rails>, ["~> 3.2.16"])
+      s.add_dependency(%q<rails>, ["= 3.2.16"])
       s.add_dependency(%q<smartname>, ["= 0.2.3"])
       s.add_dependency(%q<htmlentities>, ["~> 4.3"])
       s.add_dependency(%q<uuid>, ["~> 2.3"])
@@ -51,7 +52,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<sass>, ["~> 3.2"])
     end
   else
-    s.add_dependency(%q<rails>, ["~> 3.2.16"])
+    s.add_dependency(%q<rails>, ["= 3.2.16"])
     s.add_dependency(%q<smartname>, ["= 0.2.3"])
     s.add_dependency(%q<htmlentities>, ["~> 4.3"])
     s.add_dependency(%q<uuid>, ["~> 2.3"])
