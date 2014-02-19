@@ -3,17 +3,16 @@
 require 'json'
 require '/opt/wagn/lib/wagn/version'
 
-MANIFEST_DIR = "#{ENV['CLDHOME']}/apps/wagn-cldstr/wagn"
+WAGN_MANIFEST="#{ENV['CLDHOME']}/apps/wagn-cldstr/wagn/cldstr-manifest.json"
 
-manifest = File.read "#{MANIFEST_DIR}/cldstr-manifest-raw.json"
-parsed = JSON.parse manifest
+file = File.read WAGN_MANIFEST
+parsed = JSON.parse file
 
 parsed['info']['upstreamversion'] = Wagn::Version.release
 
 gemref = parsed['roles']['ws']['appconfigitems'].find { |x| x['target'] =~ /gems/ }
 gemref['target'] = gemref['target'].gsub /wagn-[^\/]*/, "wagn-#{Wagn::Version.release}"
 
-
-File.open "#{MANIFEST_DIR}/cldstr-manifest.json", 'w' do |file|
+File.open "#{WAGN_MANIFEST}", 'w' do |file|
   file.write JSON.pretty_generate( parsed )
 end

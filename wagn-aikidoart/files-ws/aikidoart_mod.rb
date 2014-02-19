@@ -38,7 +38,7 @@ class Card
         end  
   
         view :thumbnail, :type=>'item' do |args|
-          wrap :thumbnail, args do
+          wrap args do
             text = subformat( Card["#{card.name}+image"] ).render_core :size=>:medium
             card_link card.name, text, true
           end

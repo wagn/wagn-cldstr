@@ -42,12 +42,12 @@ class Card
           end
         end
     
-        wrap :titled, args do
+        wrap args do
           %{
             <div class="cp-titled-header">
               <div class="cp-titled-right">
                 #{ render_watch if main? }
-                #{ optional_render :menu, args, :hide }
+                #{ optional_render :menu, args }
               </div>
               <div class="cp-title">
                 #{ type_link }
@@ -79,7 +79,7 @@ class Card
  
  
       view :missing, :ltype=>:user, :right=>:image do |args|
-        wrap :missing_image do
+        wrap args do
           subformat( Card['missing person'] )._render_core
         end
       end
@@ -90,7 +90,7 @@ class Card
 
 
       view :watch do |args|
-        wrap :watch, args do
+        wrap args do
           if card.watching_type?
             watching_type_cards
           else
@@ -106,7 +106,7 @@ class Card
 
   
       view :watch, :type=>:cardtype do |args|
-        wrap :watch, args do
+        wrap args do
           type_link = card.watching_type? ? "#{watching_type_cards} | " : ""
           plural = card.name.pluralize
           link_args = if card.watching?
@@ -126,7 +126,7 @@ class Card
   
       view :closed_branch do |args|
         has_subtopics = Card.exists? "#{card.cardname.trunk_name}+subtopics"
-        wrap :closed_branch do
+        wrap args do
           basic_branch :closed, !!has_subtopics
         end
       end
@@ -134,7 +134,7 @@ class Card
       view :open_branch do |args|
         @default_search_params = { :limit=> 1000 }
         subtopics_card = Card.fetch "#{card.cardname.trunk_name}+subtopics+*refer to+unlimited"
-        wrap :open_branch do
+        wrap args do
           basic_branch(:open) + subformat( subtopics_card )._render_content( :item => :closed_branch )
         end
       end
@@ -153,7 +153,7 @@ class Card
       end
   
       view :cp_result_item do |args|
-        wrap :cp_result_item, args do
+        wrap args do
           %{
           <hr>
           <div class="cp-result-top">
