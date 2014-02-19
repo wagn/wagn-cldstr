@@ -12,6 +12,7 @@ use cldstr::runtime::Utils;
 
 my $wsdir = "/usr/cldstr/wagn.org/wagn/ws";
 my $appconfigid = $varMap->{appconfig}->{appconfigid};
+my $appconfigdir = "/var/cldstr/wagn.org/wagn/ws/$appconfigid"
 
 $log->debug( "Wagn postappconfiginst called for AppConfig: $appconfigid" );      
 
@@ -27,7 +28,7 @@ if ( $operation eq 'install' ) {
 }      
 
 
-my $restartcmd = "touch $wsdir/web/tmp/restart.txt"; 
+my $restartcmd = "touch $appconfigdir/tmp/restart.txt"; 
 my $restartresult = cldstr::runtime::Utils::myexec( $restartcmd );
 if( $restartresult ) {
     $log->error( "Wagn Restart Failure: $restartresult" );
