@@ -12,7 +12,7 @@ use cldstr::runtime::Utils;
 
 my $wsdir = "/usr/cldstr/wagn.org/wagn/ws";
 my $appconfigid = $varMap->{appconfig}->{appconfigid};
-my $appconfigdir = "/var/cldstr/wagn.org/wagn/ws/$appconfigid"
+my $appconfigdir = "/var/cldstr/wagn.org/wagn/ws/$appconfigid";
 
 $log->debug( "Wagn postappconfiginst called for AppConfig: $appconfigid" );      
 
