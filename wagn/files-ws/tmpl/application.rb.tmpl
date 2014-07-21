@@ -45,6 +45,7 @@ module CldstrAppConfig
     config.email_defaults = { :from => 'noreply@cldstr.info' }
     
     config.paths['log'] = "/var/log/cldstr+wagn.org+wagn+ws/${site.hostname}-${appconfig.appconfigid}.log"
+    config.paths['schema-stamp'] = ''
 
     config.action_mailer.smtp_settings = { :address => '${hostname}.cldstr.net' }
     
