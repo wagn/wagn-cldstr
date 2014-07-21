@@ -3,6 +3,7 @@
 gemdir = '/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-*'
 
 appconfigid = ENV['APPCONFIGID']
+sitename = ENV['SITENAME']
 raise "no appconfigid" unless appconfigid && !appconfigid.empty?
 
 appconfigDir = "/var/cldstr/wagn.org/wagn/ws/#{appconfigid}"
@@ -16,7 +17,7 @@ def get_version dir, suffix
 end
 
 def log msg
-  File.open LogFile, 'a' do |f|
+  open LogFile, 'a' do |f|
     f.puts msg
   end
 end
