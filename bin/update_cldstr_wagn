@@ -4,10 +4,10 @@ MANIFEST_DIR=$CLDHOME/apps/wagn-cldstr/wagn
 CLDSTR_GEMS_DIR=$MANIFEST_DIR/files-ws/gems/ruby/1.9.1
 
 cd /opt/wagn
-#rm wagn-*gem
-#gem build wagn.gemspec; 
+rm wagn-*gem
+sudo gem build wagn.gemspec; 
 sudo gem install ./wagn-*gem
-#gem clean wagn  # breaks on pre-release?
+sudo gem clean wagn
 
 sudo rm -rf $CLDSTR_GEMS_DIR/gems/wagn*
 sudo rm $CLDSTR_GEMS_DIR/specifications/wagn*
