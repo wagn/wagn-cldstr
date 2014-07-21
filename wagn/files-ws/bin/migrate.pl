@@ -12,18 +12,21 @@ use cldstr::runtime::Utils;
 
 my $wsdir = "/usr/cldstr/wagn.org/wagn/ws";
 my $appconfigid = $varMap->{appconfig}->{appconfigid};
+my $hostname = $varMap->{appconfig}->{site}->{hostname}
 my $appconfigdir = "/var/cldstr/wagn.org/wagn/ws/$appconfigid";
+my $logfile = "/var/log/cldstr+wagn.org+wagn+ws/$hostname-$appconfigid.log"
+
 
 $log->debug( "Wagn postappconfiginst called for AppConfig: $appconfigid" );      
 
 if ( $operation eq 'install' ) {
-  my $cmd = "env APPCONFIGID=$appconfigid $wsdir/bin/migrate.rb";
+  my $cmd = "env LOGFILE=$logfile APPCONFIGID=$appconfigid $wsdir/bin/migrate.rb";
   my $result = cldstr::runtime::Utils::myexec( $cmd );
   
   if ($result) {
-    $log->error("Wagn Migration FAILURE. For details see /var/log/cldstr+wagn.org+wagn+ws/$appconfigid.log\ncmd = $cmd");
+    $log->error("Wagn Migration FAILURE. For details see $logfile\ncmd = $cmd");
   } else {
-    $log->debug("Wagn Migration SUCCESS. For details see /var/log/cldstr+wagn.org+wagn+ws/$appconfigid.log");
+    $log->debug("Wagn Migration SUCCESS. For details see $logfile");
   }
 }      
 

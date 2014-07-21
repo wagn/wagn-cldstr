@@ -24,20 +24,20 @@ TMPDIR=/tmp/gemset
 mkdir -p $TMPDIR
 rm -rf $TMPDIR/*
 
-ssh root@$CLOUD "
-#  apt-get install -y ruby1.9.1-dev
-#  apt-get install -y build-essential
-  cd $REMOTE_WS_DIR/web
-  rm Gemfile.lock
-  bundle update
-  bundle clean --force
-
-  mkdir -p $TMPDIR
-  rm -rf $TMPDIR/*
-  cp Gemfile.lock $TMPDIR
-  
-  cd $REMOTE_WS_DIR
-  tar -czf $TMPDIR/newgems.tgz gems";
+#ssh root@$CLOUD "
+##  apt-get install -y ruby1.9.1-dev
+##  apt-get install -y build-essential
+#  cd $REMOTE_WS_DIR/web
+#  rm Gemfile.lock
+#  bundle update
+#  bundle clean --force
+#
+#  mkdir -p $TMPDIR
+#  rm -rf $TMPDIR/*
+#  cp Gemfile.lock $TMPDIR
+#  
+#  cd $REMOTE_WS_DIR
+#  tar -czf $TMPDIR/newgems.tgz gems";
 
 scp -l 8192 root@$CLOUD:$TMPDIR/* $TMPDIR
 
