@@ -87,7 +87,7 @@
           "type": "directory",
           "names": [
             "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}",
-            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mod",
             "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config"
           ]
         },
