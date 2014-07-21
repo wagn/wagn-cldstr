@@ -31,7 +31,7 @@ class Card
         end
   
         view :core, :right=>:watermark do |args|
-          if !Account.logged_in?
+          if !Auth.signed_in?
             args[:size] = :medium if [:large, :full, :original].member?( args[:size] )
           end
           _final_image_type_core args
