@@ -21,9 +21,10 @@ $log->debug( "Wagn postappconfiginst called for AppConfig: $appconfigid" );
 
 
 my $tmpdir = "$appconfigdir/tmp";
-my $tmpcleanresult = cldstr::runtime::Utils::myexec( "rm -rf $tmpdir/*" );
+my $tmpcleancommand = "rm -rf $tmpdir/*"
+my $tmpcleanresult = cldstr::runtime::Utils::myexec( $tmpcleancommand );
 if( $tmpcleanresult ) {
-  $msg = "Wagn Restart Failure: $tmpcleanresult";
+  my $msg = "Wagn error cleaning tmp directory $tmpcleanresult";
   $log->error( $msg );
 }
 
@@ -33,18 +34,19 @@ if ( $operation eq 'install' ) {
   my $result = cldstr::runtime::Utils::myexec( $cmd );
   
   if ($result) {
-    $msg = "Wagn Migration FAILURE. For details see $logfile\ncmd = $cmd";
+    my $msg = "Wagn Migration FAILURE. For details see $logfile\ncmd = $cmd";
     $log->error( $msg );
   } else {
-    $msg = "Wagn Migration SUCCESS. For details see $logfile";
+    my $msg = "Wagn Migration SUCCESS. For details see $logfile";
     $log->debug( $msg );
   }
 }      
 
 
-my $restartresult = cldstr::runtime::Utils::myexec( "touch $tmpdir/restart.txt" );
+my $restartcommand = "touch $tmpdir/restart.txt"
+my $restartresult = cldstr::runtime::Utils::myexec( $restartcommand );
 if( $restartresult ) {
-  $msg = "Wagn Restart Failure: $restartresult";
+  my $msg = "Wagn Restart Failure: $restartresult";
   $log->error( $msg );
   
 }
