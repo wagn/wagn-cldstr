@@ -17,7 +17,15 @@ my $appconfigdir = "/var/cldstr/wagn.org/wagn/ws/$appconfigid";
 my $logfile = "/var/log/cldstr+wagn.org+wagn+ws/$hostname-$appconfigid.log"
 
 
-$log->debug( "Wagn postappconfiginst called for AppConfig: $appconfigid" );      
+$log->debug( "Wagn postappconfiginst called for AppConfig: $appconfigid" );
+
+
+my $tmpdir = "$appconfigdir/tmp"
+my $tmpcleanresult = cldstr::runtime::Utils::myexec( "rm -r $tmpdir/*" );
+if( $tmpcleanresult ) {
+    $log->error( "Wagn Restart Failure: $tmpcleanresult" );
+}
+
 
 if ( $operation eq 'install' ) {
   my $cmd = "env LOGFILE=$logfile APPCONFIGID=$appconfigid $wsdir/bin/migrate.rb";
@@ -31,8 +39,7 @@ if ( $operation eq 'install' ) {
 }      
 
 
-my $restartcmd = "touch $appconfigdir/tmp/restart.txt"; 
-my $restartresult = cldstr::runtime::Utils::myexec( $restartcmd );
+my $restartresult = cldstr::runtime::Utils::myexec( "touch $tmpdir/restart.txt" );
 if( $restartresult ) {
     $log->error( "Wagn Restart Failure: $restartresult" );
 }
