@@ -23,7 +23,7 @@
         {
           "type"         : "symlink",
           "target"       : "/usr/cldstr/wagn.org/wagn-cp/ws/cp_mod",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods/cp_mod"
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mod/cp_mod"
         }
       ]
     }

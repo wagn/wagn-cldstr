@@ -23,7 +23,7 @@
         {
           "type"         : "symlink",
           "target"       : "/usr/cldstr/wagn.org/wagn-arb/ws/arb_mod",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods/arb_mod"
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mod/arb_mod"
         }
       ]
     }
