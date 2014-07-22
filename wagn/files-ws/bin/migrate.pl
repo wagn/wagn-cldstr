@@ -21,7 +21,7 @@ $log->debug( "Wagn postappconfiginst called for AppConfig: $appconfigid" );
 
 
 my $tmpdir = "$appconfigdir/tmp";
-my $tmpcleancommand = "rm -rf $tmpdir/*"
+my $tmpcleancommand = "rm -rf $tmpdir/*";
 my $tmpcleanresult = cldstr::runtime::Utils::myexec( $tmpcleancommand );
 if( $tmpcleanresult ) {
   my $msg = "Wagn error cleaning tmp directory $tmpcleanresult";
@@ -43,7 +43,7 @@ if ( $operation eq 'install' ) {
 }      
 
 
-my $restartcommand = "touch $tmpdir/restart.txt"
+my $restartcommand = "touch $tmpdir/restart.txt";
 my $restartresult = cldstr::runtime::Utils::myexec( $restartcommand );
 if( $restartresult ) {
   my $msg = "Wagn Restart Failure: $restartresult";
