@@ -41,7 +41,7 @@ if out_of_date
   
   Dir.chdir appconfigDir # get us into the appconfig directory, from which the migrate command must be run
   
-  migration_command = "bundle exec env STAMP_MIGRATIONS=true rake wagn:migrate --trace"
+  migration_command = "bundle exec env SCHEMA_STAMP_PATH=#{appconfigDir} STAMP_MIGRATIONS=true rake wagn:migrate --trace"
   migration_results = `su www-data -c "#{migration_command}" 2> #{LogFile}`
 
   log "Migration Results:\n  #{migration_command}\n  #{migration_results}"
