@@ -22,8 +22,8 @@
       "appconfigitems" : [
         {
           "type"         : "symlink",
-          "target"       : "/usr/cldstr/wagn.org/wagn-yitan/ws/yitan_mod.rb",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods/yitan_mod.rb"
+          "target"       : "/usr/cldstr/wagn.org/wagn-yitan/ws/yitan_mod",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mod/yitan_mod"
         }
       ]
     }
