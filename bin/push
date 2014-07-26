@@ -14,10 +14,10 @@ cd $MANIFEST_DIR
 case $DISTRO in
 'red')
   git checkout develop
-  #git commit -a -m 'red commit sweep'
-  #update_cldstr_wagn
-  #update_manifest.rb
-  #git commit -a -m 'regenerate manifest'
+  git commit -a -m 'red commit sweep'
+  update_cldstr_wagn
+  update_manifest.rb
+  git commit -a -m 'regenerate manifest'
 ;;
 'yellow')
   git checkout master
@@ -39,8 +39,7 @@ cloud_build $DISTRO
 git push
 
 if [ $DISTRO == "red" ]; then
-#  cloud_update dev
-  echo 'woot'
+  cloud_update dev
 else
   git checkout develop
 fi
