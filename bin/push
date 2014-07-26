@@ -39,7 +39,8 @@ cloud_build $DISTRO
 git push
 
 if [ $DISTRO == "red" ]; then
-  cloud_update dev
+#  cloud_update dev
+  echo 'woot'
 else
   git checkout develop
 fi
