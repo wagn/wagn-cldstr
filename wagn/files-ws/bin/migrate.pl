@@ -12,7 +12,7 @@ use cldstr::runtime::Utils;
 
 my $wsdir = "/usr/cldstr/wagn.org/wagn/ws";
 my $appconfigid = $varMap->{appconfig}->{appconfigid};
-my $hostname = $varMap->{appconfig}->{site.hostname};
+my $hostname = 'FIXME'; # $varMap->{appconfig}->{site}->{hostname};
 my $appconfigdir = "/var/cldstr/wagn.org/wagn/ws/$appconfigid";
 my $logfile = "/var/log/cldstr+wagn.org+wagn+ws/$hostname-$appconfigid.log";
 
