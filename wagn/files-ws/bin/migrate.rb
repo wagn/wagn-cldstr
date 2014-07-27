@@ -37,12 +37,15 @@ end
 
 
 if out_of_date
-  `chown www-data.www-data #{appconfigDir}/version*` # this is needed as of wagn v1.12 to fix version.txt and version_cards.txt.  can probably remove soon
+#  `chown www-data.www-data #{appconfigDir}/version*` # this is needed as of wagn v1.12 to fix version.txt and version_cards.txt.  can probably remove soon
   
   Dir.chdir appconfigDir # get us into the appconfig directory, from which the migrate command must be run
   
   migration_command = "bundle exec env SCHEMA_STAMP_PATH=#{appconfigDir} STAMP_MIGRATIONS=true rake wagn:migrate --trace"
-  migration_results = `su www-data -c "#{migration_command}" 2> #{LogFile}`
+  begin
+    migration_results = `su www-data -c "#{migration_command}" 2> #{LogFile}`
+  rescue
+  end
 
   log "Migration Results:\n  #{migration_command}\n  #{migration_results}"
 
