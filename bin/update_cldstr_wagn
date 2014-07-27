@@ -6,7 +6,7 @@ CLDSTR_GEMS_DIR=$MANIFEST_DIR/files-ws/gems/ruby/1.9.1
 cd /opt/wagn
 rm wagn-*gem
 sudo gem build wagn.gemspec; 
-sudo gem install ./wagn-*gem
+sudo gem install -Vl ./wagn-*gem
 sudo gem clean wagn
 
 sudo rm -rf $CLDSTR_GEMS_DIR/gems/wagn*
