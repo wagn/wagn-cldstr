@@ -24,8 +24,6 @@ class AccountRequestsToSignups < ActiveRecord::Migration
       new_signup.codename = :signup
       new_signup.save!
       
-      Card::Codename.reset_cache
-      
       # move old "*signup+*thanks" to "Sign up+*type+*thanks"
       thanks = Card[:thanks]
       if signup_thanks = Card["#{old_signup.name}+#{thanks.name}"]
