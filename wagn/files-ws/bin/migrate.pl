@@ -12,26 +12,43 @@ use cldstr::runtime::Utils;
 
 my $wsdir = "/usr/cldstr/wagn.org/wagn/ws";
 my $appconfigid = $varMap->{appconfig}->{appconfigid};
+my $hostname = $varMap->{site}->{hostname};
 my $appconfigdir = "/var/cldstr/wagn.org/wagn/ws/$appconfigid";
+my $logfile = "/var/log/cldstr+wagn.org+wagn+ws/$hostname-$appconfigid.log";
 
-$log->debug( "Wagn postappconfiginst called for AppConfig: $appconfigid" );      
+
+$log->debug( "Wagn postappconfiginst called for AppConfig: $appconfigid" );
+
+
+my $tmpdir = "$appconfigdir/tmp";
+my $tmpcleancommand = "rm -rf $tmpdir/*";
+my $tmpcleanresult = cldstr::runtime::Utils::myexec( $tmpcleancommand );
+if( $tmpcleanresult ) {
+  my $msg = "Wagn error cleaning tmp directory $tmpcleanresult";
+  $log->error( $msg );
+}
+
 
 if ( $operation eq 'install' ) {
-  my $cmd = "env APPCONFIGID=$appconfigid $wsdir/bin/migrate.rb";
+  my $cmd = "env LOGFILE=$logfile APPCONFIGID=$appconfigid $wsdir/bin/migrate.rb";
   my $result = cldstr::runtime::Utils::myexec( $cmd );
   
   if ($result) {
-    $log->error("Wagn Migration FAILURE. For details see /var/log/cldstr+wagn.org+wagn+ws/$appconfigid.log\ncmd = $cmd");
+    my $msg = "Wagn Migration FAILURE. For details see $logfile\ncmd = $cmd";
+    $log->error( $msg );
   } else {
-    $log->debug("Wagn Migration SUCCESS. For details see /var/log/cldstr+wagn.org+wagn+ws/$appconfigid.log");
+    my $msg = "Wagn Migration SUCCESS. For details see $logfile";
+    $log->debug( $msg );
   }
 }      
 
 
-my $restartcmd = "touch $appconfigdir/tmp/restart.txt"; 
-my $restartresult = cldstr::runtime::Utils::myexec( $restartcmd );
+my $restartcommand = "touch $tmpdir/restart.txt";
+my $restartresult = cldstr::runtime::Utils::myexec( $restartcommand );
 if( $restartresult ) {
-    $log->error( "Wagn Restart Failure: $restartresult" );
+  my $msg = "Wagn Restart Failure: $restartresult";
+  $log->error( $msg );
+  
 }
 # restarts Passenger.
 

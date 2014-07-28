@@ -22,8 +22,8 @@
       "appconfigitems" : [
         {
           "type"         : "symlink", 
-          "target"       : "/usr/cldstr/wagn.org/wagn-aikidoart/ws/aikidoart_mod.rb",
-          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mods/aikidoart_mod.rb"
+          "target"       : "/usr/cldstr/wagn.org/wagn-aikidoart/ws/aikidoart_mod",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mod/aikidoart_mod"
         }
       ]
     }

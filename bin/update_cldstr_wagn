@@ -4,13 +4,14 @@ MANIFEST_DIR=$CLDHOME/apps/wagn-cldstr/wagn
 CLDSTR_GEMS_DIR=$MANIFEST_DIR/files-ws/gems/ruby/1.9.1
 
 cd /opt/wagn
-rm wagn-*gem
-gem build wagn.gemspec; gem install ./wagn-*gem
-gem clean wagn
+sudo rm wagn-*gem
+sudo gem build wagn.gemspec; 
+sudo gem install -Vl ./wagn-*gem
+sudo gem clean wagn
 
-rm -rf $CLDSTR_GEMS_DIR/gems/wagn*
-rm $CLDSTR_GEMS_DIR/specifications/wagn*
-rm $CLDSTR_GEMS_DIR/cache/wagn*
+sudo rm -rf $CLDSTR_GEMS_DIR/gems/wagn*
+sudo rm $CLDSTR_GEMS_DIR/specifications/wagn*
+sudo rm $CLDSTR_GEMS_DIR/cache/wagn*
 
 cp -r $GEM_HOME/gems/wagn-1* $CLDSTR_GEMS_DIR/gems
 cp $GEM_HOME/cache/wagn-1* $CLDSTR_GEMS_DIR/cache
@@ -19,7 +20,5 @@ cp $GEM_HOME/specifications/wagn-1* $CLDSTR_GEMS_DIR/specifications
 rm $CLDSTR_GEMS_DIR/gems/wagn*/.gitignore
 
 cd $MANIFEST_DIR
-
 git add $CLDSTR_GEMS_DIR/*/wagn*
-
 git commit -q -m 'updated wagn gem'
