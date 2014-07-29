@@ -138,4 +138,4 @@ DEPENDENCIES
   dalli
   mysql2
   therubyracer
-  wagn (>= 1.13.0.pre)
+  wagn (>= 1.13.0)
