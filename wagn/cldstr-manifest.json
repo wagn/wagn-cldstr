@@ -15,7 +15,7 @@
     "name": "Wagn",
     "tagline": "how pioneers roll",
     "developer": "wagn.org",
-    "upstreamversion": "1.13.0.pre4",
+    "upstreamversion": "1.13.0",
     "cldstrversion": "0.%{now.identifier}",
     "licenses": [
       "gplv2"
@@ -75,7 +75,7 @@
         },
         {
           "type": "symlink",
-          "target": "/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-1.13.0.pre4/public/$4",
+          "target": "/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-1.13.0/public/$4",
           "names": [
             "assets",
             "404.html",
