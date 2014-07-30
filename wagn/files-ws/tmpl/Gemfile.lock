@@ -117,7 +117,7 @@ GEM
       json (>= 1.8.0)
     uuid (2.3.7)
       macaddr (~> 1.0)
-    wagn (1.13.0.pre4)
+    wagn (1.13.0)
       airbrake (~> 3.1)
       coderay (~> 1.0)
       coffee-script (~> 2.2)
