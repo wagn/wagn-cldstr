@@ -28,8 +28,8 @@ ssh root@$CLOUD "
 #  apt-get install -y ruby1.9.1-dev
 #  apt-get install -y build-essential
   cd $REMOTE_WS_DIR/web
-  rm Gemfile.lock
-  bundle update
+#  rm Gemfile.lock
+#  bundle update
   bundle clean --force
 
   mkdir -p $TMPDIR
