@@ -7,3 +7,4 @@ gem 'therubyracer'
 gem 'mysql2'
 
 gem 'dalli'
+
