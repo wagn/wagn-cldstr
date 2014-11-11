@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--main", "README.rdoc"]
   s.require_paths = ["lib"]
   s.rubyforge_project = "mime-types"
-  s.rubygems_version = "1.8.28"
+  s.rubygems_version = "1.8.23.2"
   s.summary = "This library allows for the identification of a file's likely MIME content type"
 
   if s.respond_to? :specification_version then

@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/sstephenson/hike"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.28"
+  s.rubygems_version = "1.8.23.2"
   s.summary = "Find files in a set of paths"
 
   if s.respond_to? :specification_version then

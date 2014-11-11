@@ -46,8 +46,8 @@ sbindir = $(exec_prefix)/sbin
 bindir = $(exec_prefix)/bin
 rubylibdir = $(rubylibprefix)/$(ruby_version)
 archdir = $(rubylibdir)/$(arch)
-sitelibdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/therubyracer-0.12.1/ext/v8/.gem.20140721-994-2f8xj9
-sitearchdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/therubyracer-0.12.1/ext/v8/.gem.20140721-994-2f8xj9
+sitelibdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/therubyracer-0.12.1/ext/v8/.gem.20141111-17856-a9zc2z
+sitearchdir = $(DESTDIR)/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/therubyracer-0.12.1/ext/v8/.gem.20141111-17856-a9zc2z
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 
@@ -69,11 +69,11 @@ optflags = -O3
 debugflags = -ggdb
 warnflags = -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings  
 CFLAGS   = -fPIC -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security -Wall -fno-strict-aliasing -fPIC $(ARCH_FLAG)
-INCFLAGS = -I. -I/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/libv8-3.16.14.3-x86_64-linux/vendor/v8/include -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
+INCFLAGS = -I. -I/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/libv8-3.16.14.7-x86_64-linux/vendor/v8/include -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
 CPPFLAGS =  -D_FORTIFY_SOURCE=2 $(DEFS) $(cppflags) -Wall -g -rdynamic
 CXXFLAGS = $(CFLAGS) -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security -Wall -fno-strict-aliasing
-ldflags  = /usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/libv8-3.16.14.3-x86_64-linux/vendor/v8/out/x64.release/obj.target/tools/gyp/libv8_base.a /usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/libv8-3.16.14.3-x86_64-linux/vendor/v8/out/x64.release/obj.target/tools/gyp/libv8_snapshot.a -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -rdynamic -Wl,-export-dynamic
+ldflags  = /usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/libv8-3.16.14.7-x86_64-linux/vendor/v8/out/x64.release/obj.target/tools/gyp/libv8_base.a /usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/libv8-3.16.14.7-x86_64-linux/vendor/v8/out/x64.release/obj.target/tools/gyp/libv8_snapshot.a -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -rdynamic -Wl,-export-dynamic
 dldflags =  
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)

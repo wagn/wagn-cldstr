@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.licenses = ["Ruby"]
   s.rdoc_options = ["--title", "JSON implemention for Ruby", "--main", "README.rdoc"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.28"
+  s.rubygems_version = "1.8.23.2"
   s.summary = "JSON Implementation for Ruby"
 
   if s.respond_to? :specification_version then
