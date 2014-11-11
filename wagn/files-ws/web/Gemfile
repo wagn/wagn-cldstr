@@ -1,0 +1,10 @@
+source 'http://rubygems.org'
+
+gem 'wagn', ">= 1.14.0.pre3"
+
+gem 'therubyracer'
+
+gem 'mysql2'
+
+gem 'dalli'
+
