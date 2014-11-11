@@ -43,7 +43,7 @@ if out_of_date
   
   migration_command = "bundle exec env SCHEMA=/tmp/schema.rb SCHEMA_STAMP_PATH=./ STAMP_MIGRATIONS=true rake wagn:migrate --trace"
   begin
-    migration_results = `su www-data -c "#{migration_command}" 2> #{LogFile}`
+    migration_results = `su www-data -c "#{migration_command}" 2>&1`
   rescue
   end
 
@@ -52,8 +52,9 @@ if out_of_date
   ['', '_cards'].each do |suffix|
     appconfigVersion = get_version appconfigDir, suffix
     if !appconfigVersion or appconfigVersion < dbversion[suffix]
-      log "MIGRATION FAILURE: should be at #{ dbversion[suffix] }; currently at #{ appconfigVersion }"
-      puts 'migration failure' 
+      msg = "MIGRATION FAILURE: should be at #{ dbversion[suffix] }; currently at #{ appconfigVersion }"
+      log msg
+      abort msg 
     end
   end
 else
