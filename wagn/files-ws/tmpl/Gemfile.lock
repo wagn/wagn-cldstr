@@ -43,13 +43,20 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     dalli (2.7.2)
+    diff-lcs (1.2.5)
+    diffy (3.0.7)
     erubis (2.7.0)
     execjs (2.2.2)
+    haml (4.0.5)
+      tilt
     hike (1.2.3)
     htmlentities (4.3.2)
     i18n (0.6.11)
     journey (1.0.4)
     json (1.8.1)
+    kaminari (0.16.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     libv8 (3.16.14.7)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
@@ -117,11 +124,15 @@ GEM
       json (>= 1.8.0)
     uuid (2.3.7)
       macaddr (~> 1.0)
-    wagn (1.13.0)
+    wagn (1.14.0.pre2)
       airbrake (~> 3.1)
       coderay (~> 1.0)
       coffee-script (~> 2.2)
+      diff-lcs (~> 1.2.5)
+      diffy (~> 3.0.6)
+      haml (~> 4.0.5)
       htmlentities (~> 4.3)
+      kaminari (~> 0.16.1)
       paperclip (~> 2.8)
       rails (= 3.2.16)
       recaptcha (~> 0.3)
@@ -138,4 +149,4 @@ DEPENDENCIES
   dalli
   mysql2
   therubyracer
-  wagn (>= 1.13.0)
+  wagn (>= 1.14.0.pre2)
