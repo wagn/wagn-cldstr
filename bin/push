@@ -16,7 +16,7 @@ case $DISTRO in
   git checkout develop
   git commit -a -m 'red commit sweep'
 #  update_cldstr_wagn
-  update_manifest.rb
+#  update_manifest.rb
   git commit -a -m 'regenerate manifest'
 ;;
 'yellow')
