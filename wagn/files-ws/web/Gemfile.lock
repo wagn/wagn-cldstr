@@ -124,7 +124,7 @@ GEM
       json (>= 1.8.0)
     uuid (2.3.7)
       macaddr (~> 1.0)
-    wagn (1.14.0.pre3)
+    wagn (1.14.1)
       airbrake (~> 3.1)
       coderay (~> 1.0)
       coffee-script (~> 2.2)
@@ -149,4 +149,4 @@ DEPENDENCIES
   dalli
   mysql2
   therubyracer
-  wagn (>= 1.14.0.pre3)
+  wagn (>= 1.14.1)

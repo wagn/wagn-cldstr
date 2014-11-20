@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'wagn', ">= 1.14.0"
+gem 'wagn', ">= 1.14.1"
 
 gem 'therubyracer'
 
