@@ -1,12 +1,10 @@
 # -*- encoding: utf-8 -*-
-# stub: wagn 1.14.1 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "wagn"
   s.version = "1.14.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.require_paths = ["lib"]
   s.authors = ["Ethan McCutchen", "Lewis Hoffman", "Gerry Gleason"]
   s.date = "2014-11-20"
   s.description = "a wiki approach to stuctured data, dynamic interaction, and web design"
@@ -15,11 +13,10 @@ Gem::Specification.new do |s|
   s.files = ["bin/wagn"]
   s.homepage = "http://wagn.org"
   s.licenses = ["GPL"]
+  s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.8.7")
-  s.rubygems_version = "2.2.1"
+  s.rubygems_version = "2.0.3"
   s.summary = "structured wiki web platform"
-
-  s.installed_by_version = "2.2.1" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 4

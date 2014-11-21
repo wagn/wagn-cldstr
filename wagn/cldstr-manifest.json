@@ -99,6 +99,7 @@
             "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Gemfile",
             "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/Rakefile",
             "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/boot.rb",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/airbrake.key",
             "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/environment.rb",
             "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/script"
           ]
