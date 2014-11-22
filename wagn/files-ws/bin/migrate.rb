@@ -10,8 +10,10 @@ raise "no appconfigid" unless appconfigid && !appconfigid.empty?
 
 appconfigDir = "/var/cldstr/wagn.org/wagn/ws/#{appconfigid}"
 
-def get_version dir, suffix
-  filename = "#{ dir }/version#{ suffix }.txt"
+require "#{ gemdir }/wagn/version"
+
+def get_app_version type
+  filename = "#{ appconfigDir }/version#{ Wagn::Version.schema_suffix type }.txt"
   if filename = Dir.glob( filename ).first #completes wildcard
     File.read( filename ).strip
   end
@@ -26,10 +28,10 @@ end
 out_of_date = false
 dbversion = {}
 
-['', '_cards'].each do |suffix|
-  dbversion[suffix] = get_version "#{ gemdir }/config", suffix
-  appconfigVersion = get_version appconfigDir, suffix
-  if !appconfigVersion or appconfigVersion < dbversion[suffix]
+[:structure, :core_cards].each do |migration_type|
+  dbversion[migration_type] = Wagn::Version.schema(migration_type)
+  appconfigVersion = get_app_version migration_type
+  if !appconfigVersion or appconfigVersion < dbversion[migration_type]
     out_of_date = true
   end
 end
@@ -49,8 +51,8 @@ if out_of_date
 
   log "Migration Results:\n  #{migration_command}\n  #{migration_results}"
 
-  ['', '_cards'].each do |suffix|
-    appconfigVersion = get_version appconfigDir, suffix
+  [:structure, :core_cards].each do |migration_type|
+    appconfigVersion = get_app_version migration_type
     if !appconfigVersion or appconfigVersion < dbversion[suffix]
       msg = "MIGRATION FAILURE: should be at #{ dbversion[suffix] }; currently at #{ appconfigVersion }"
       log msg
