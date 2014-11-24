@@ -1,58 +1,55 @@
 #!/usr/bin/env ruby
 
-gemdir = '/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-*'
+raise "no appconfigid" unless ENV['APPCONFIGID'] && !(ENV['APPCONFIGID'].empty?)
 
-appconfigid = ENV['APPCONFIGID']
-sitename = ENV['SITENAME']
-LogFile = ENV['LOGFILE']
+GEMDIR = '/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-*'
+DECKDIR = "/var/cldstr/wagn.org/wagn/ws/#{ ENV['APPCONFIGID'] }"
+LOGFILE = ENV['LOGFILE'] || '/tmp/wagn_migration_log'
 
-raise "no appconfigid" unless appconfigid && !appconfigid.empty?
+require "#{ Dir.glob( GEMDIR ).last }/lib/wagn/version"
 
-appconfigDir = "/var/cldstr/wagn.org/wagn/ws/#{appconfigid}"
 
-def get_version dir, suffix
-  filename = "#{ dir }/version#{ suffix }.txt"
+def get_deck_version type
+  filename = "#{ DECKDIR }/version#{ Wagn::Version.schema_suffix type }.txt"
   if filename = Dir.glob( filename ).first #completes wildcard
     File.read( filename ).strip
   end
 end
 
 def log msg
-  open LogFile, 'a' do |f|
+  open LOGFILE, 'a' do |f|
     f.puts msg
   end
 end
 
 out_of_date = false
-dbversion = {}
+gem_version = {}
 
-['', '_cards'].each do |suffix|
-  dbversion[suffix] = get_version "#{ gemdir }/config", suffix
-  appconfigVersion = get_version appconfigDir, suffix
-  if !appconfigVersion or appconfigVersion < dbversion[suffix]
+[:structure, :core_cards].each do |migration_type|
+  gem_version[migration_type] = Wagn::Version.schema(migration_type)
+  deck_version = get_deck_version migration_type
+  if !deck_version or deck_version < gem_version[migration_type]
     out_of_date = true
   end
 end
-#raise "DELETE ME" unless appconfigid == 'a0005'
-
 
 if out_of_date
-#  `chown www-data.www-data #{appconfigDir}/version*` # this is needed as of wagn v1.12 to fix version.txt and version_cards.txt.  can probably remove soon
   
-  Dir.chdir appconfigDir # get us into the appconfig directory, from which the migrate command must be run
+  Dir.chdir DECKDIR
   
   migration_command = "bundle exec env SCHEMA=/tmp/schema.rb SCHEMA_STAMP_PATH=./ STAMP_MIGRATIONS=true rake wagn:migrate --trace"
   begin
     migration_results = `su www-data -c "#{migration_command}" 2>&1`
-  rescue
+  rescue => e
+    log "Migration rescued: #{e.class} : #{e.message}" # is this necessary?
   end
 
   log "Migration Results:\n  #{migration_command}\n  #{migration_results}"
 
-  ['', '_cards'].each do |suffix|
-    appconfigVersion = get_version appconfigDir, suffix
-    if !appconfigVersion or appconfigVersion < dbversion[suffix]
-      msg = "MIGRATION FAILURE: should be at #{ dbversion[suffix] }; currently at #{ appconfigVersion }"
+  [:structure, :core_cards].each do |migration_type|
+    deck_version = get_deck_version migration_type
+    if !deck_version or deck_version < gem_version[ migration_type ]
+      msg = "MIGRATION FAILURE: should be at #{ gem_version[migration_type] }; currently at #{ deck_version }"
       log msg
       abort msg 
     end
