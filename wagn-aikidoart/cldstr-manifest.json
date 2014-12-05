@@ -24,6 +24,11 @@
           "type"         : "symlink", 
           "target"       : "/usr/cldstr/wagn.org/wagn-aikidoart/ws/aikidoart_mod",
           "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mod/aikidoart_mod"
+        },
+        {
+          "type"         : "symlink", 
+          "target"       : "/usr/cldstr/wagn.org/wagn-aikidoart/ws/email_remote_control",
+          "name"         : "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mod/email_remote_control"
         }
       ]
     }

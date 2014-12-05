@@ -1,2 +1,5 @@
-
-gem 'rufus-scheduler', '~> 3.0.9'
+if ENV['RAILS_ENV'] == 'production'  #FIXME -- need better env variable to know when we are a cloudstore
+  gem 'rufus-scheduler', :path=>'/usr/cldstr/wagn.org/wagn-aikidoart/ws/email_remote_control/gems/ruby/1.9.1/gems/rufus-scheduler-3.0.9/'
+else
+  gem 'rufus-scheduler'
+end
