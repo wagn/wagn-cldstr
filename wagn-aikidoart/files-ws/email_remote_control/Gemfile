@@ -1,2 +1,1 @@
-
-gem 'rufus-scheduler', '~> 3.0.9'
+gem 'rufus-scheduler', :path=>'./gems/ruby/1.9.1/gems/rufus-scheduler-3.0.9/'
