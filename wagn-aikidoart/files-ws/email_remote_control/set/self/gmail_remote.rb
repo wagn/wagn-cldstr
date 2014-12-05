@@ -1,15 +1,18 @@
 def self.check_mails
-  Gmail.new(Wagn.config.gmail_user,Wagn.config.gmail_password) do |gmail|
+  
+  login, pw = WAGN_REMOTE_EMAIL_CONFIG[:gmail_user], WAGN_REMOTE_EMAIL_CONFIG[:gmail_password]
+  
+  Gmail.new(login, pw) do |gmail|
 
 
     #gmail.inbox.emails(:unread).each do |email|
     gmail.inbox.emails.each do |email|
       
       msg = email.message
-      puts "found email: #{msg.subject} from #{msg.from.first}"
+#      puts "found email: #{msg.subject} from #{msg.from.first}"
       
       if user = Auth[msg.from.first]
-        puts "found user: #{user.name}"
+#        puts "found user: #{user.name}"
         
         old_id = Card::Auth.current_id  
         Auth.current_id = user.id
