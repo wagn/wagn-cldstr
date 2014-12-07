@@ -75,7 +75,7 @@
         },
         {
           "type": "symlink",
-          "target": "/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-1.14.2/public/$4",
+          "target": "/usr/cldstr/wagn.org/wagn/ws/wagn-gem/public/$4",
           "names": [
             "assets",
             "404.html",
@@ -102,6 +102,13 @@
             "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/airbrake.key",
             "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/environment.rb",
             "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/script"
+          ]
+        },
+        {
+          "type": "symlink",
+          "target": "/usr/cldstr/wagn.org/wagn/ws/mods/airbrake",
+          "names": [
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mod/airbrake",
           ]
         },
         {
