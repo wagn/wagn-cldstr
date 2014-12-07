@@ -1,0 +1,6 @@
+[submodule "wagn/files-ws/wagn-gem"]
+	path = wagn/files-ws/wagn-gem
+	url = git@github.com:wagn/wagn.git
+[submodule "wagn/files-ws/mods"]
+	path = wagn/files-ws/mods
+	url = git@github.com:wagn/mods.git

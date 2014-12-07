@@ -2,7 +2,6 @@
 filename = "#{Wagn.root}/remote_email_config.yml"
 WAGN_REMOTE_EMAIL_CONFIG = File.exist?(filename) ? YAML.load_file(filename) : {}
 
-
 if WAGN_REMOTE_EMAIL_CONFIG[:gmail_user]
     
   require 'rufus-scheduler'

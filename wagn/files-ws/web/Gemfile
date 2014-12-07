@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'wagn', ">= 1.14.2"
+gem 'wagn', :path=>'/usr/cldstr/wagn.org/wagn/ws/wagn-gem'
 
 gem 'therubyracer'
 
