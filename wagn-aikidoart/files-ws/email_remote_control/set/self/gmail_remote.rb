@@ -1,3 +1,4 @@
+
 def self.check_mails
   
   login, pw = WAGN_REMOTE_EMAIL_CONFIG[:gmail_user], WAGN_REMOTE_EMAIL_CONFIG[:gmail_password]

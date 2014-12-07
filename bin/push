@@ -15,6 +15,7 @@ case $DISTRO in
 'red')
   git checkout develop
   git commit -a -m 'red commit sweep'
+  git submodule update --remote
 #  update_cldstr_wagn
 #  update_manifest.rb
   git commit -a -m 'regenerate manifest'
@@ -22,10 +23,12 @@ case $DISTRO in
 'yellow')
   git checkout master
   git merge --no-edit develop
+  git submodule update
 ;;
 'green')
   git checkout stable
   git merge --no-edit master
+  git submodule update
 ;;
 *)  
   echo "unknown distro: $DISTRO";
