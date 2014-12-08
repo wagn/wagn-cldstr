@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'json'
-require '/opt/wagn/lib/wagn/version'
+require '/opt/wagn/lib/wagn/version'  #fixme - should use gem
 
 WAGN_MANIFEST="#{ENV['CLDHOME']}/apps/wagn-cldstr/wagn/cldstr-manifest.json"
 
