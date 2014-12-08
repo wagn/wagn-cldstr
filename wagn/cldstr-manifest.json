@@ -38,7 +38,8 @@
         "imagemagick",
         "libmagickwand-dev",
         "libapache2-mod-passenger",
-        "libapache2-mod-xsendfile"
+        "libapache2-mod-xsendfile",
+        "git"
       ],
       "robotstxt": {
         "disallow": [

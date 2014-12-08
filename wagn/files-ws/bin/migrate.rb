@@ -2,11 +2,11 @@
 
 raise "no appconfigid" unless ENV['APPCONFIGID'] && !(ENV['APPCONFIGID'].empty?)
 
-GEMDIR = '/usr/cldstr/wagn.org/wagn/ws/gems/ruby/1.9.1/gems/wagn-*'
+GEMDIR = '/usr/cldstr/wagn.org/wagn/ws/wagn-gem'
 DECKDIR = "/var/cldstr/wagn.org/wagn/ws/#{ ENV['APPCONFIGID'] }"
 LOGFILE = ENV['LOGFILE'] || '/tmp/wagn_migration_log'
 
-require "#{ Dir.glob( GEMDIR ).last }/lib/wagn/version"
+require "#{ GEMDIR }/lib/wagn/version"
 
 
 def get_deck_version type
