@@ -8,6 +8,6 @@ gem 'mysql2'
 
 gem 'dalli'
 
-Dir.glob(File.join(File.dirname(__FILE__), 'mod','**{,/*/**}','Gemfile')).each do |gemfile|
-  instance_eval(File.read(gemfile))
+Dir.glob( 'mod/**{,/*/**}/Gemfile' ).each do |gemfile|
+  instance_eval File.read(gemfile)
 end
