@@ -10,8 +10,8 @@ parsed = JSON.parse file
 
 parsed['info']['upstreamversion'] = Wagn::Version.release
 
-gemref = parsed['roles']['ws']['appconfigitems'].find { |x| x['target'] =~ /gems/ }
-gemref['target'] = gemref['target'].gsub /wagn-[^\/]*/, "wagn-#{Wagn::Version.release}"
+#gemref = parsed['roles']['ws']['appconfigitems'].find { |x| x['target'] =~ /gems/ }
+#gemref['target'] = gemref['target'].gsub /wagn-[^\/]*/, "wagn-#{Wagn::Version.release}"
 
 File.open "#{WAGN_MANIFEST}", 'w' do |file|
   file.write JSON.pretty_generate( parsed )

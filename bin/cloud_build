@@ -18,7 +18,8 @@ cldstr-build.pl -a \
 	-D build.uploadkeyfile=$CLDKEYFILE \
 	-D build.uploadcertfile=$CLDCERTFILE \
 	-D build.uploadcacertfile=${CLDSTR}/cldstr-keys/cldstr-bundle.crt \
-	--distro $DISTRO #temporary
+	--distro $DISTRO #temporary \
+    --verbose
 	
 echo "built."
 
