@@ -109,7 +109,7 @@
           "type": "symlink",
           "target": "/usr/cldstr/wagn.org/wagn/ws/mods/airbrake",
           "names": [
-            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mod/airbrake",
+            "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/mod/airbrake"
           ]
         },
         {
