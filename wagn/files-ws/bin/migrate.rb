@@ -49,7 +49,8 @@ if out_of_date
   [:structure, :core_cards].each do |migration_type|
     deck_version = get_deck_version migration_type
     if !deck_version or deck_version < gem_version[ migration_type ]
-      msg = "MIGRATION FAILURE: should be at #{ gem_version[migration_type] }; currently at #{ deck_version }"
+      msg = "Wagn Migration Failure: #{ ENV['APPCONFIGID'] } #{migration_type } "
+      msg += "should be at #{ gem_version[migration_type] }; currently at #{ deck_version }"
       log msg
       abort msg 
     end
