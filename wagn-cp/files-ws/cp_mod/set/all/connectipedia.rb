@@ -51,7 +51,7 @@ format :html do
     if main?
       @@displayed_type_ids ||= %w{ Foundations Topic Organization Person Opportunity State County City }.map { |n| Card[n].id }
       if @@displayed_type_ids.member? card.type_id
-        type_link = link_to_page card.type_name, nil, :class=>"cp-typelink cp-type-#{ Card::Codename[ card.type_id ] }" 
+        type_link = card_link card.type_name, :class=>"cp-typelink cp-type-#{ Card::Codename[ card.type_id ] }" 
       end
     end
 
@@ -121,13 +121,13 @@ format :html do
       <hr>
       <div class="cp-result-top">
         <span class="cp-item-name">
-          #{ link_to_page fancy_title, card.name }
+          #{ card_link card.name, :text=>fancy_title }
         </span>
         <span class="cp-item-date">
           #{ time_ago_in_words card.updated_at } ago
         </span>
         <span class="cp-item-type">
-          #{ link_to_page card.type_name }
+          #{ card_link card.type_name }
         </span>
       </div>
       <div class="cp-item-content">
@@ -154,7 +154,7 @@ format :html do
       <div class="closed-view">
         <h1 class="card-header">
           #{ arrow_link }
-          #{ link_to_page card.cardname.trunk_name, nil, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
+          #{ card_link card.cardname.trunk_name, :class=>"branch-direct-link", :title=>"go to #{card.cardname.trunk_name}" }
         </h1>
         #{ 
           wrap_body :body_class=>'closed-content', :content=>true do
