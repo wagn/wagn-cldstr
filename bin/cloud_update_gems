@@ -6,7 +6,7 @@ REMOTE_WS_DIR=/usr/cldstr/wagn.org/wagn/ws/
 CLOUD=$1
 
 if [ -z $CLOUD ]; then
-  CLOUD=dev
+  CLOUD=dwagn.org
 fi
 
 cd $LOCAL_WS_DIR
