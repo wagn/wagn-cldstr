@@ -7,7 +7,7 @@ WAGN_MANIFEST="#{ENV['CLDHOME']}/apps/wagn-cldstr/wagn/cldstr-manifest.json"
 file = File.read WAGN_MANIFEST
 parsed = JSON.parse file
 
-filename = '../../wagn/files-ws/wagn-gem/card/VERSION'
+filename = '../wagn/files-ws/wagn-gem/card/VERSION'
 version = File.open(File.expand_path( filename, __FILE__ )).read.chomp
 parsed['info']['upstreamversion'] = version
 
