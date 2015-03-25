@@ -1,14 +1,15 @@
 #!/usr/bin/env ruby
 
 require 'json'
-require '/Users/ethan/dev/wagn/gem/card/lib/card/version'  #fixme - should use gem being pushed
 
 WAGN_MANIFEST="#{ENV['CLDHOME']}/apps/wagn-cldstr/wagn/cldstr-manifest.json"
 
 file = File.read WAGN_MANIFEST
 parsed = JSON.parse file
 
-parsed['info']['upstreamversion'] = Card::Version.release
+filename = '../../wagn/files-ws/wagn-gem/card/VERSION'
+version = File.open(File.expand_path( filename, __FILE__ )).read.chomp
+parsed['info']['upstreamversion'] = version
 
 #gemref = parsed['roles']['ws']['appconfigitems'].find { |x| x['target'] =~ /gems/ }
 #gemref['target'] = gemref['target'].gsub /wagn-[^\/]*/, "wagn-#{Wagn::Version.release}"
