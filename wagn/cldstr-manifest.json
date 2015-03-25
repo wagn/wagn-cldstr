@@ -76,12 +76,9 @@
         },
         {
           "type": "symlink",
-          "target": "/usr/cldstr/wagn.org/wagn/ws/wagn-gem/public/$4",
+          "target": "/usr/cldstr/wagn.org/wagn/ws/wagn-gem/wagn/rails/$4",
           "names": [
-            "assets",
-            "404.html",
-            "500.html",
-            "favicon.ico"
+            "assets"
           ]
         },
         {
