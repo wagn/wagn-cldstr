@@ -3,12 +3,13 @@
 require 'json'
 
 WAGN_MANIFEST="#{ENV['CLDHOME']}/apps/wagn-cldstr/wagn/cldstr-manifest.json"
+VERSION_FILE="#{ENV['CLDHOME']}/apps/wagn-cldstr/wagn/files-ws/wagn-gem/card/VERSION"
 
 file = File.read WAGN_MANIFEST
 parsed = JSON.parse file
 
-filename = '../wagn/files-ws/wagn-gem/card/VERSION'
-version = File.open(File.expand_path( filename, __FILE__ )).read.chomp
+filename = '../../'
+version = File.open(VERSION_FILE).read.chomp
 parsed['info']['upstreamversion'] = version
 
 #gemref = parsed['roles']['ws']['appconfigitems'].find { |x| x['target'] =~ /gems/ }
