@@ -1,0 +1,78 @@
+#!/bin/sh
+
+LOCAL_WS_DIR=/Users/ethan/dev/cldstr/apps/wagn-cldstr/wagn/files-ws
+REMOTE_WS_DIR=/usr/cldstr/wagn.org/wagn/ws/
+#REMOTE_APP_CONFIG_DIR=/var/cldstr/wagn.org/wagn/ws/a0004
+CLOUD=$1
+
+if [ -z $CLOUD ]; then
+  CLOUD=dwagn.org
+fi
+
+cd $LOCAL_WS_DIR
+git status
+
+read -p "Is this repo (a) correct and (b) clean? [y/n]" -n 1
+echo ""
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+  exit 1
+fi
+
+TMPDIR=/tmp/gemset
+
+mkdir -p $TMPDIR
+rm -rf $TMPDIR/*
+
+ssh root@$CLOUD "
+#  apt-get install -y ruby1.9.1-dev
+#  apt-get install -y build-essential
+  cd $REMOTE_WS_DIR/web
+  rm Gemfile.lock
+  bundle update
+  bundle clean --force
+
+  mkdir -p $TMPDIR
+  rm -rf $TMPDIR/*
+  cp Gemfile.lock $TMPDIR
+  
+  cd $REMOTE_WS_DIR
+  tar -czf $TMPDIR/newgems.tgz gems";
+
+scp -l 8192 root@$CLOUD:$TMPDIR/* $TMPDIR
+
+if [ ! -e $TMPDIR/Gemfile.lock ]; then
+  echo "ERROR: local Gemfile.lock not found"
+  exit 1
+fi
+
+echo "removing old gems"
+git rm -rfq gems;
+git commit -a -q -m 'auto-removing old gems';
+
+echo "untarring new gems"
+tar -xf $TMPDIR/newgems.tgz
+
+echo "cleaning gitignores"
+cd gems
+find . -name '.gitignore' | xargs rm
+
+echo "adding new gems"
+cd ..
+git add gems
+
+echo "updating Gemfile.lock"
+# why??
+cp $TMPDIR/Gemfile.lock tmpl
+
+echo "committing changes "
+cd web
+git commit -a -m 'updating Gemfile.lock'
+cd ..
+git commit -a -q -m 'auto-adding new gems'
+git status
+
+# note: on 1/10/14 I ran this and noticed that old rails versions were not getting deleted in the cldstr directory.
+# I cleaned this up manually but need to check again next time to make sure this is not an ongoing issue.
+
+
