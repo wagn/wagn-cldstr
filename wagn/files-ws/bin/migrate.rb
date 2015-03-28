@@ -6,11 +6,12 @@ GEMDIR = '/usr/cldstr/wagn.org/wagn/ws/wagn-gem'
 DECKDIR = "/var/cldstr/wagn.org/wagn/ws/#{ ENV['APPCONFIGID'] }"
 LOGFILE = ENV['LOGFILE'] || '/tmp/wagn_migration_log'
 
-require "#{ GEMDIR }/lib/wagn/version"
+require 'rails' #otherwise cardio breaks
+require "#{ GEMDIR }/card/lib/cardio"
 
 
 def get_deck_version type
-  filename = "#{ DECKDIR }/version#{ Wagn::Version.schema_suffix type }.txt"
+  filename = "#{ DECKDIR }/version#{ Cardio.schema_suffix type }.txt"
   if filename = Dir.glob( filename ).first #completes wildcard
     File.read( filename ).strip
   end
@@ -26,7 +27,7 @@ out_of_date = false
 gem_version = {}
 
 [:structure, :core_cards].each do |migration_type|
-  gem_version[migration_type] = Wagn::Version.schema(migration_type)
+  gem_version[migration_type] = Cardio.schema(migration_type)
   deck_version = get_deck_version migration_type
   if !deck_version or deck_version < gem_version[migration_type]
     out_of_date = true

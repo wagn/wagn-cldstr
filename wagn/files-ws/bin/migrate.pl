@@ -30,7 +30,7 @@ if( $tmpcleanresult ) {
 
 
 if ( $operation eq 'install' ) {
-  my $cmd = "env LOGFILE=$logfile APPCONFIGID=$appconfigid $wsdir/bin/migrate.rb";
+  my $cmd = "env LOGFILE=$logfile APPCONFIGID=$appconfigid BUNDLE_GEMFILE=/var/cldstr/wagn.org/wagn/ws/$appconfigid/Gemfile bundle exec $wsdir/bin/migrate.rb";
   my $result = cldstr::runtime::Utils::myexec( $cmd );
   
   if ($result) {
