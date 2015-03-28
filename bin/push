@@ -42,6 +42,7 @@ cloud_build $DISTRO
 git push
 
 if [ $DISTRO == "red" ]; then
+  echo 'not updating dev'
 #  cloud_update dev
 else
   git checkout develop
