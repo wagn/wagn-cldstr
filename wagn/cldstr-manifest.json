@@ -15,7 +15,7 @@
     "name": "Wagn",
     "tagline": "how pioneers roll",
     "developer": "wagn.org",
-    "upstreamversion": "1.15.pre2",
+    "upstreamversion": "1.15.r2",
     "cldstrversion": "0.%{now.identifier}",
     "licenses": [
       "gplv2"
@@ -39,6 +39,7 @@
         "libmagickwand-dev",
         "libapache2-mod-passenger",
         "libapache2-mod-xsendfile",
+        "nodejs",
         "git"
       ],
       "robotstxt": {

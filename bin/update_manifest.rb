@@ -10,7 +10,9 @@ parsed = JSON.parse file
 
 filename = '../../'
 version = File.open(VERSION_FILE).read.chomp
-parsed['info']['upstreamversion'] = version
+
+parsed['info']['upstreamversion'] = version.gsub /\.(\d+)$/, '.r\1'
+#parsed['info']['upstreamversion'] = version #FIXME -have to do this stupid r thing to get past prerelease :(
 
 #gemref = parsed['roles']['ws']['appconfigitems'].find { |x| x['target'] =~ /gems/ }
 #gemref['target'] = gemref['target'].gsub /wagn-[^\/]*/, "wagn-#{Wagn::Version.release}"
