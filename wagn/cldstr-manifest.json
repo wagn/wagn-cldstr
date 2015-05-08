@@ -39,6 +39,7 @@
         "libmagickwand-dev",
         "libapache2-mod-passenger",
         "libapache2-mod-xsendfile",
+        "nodejs",
         "git"
       ],
       "robotstxt": {
