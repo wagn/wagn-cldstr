@@ -30,7 +30,7 @@ case $DISTRO in
   git merge --no-edit master
   git submodule update
 ;;
-*)  
+*)
   echo "unknown distro: $DISTRO";
   exit 1 ;;
 esac
@@ -42,8 +42,8 @@ cloud_build $DISTRO
 git push
 
 if [ $DISTRO == "red" ]; then
-  echo 'not updating dev'
-#  cloud_update dev
+  echo 'updating dev'
+  cloud_update dev
 else
   git checkout develop
 fi
@@ -52,5 +52,5 @@ fi
 
 
 
- 
+
 
