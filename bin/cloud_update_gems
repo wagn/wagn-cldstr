@@ -2,7 +2,7 @@
 
 LOCAL_WS_DIR=/Users/ethan/dev/cldstr/apps/wagn-cldstr/wagn/files-ws
 REMOTE_WS_DIR=/usr/cldstr/wagn.org/wagn/ws/
-#REMOTE_APP_CONFIG_DIR=/var/cldstr/wagn.org/wagn/ws/a0004
+REMOTE_APP_CONFIG_DIR=/var/cldstr/wagn.org/wagn/ws/a0006
 CLOUD=$1
 
 if [ -z $CLOUD ]; then
@@ -24,10 +24,12 @@ TMPDIR=/tmp/gemset
 mkdir -p $TMPDIR
 rm -rf $TMPDIR/*
 
+#FIXME
+
 ssh root@$CLOUD "
 #  apt-get install -y ruby1.9.1-dev
 #  apt-get install -y build-essential
-  cd $REMOTE_WS_DIR/web
+  cd $REMOTE_APP_CONFIG_DIR
   rm Gemfile.lock
   bundle update
   bundle clean --force
