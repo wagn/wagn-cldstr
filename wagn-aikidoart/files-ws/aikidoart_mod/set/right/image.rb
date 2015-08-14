@@ -1,6 +1,8 @@
+
+=begin
 require 'rmagick'
 
-include Magick 
+include Magick
 
 format :html do
   view :denial do |args|
@@ -44,7 +46,7 @@ event :create_watermark, :before=>:extend do
         conf[:gravity] = conf[:gravity] ? Card.const_get("#{conf[:gravity]}Gravity") :  NorthWestGravity
         conf[:offset]  = conf[:offset]  ? conf[:offset].to_i  : 5
 
-        #~~~~~~ generate water mark 
+        #~~~~~~ generate water mark
         img = img.dissolve mark, conf[:opacity], 1, conf[:gravity], conf[:offset], conf[:offset]
       end
 
@@ -63,8 +65,9 @@ event :create_watermark, :before=>:extend do
       wcard.save!
     rescue
       # FIXME - should not have this rescue.  failing because image file saving hasn't happened yet (I think)
-      
+
     end
   end
-  
+
 end
+=end
