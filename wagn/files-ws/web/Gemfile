@@ -4,7 +4,7 @@ gem 'wagn', :path=>'/usr/cldstr/wagn.org/wagn/ws/wagn-gem'
 
 gem 'therubyracer'
 
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.18'
 
 gem 'dalli'
 
