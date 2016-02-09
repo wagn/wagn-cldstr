@@ -15,7 +15,7 @@
     "name": "Wagn",
     "tagline": "how pioneers roll",
     "developer": "wagn.org",
-    "upstreamversion": "1.17.r2",
+    "upstreamversion": "1.17.r3",
     "cldstrversion": "0.%{now.identifier}",
     "licenses": [
       "gplv2"
