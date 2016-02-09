@@ -4,3 +4,4 @@
 **/dist-yellow/
 **/dist-green/
 old/**
+**/application.rb.tmpl
