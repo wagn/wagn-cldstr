@@ -4,18 +4,18 @@ require 'wagn/all'
 
 module CldstrAppConfig
   class Application < Wagn::Application
-    
+
     # Wagn inherits Rails configuration options.  See http://guides.rubyonrails.org/configuring.html
 
-    config.recaptcha_public_key  = '6LdhRssSAAAAAFfLt1Wkw43hoaA8RTIgso9-tvtc'
-    config.recaptcha_private_key = '6LdhRssSAAAAAGwzl069pJQBdmzCZigm1nV-dmqK'
+    # config.recaptcha_public_key  = '6LdhRssSAAAAAFfLt1Wkw43hoaA8RTIgso9-tvtc'
+    # config.recaptcha_private_key = '6LdhRssSAAAAAGwzl069pJQBdmzCZigm1nV-dmqK'
     # config.recaptcha_proxy = ...
     #
     # IMPORTANT: please be sure to register for your own recaptcha keys before deploying a live site
     # It's quick and easy.  Just follow instructions at https://www.google.com/recaptcha/admin/create
     #
     # The below keys are fine for testing but should not be used in production sites.
-        
+
     # config.read_only = true
     # defaults to false
     # disallows creating, updating, and deleting cards.
@@ -35,18 +35,18 @@ module CldstrAppConfig
 
     # config.allow_inline_styles = false
     # don't strip style attributes (not recommended)
-        
+
     # config.override_host = nil
     # don't autodetect host (example.com) from web requests
 
     # config.override_protocol = nil
     # don't autodetect protocol (http/https) from web requests
-    
+
     config.email_defaults = { :from => 'noreply@cldstr.info' }
-    
+
     config.paths['log'] = "/var/log/cldstr+wagn.org+wagn+ws/${site.hostname}-${appconfig.appconfigid}.log"
 
     config.action_mailer.smtp_settings = { :address => '${hostname}.cldstr.net' }
-    
+
   end
 end
