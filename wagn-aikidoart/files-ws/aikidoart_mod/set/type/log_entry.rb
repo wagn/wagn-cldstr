@@ -1,4 +1,4 @@
-event :set_log_entry_name, :before=>:approve, :on=>:create do
+event :set_log_entry_name, :prepare_to_validate, on: :create do
   if name.blank?
     Card.create! type_code: :log_date
     if (icard = Card["#{Auth.current.name}+initials"]) &&
