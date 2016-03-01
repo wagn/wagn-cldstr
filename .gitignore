@@ -5,3 +5,5 @@
 **/dist-green/
 old/**
 **/application.rb.tmpl
+**/newrelic.yml.tmpl
+**/.DS_Store

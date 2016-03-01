@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 #require 'zip/zipfilesystem' - versioning broke this
-    
-event :extract_files, :after=>:store do
+
+event :extract_files, :finalize do
 
   if file_card = Card["#{name}+file"]
     collection_card = Card["#{name}+collection"]
@@ -36,11 +36,11 @@ event :extract_files, :after=>:store do
 end
 
 
-class AAHelper 
+class AAHelper
   def self.aa_name cardname, append_card
     cardname = Card.exists?(cardname) ? "#{cardname}-#{Time.now.to_i}" : cardname
     cardname = "#{cardname}+#{append_card.content}" if append_card and append_card.content.present?
     cardname
-  end  
+  end
 end
 

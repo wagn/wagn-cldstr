@@ -1,2 +1,2 @@
-exclude = "{$exclude,dist,dist-*,build-*}"
+exclude = "{$exclude,dist,dist-*,build-*,gems,*.sql}"
 
