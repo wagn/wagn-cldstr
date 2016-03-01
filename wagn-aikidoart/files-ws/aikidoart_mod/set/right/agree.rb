@@ -1,5 +1,5 @@
 
-event :require_eula, :after=>:create do
+event :require_eula, :valid:after=>:create do
   unless raw_content.to_i == 1
     msg = if msgcard = Card['eula error message']
       msgcard.content
