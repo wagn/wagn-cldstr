@@ -1,8 +1,8 @@
 
-event :create_missing_tags, :after=>:store, :on=>:save do
-  item_names.each do |name|
-    if !Card.exists? name
-      Card.create :name=>name
-    end
+
+event :create_missing_tags, :finalize, on: :save do
+  item_names.each do |tag|
+    next if Card.exists? tag
+    add_subcard tag, type_id: Card::WikirateTagID
   end
 end

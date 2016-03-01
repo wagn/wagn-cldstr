@@ -1,0 +1,214 @@
+# Logfile created on 2016-02-08 16:21:45 +0200 by logger.rb/53141
+Connecting to database specified by DATABASE_URL
+  [1m[36m (1.2ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "books" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255)) 
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "delayed_jobs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "priority" integer DEFAULT 0 NOT NULL, "attempts" integer DEFAULT 0 NOT NULL, "handler" text NOT NULL, "last_error" text, "run_at" datetime, "locked_at" datetime, "failed_at" datetime, "locked_by" varchar(255), "queue" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.4ms)[0m  CREATE INDEX "delayed_jobs_priority" ON "delayed_jobs" ("priority", "run_at")
+Started GET "/active_record_after_commit" for 127.0.0.1 at 2016-02-08 16:21:46 +0200
+Processing by DummyController#active_record_after_commit as HTML
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "books" ("title") VALUES (?)  [["title", "Bingo"]]
+  [1m[36m (0.1ms)[0m  [1mcommit transaction[0m
+#<AirbrakeTestError: after_commit>
+  Rendered dummy/active_record_after_commit.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 29.9ms (Views: 7.2ms | ActiveRecord: 0.8ms)
+Started GET "/active_record_after_rollback" for 127.0.0.1 at 2016-02-08 16:21:46 +0200
+Processing by DummyController#active_record_after_rollback as HTML
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "books" ("title") VALUES (?)[0m  [["title", "Bango"]]
+  [1m[35m (0.1ms)[0m  rollback transaction
+#<AirbrakeTestError: after_rollback>
+  Rendered dummy/active_record_after_rollback.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 35.2ms (Views: 1.3ms | ActiveRecord: 0.2ms)
+Started GET "/crash" for 127.0.0.1 at 2016-02-08 16:21:46 +0200
+Processing by DummyController#crash as HTML
+Completed 500 Internal Server Error in 0.5ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash" for 127.0.0.1 at 2016-02-08 16:21:46 +0200
+Processing by DummyController#crash as HTML
+Completed 500 Internal Server Error in 0.5ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash" for 127.0.0.1 at 2016-02-08 16:21:46 +0200
+Processing by DummyController#crash as HTML
+Completed 500 Internal Server Error in 0.3ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash" for 127.0.0.1 at 2016-02-08 16:21:46 +0200
+Processing by DummyController#crash as HTML
+Completed 500 Internal Server Error in 0.5ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#crash as HTML
+Completed 500 Internal Server Error in 0.4ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#crash as HTML
+Completed 500 Internal Server Error in 0.4ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#crash as HTML
+Completed 500 Internal Server Error in 0.5ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#crash as HTML
+Completed 500 Internal Server Error in 0.3ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#index as HTML
+  Rendered dummy/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 1.9ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+Started GET "/crash" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#crash as HTML
+Completed 500 Internal Server Error in 0.3ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/notify_airbrake_helper?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#notify_airbrake_helper as HTML
+  Parameters: {"foo"=>"bar"}
+  Rendered dummy/notify_airbrake_helper.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 30.0ms (Views: 2.9ms | ActiveRecord: 0.0ms)
+Started GET "/notify_airbrake_helper?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#notify_airbrake_helper as HTML
+  Parameters: {"foo"=>"bar"}
+  Rendered dummy/notify_airbrake_helper.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 6.7ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+Started GET "/notify_airbrake_helper?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#notify_airbrake_helper as HTML
+  Parameters: {"foo"=>"bar"}
+  Rendered dummy/notify_airbrake_helper.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 30.7ms (Views: 23.8ms | ActiveRecord: 0.0ms)
+Started GET "/notify_airbrake_helper?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#notify_airbrake_helper as HTML
+  Parameters: {"foo"=>"bar"}
+  Rendered dummy/notify_airbrake_helper.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 5.7ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+Started GET "/notify_airbrake_helper?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#notify_airbrake_helper as HTML
+  Parameters: {"foo"=>"bar"}
+  Rendered dummy/notify_airbrake_helper.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 27.1ms (Views: 20.4ms | ActiveRecord: 0.0ms)
+Started GET "/crash?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#crash as HTML
+  Parameters: {"foo"=>"bar"}
+Completed 500 Internal Server Error in 0.3ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#crash as HTML
+  Parameters: {"foo"=>"bar"}
+Completed 500 Internal Server Error in 0.5ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:47 +0200
+Processing by DummyController#crash as HTML
+  Parameters: {"foo"=>"bar"}
+Completed 500 Internal Server Error in 0.3ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:48 +0200
+Processing by DummyController#crash as HTML
+  Parameters: {"foo"=>"bar"}
+Completed 500 Internal Server Error in 0.6ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:48 +0200
+Processing by DummyController#crash as HTML
+  Parameters: {"foo"=>"bar"}
+Completed 500 Internal Server Error in 0.3ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/notify_airbrake_sync_helper?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:48 +0200
+Processing by DummyController#notify_airbrake_sync_helper as HTML
+  Parameters: {"foo"=>"bar"}
+  Rendered dummy/notify_airbrake_sync_helper.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 27.2ms (Views: 2.6ms | ActiveRecord: 0.0ms)
+Started GET "/notify_airbrake_sync_helper?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:48 +0200
+Processing by DummyController#notify_airbrake_sync_helper as HTML
+  Parameters: {"foo"=>"bar"}
+  Rendered dummy/notify_airbrake_sync_helper.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 19.9ms (Views: 1.3ms | ActiveRecord: 0.0ms)
+Started GET "/notify_airbrake_sync_helper?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:48 +0200
+Processing by DummyController#notify_airbrake_sync_helper as HTML
+  Parameters: {"foo"=>"bar"}
+  Rendered dummy/notify_airbrake_sync_helper.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 20.9ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+Started GET "/notify_airbrake_sync_helper?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:48 +0200
+Processing by DummyController#notify_airbrake_sync_helper as HTML
+  Parameters: {"foo"=>"bar"}
+  Rendered dummy/notify_airbrake_sync_helper.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 23.9ms (Views: 1.3ms | ActiveRecord: 0.0ms)
+Started GET "/notify_airbrake_sync_helper?foo=bar" for 127.0.0.1 at 2016-02-08 16:21:48 +0200
+Processing by DummyController#notify_airbrake_sync_helper as HTML
+  Parameters: {"foo"=>"bar"}
+  Rendered dummy/notify_airbrake_sync_helper.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 18.9ms (Views: 1.3ms | ActiveRecord: 0.0ms)
+Started GET "/delayed_job" for 127.0.0.1 at 2016-02-08 16:21:48 +0200
+Processing by DummyController#delayed_job as HTML
+Completed 500 Internal Server Error in 17.6ms
+
+AirbrakeTestError (delayed_job error):
+  lib/airbrake/delayed_job/plugin.rb:11:in `block (2 levels) in <class:Airbrake>'
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/crash" for 127.0.0.1 at 2016-02-08 16:21:52 +0200
+Processing by DummyController#crash as HTML
+Completed 500 Internal Server Error in 0.5ms
+
+AirbrakeTestError (AirbrakeTestError):
+  lib/airbrake/rack/middleware.rb:22:in `call'
+
+
+Started GET "/resque" for 127.0.0.1 at 2016-02-08 16:21:52 +0200
+Processing by DummyController#resque as HTML
+  Rendered dummy/resque.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 37.7ms (Views: 3.3ms | ActiveRecord: 0.0ms)

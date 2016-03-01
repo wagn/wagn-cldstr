@@ -15,7 +15,7 @@ format :html do
 end
 
 
-event :create_watermark, :before=>:extend do
+event :create_watermark, :integrate do
   #warn "create watermark called for #{name}.  id = #{id}, revision = #{current_revision_id}"
 
   l = left

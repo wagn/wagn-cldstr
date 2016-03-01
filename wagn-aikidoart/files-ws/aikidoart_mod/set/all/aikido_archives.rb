@@ -1,13 +1,12 @@
 
-
 format :html do
-
   view :taglink do |args|
     card_link "#{card.name}+*tagged", card.name, true
   end
 
   def menu_manage_link args
-    menu_item('manage', 'tasks', { :related=>Card[:manage].name }, args[:html_args])
+    menu_item_args = { related: Card[:manage].name }
+    menu_item 'manage', 'tasks', menu_item_args, args[:html_args]
   end
 
   def menu_item_list args
@@ -18,5 +17,4 @@ format :html do
     end
     menu_item_list
   end
-
 end
