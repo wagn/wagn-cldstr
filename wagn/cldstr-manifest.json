@@ -118,6 +118,12 @@
         },
         {
           "type": "file",
+          "name": "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/newrelic.yml",
+          "template": "tmpl/newrelic.yml.tmpl",
+          "templatelang": "varsubst"
+        },
+        {
+          "type": "file",
           "name": "/var/cldstr/wagn.org/wagn/ws/${appconfig.appconfigid}/config/application.rb",
           "template": "tmpl/application.rb.tmpl",
           "templatelang": "varsubst"
